@@ -6,7 +6,7 @@
 #' @param identity the type of gene identity (i.e. row names of input data), either "symbol" for gene symbols (by default) or "entrez" for Entrez Gene ID. The option "symbol" is preferred as it is relatively stable from one update to another; also it is possible to search against synonyms (see the next parameter)
 #' @param check.symbol.identity logical to indicate whether synonyms will be searched against when gene symbols cannot be matched. By default, it sets to FALSE since it may take a while to do such check using all possible synoyms
 #' @param genome the genome identity. It can be one of "Hs" for human, "Mm" for mouse, "Rn" for rat, "Gg" for chicken, "Ce" for c.elegans, "Dm" for fruitfly, "Da" for zebrafish, and "At" for arabidopsis
-#' @param ontology the ontology supported currently. It can be "GOBP" for Gene Ontology Biological Process, "GOMF" for Gene Ontology Molecular Function, "GOCC" for Gene Ontology Cellular Component, "PS" for phylostratific age information, "PS2" for the collapsed PS version (inferred ancestors being collapsed into one with the known taxonomy information), "SF" for domain superfamily assignments, "DO" for Disease Ontology, "HPPA" for Human Phenotype Phenotypic Abnormality, "HPMI" for Human Phenotype Mode of Inheritance, "HPON" for Human Phenotype ONset and clinical course, "MP" for Mammalian Phenotype, and Drug-Gene Interaction database (DGIdb) and the molecular signatures database (Msigdb) in human (including "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7"). Note: These four ("GOBP", "GOMF", "GOCC" and "PS") are availble for all genomes/species; for "Hs" and "Mm", these five ("DO", "HPPA", "HPMI", "HPON" and "MP") are also supported; all "Msigdb" are only supported in "Hs". For details on the eligibility for pairs of input genome and ontology, please refer to the online Documentations at \url{http://dnet.r-forge.r-project.org/docs.html}. Also supported are the user-customised gene sets; in doing so, the option "Customised" should be used together with the input of the next parameter "customised.genesets"
+#' @param ontology the ontology supported currently. It can be "GOBP" for Gene Ontology Biological Process, "GOMF" for Gene Ontology Molecular Function, "GOCC" for Gene Ontology Cellular Component, "PS" for phylostratific age information, "PS2" for the collapsed PS version (inferred ancestors being collapsed into one with the known taxonomy information), "SF" for domain superfamily assignments, "DO" for Disease Ontology, "HPPA" for Human Phenotype Phenotypic Abnormality, "HPMI" for Human Phenotype Mode of Inheritance, "HPON" for Human Phenotype ONset and clinical course, "MP" for Mammalian Phenotype, and Drug-Gene Interaction database (DGIdb) and the molecular signatures database (Msigdb) in human (including "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7"). Note: These four ("GOBP", "GOMF", "GOCC" and "PS") are availble for all genomes/species; for "Hs" and "Mm", these five ("DO", "HPPA", "HPMI", "HPON" and "MP") are also supported; all "Msigdb" are only supported in "Hs". For details on the eligibility for pairs of input genome and ontology, please refer to the online Documentations at \url{http://supfam.org/dnet/docs.html}. Also supported are the user-customised gene sets; in doing so, the option "Customised" should be used together with the input of the next parameter "customised.genesets"
 #' @param customised.genesets an input vector/matrix/list which only works when the user chooses "Customised" in the previous parameter "ontology". It contains either Entrez Gene ID or Symbol
 #' @param sizeRange the minimum and maximum size of members of each gene set in consideration. By default, it sets to a minimum of 10 but no more than 1000
 #' @param which_distance which distance of terms in the ontology is used to restrict terms in consideration. By default, it sets to 'NULL' to consider all distances
@@ -16,7 +16,7 @@
 #' @param sigTail the tail used to calculate the statistical significance. It can be either "two-tails" for the significance based on two-tails  or "one-tail" for the significance based on one tail
 #' @param p.adjust.method the method used to adjust p-values. It can be one of "BH", "BY", "bonferroni", "holm", "hochberg" and "hommel". The first two methods "BH" (widely used) and "BY" control the false discovery rate (FDR: the expected proportion of false discoveries amongst the rejected hypotheses); the last four methods "bonferroni", "holm", "hochberg" and "hommel" are designed to give strong control of the family-wise error rate (FWER). Notes: FDR is a less stringent condition than FWER
 #' @param verbose logical to indicate whether the messages will be displayed in the screen. By default, it sets to false for no display
-#' @param RData.location the characters to tell the location of built-in RData files. By default, it remotely locates at \url{"http://dnet.r-forge.r-project.org/data"}. For the user equipped with fast internet connection, this option can be just left as default. But it is always advisable to download these files locally. Especially when the user needs to run this function many times, there is no need to ask the function to remotely download every time (also it will unnecessarily increase the runtime). For examples, these files (as a whole or part of them) can be first downloaded into your current working directory, and then set this option as: \eqn{RData.location="."}. Surely, the location can be anywhere as long as the user provides the correct path pointing to (otherwise, the script will have to remotely download each time). Here is the UNIX command for downloading all RData files (preserving the directory structure): \eqn{wget -r -l2 -A "*.RData" -np -nH --cut-dirs=0 "http://dnet.r-forge.r-project.org/data"}
+#' @param RData.location the characters to tell the location of built-in RData files. By default, it remotely locates at \url{http://supfam.org/dnet/data} or \url{http://dnet.r-forge.r-project.org/data}. For the user equipped with fast internet connection, this option can be just left as default. But it is always advisable to download these files locally. Especially when the user needs to run this function many times, there is no need to ask the function to remotely download every time (also it will unnecessarily increase the runtime). For examples, these files (as a whole or part of them) can be first downloaded into your current working directory, and then set this option as: \eqn{RData.location="."}. Surely, the location can be anywhere as long as the user provides the correct path pointing to (otherwise, the script will have to remotely download each time). Here is the UNIX command for downloading all RData files (preserving the directory structure): \eqn{wget -r -l2 -A "*.RData" -np -nH --cut-dirs=0 "http://dnet.r-forge.r-project.org/data"}
 #' @return 
 #' an object of class "eTerm", a list with following components:
 #' \itemize{
@@ -58,7 +58,7 @@
 #' eTerm <- dGSEA(data, identity="symbol", genome="Mm", ontology="Customised", customised.genesets=rownames(data)[1:100])
 #' }
 
-dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FALSE, genome=c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"), ontology=c("GOBP","GOMF","GOCC","PS","PS2","SF","DO","HPPA","HPMI","HPON","MP", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7", "DGIdb", "Customised"), customised.genesets=NULL, sizeRange=c(10,20000), which_distance=NULL, weight=1, nperm=1000, fast=T, sigTail=c("two-tails","one-tail"), p.adjust.method=c("BH", "BY", "bonferroni", "holm", "hochberg", "hommel"), verbose=T, RData.location="http://dnet.r-forge.r-project.org/data")
+dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FALSE, genome=c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"), ontology=c("GOBP","GOMF","GOCC","PS","PS2","SF","DO","HPPA","HPMI","HPON","MP", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7", "DGIdb", "Customised"), customised.genesets=NULL, sizeRange=c(10,20000), which_distance=NULL, weight=1, nperm=1000, fast=T, sigTail=c("two-tails","one-tail"), p.adjust.method=c("BH", "BY", "bonferroni", "holm", "hochberg", "hommel"), verbose=T, RData.location="http://supfam.org/dnet/data")
 {
     startT <- Sys.time()
     message(paste(c("Start at ",as.character(startT)), collapse=""), appendLF=T)
@@ -132,13 +132,13 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
     ## otherwise, load remote R files
     if(sum(load_flag)==0){
         con <- url(load_EG_remote)
-        if(class(try(load(con), T))=="try-error"){
+        if(class(suppressWarnings(try(load(con), T)))=="try-error"){
             load_EG_remote <- paste("http://dnet.r-forge.r-project.org/data/", genome, "/org.", genome, ".eg.RData", sep="")
             con <- url(load_EG_remote)
-            if(class(try(load(con), T))=="try-error"){
+            if(class(suppressWarnings(try(load(con), T)))=="try-error"){
                 load_EG_remote <- paste("http://supfam.org/dnet/data/", genome, "/org.", genome, ".eg.RData", sep="")
                 con <- url(load_EG_remote)
-                if(class(try(load(con), T))=="try-error"){
+                if(class(suppressWarnings(try(load(con), T)))=="try-error"){
                     stop("Built-in Rdata files cannot be loaded. Please check your internet connection or their location in your local machine.\n")
                 }
             }
@@ -266,13 +266,13 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
         ## otherwise, load remote R files
         if(sum(load_flag)==0){
             con <- url(load_GS_remote)
-            if(class(try(load(con), T))=="try-error"){
+            if(class(suppressWarnings(try(load(con), T)))=="try-error"){
                 load_GS_remote <- paste("http://dnet.r-forge.r-project.org/data/", genome_location, "/org.", genome, ".eg", ontology, ".RData", sep="")
                 con <- url(load_GS_remote)
-                if(class(try(load(con), T))=="try-error"){
+                if(class(suppressWarnings(try(load(con), T)))=="try-error"){
                     load_GS_remote <- paste("http://supfam.org/dnet/data/", genome_location, "/org.", genome, ".eg", ontology, ".RData", sep="")
                     con <- url(load_GS_remote)
-                    if(class(try(load(con), T))=="try-error"){
+                    if(class(suppressWarnings(try(load(con), T)))=="try-error"){
                         stop("Built-in Rdata files cannot be loaded. Please check your internet connection or their location in your local machine.\n")
                     }
                 }

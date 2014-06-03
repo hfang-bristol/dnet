@@ -43,9 +43,12 @@ Second, install the package `dnet` under [stable release version](http://cran.r-
 
     install.packages("dnet",repos="http://cran.r-project.org",type="source")
 
-Notes: to install the package `dnet` under [latest development version](http://r-forge.r-project.org/projects/dnet), please run:
+Notes: to install the package `dnet` under [latest development version](https://github.com/hfang-bristol/dnet), please run:
 
-    install.packages(pkgs=c("dnet","supraHex"),repos="http://R-Forge.R-project.org", type="source")
+    source("http://bioconductor.org/biocLite.R")
+    biocLite("devtools")
+    library(devtools)
+    install_github(c("dnet","supraHex"), username="hfang-bristol")
 
 ## 3. Workflow of the package
 

@@ -16,7 +16,7 @@ sizeRange = c(10, 20000), which_distance = NULL, weight = 1,
 nperm = 1000, fast = T, sigTail = c("two-tails", "one-tail"),
 p.adjust.method = c("BH", "BY", "bonferroni", "holm", "hochberg",
 "hommel"),
-verbose = T, RData.location = "http://dnet.r-forge.r-project.org/data")
+verbose = T, RData.location = "http://supfam.org/dnet/data")
 }
 \arguments{
 \item{data}{a data frame or matrix of input data. It must
@@ -64,9 +64,9 @@ genomes/species; for "Hs" and "Mm", these five ("DO",
 "Msigdb" are only supported in "Hs". For details on the
 eligibility for pairs of input genome and ontology,
 please refer to the online Documentations at
-\url{http://dnet.r-forge.r-project.org/docs.html}. Also
-supported are the user-customised gene sets; in doing so,
-the option "Customised" should be used together with the
+\url{http://supfam.org/dnet/docs.html}. Also supported
+are the user-customised gene sets; in doing so, the
+option "Customised" should be used together with the
 input of the next parameter "customised.genesets"}
 
 \item{customised.genesets}{an input vector/matrix/list
@@ -118,23 +118,24 @@ false for no display}
 
 \item{RData.location}{the characters to tell the location
 of built-in RData files. By default, it remotely locates
-at \url{"http://dnet.r-forge.r-project.org/data"}. For
-the user equipped with fast internet connection, this
-option can be just left as default. But it is always
-advisable to download these files locally. Especially
-when the user needs to run this function many times,
-there is no need to ask the function to remotely download
-every time (also it will unnecessarily increase the
-runtime). For examples, these files (as a whole or part
-of them) can be first downloaded into your current
-working directory, and then set this option as:
-\eqn{RData.location="."}. Surely, the location can be
-anywhere as long as the user provides the correct path
-pointing to (otherwise, the script will have to remotely
-download each time). Here is the UNIX command for
-downloading all RData files (preserving the directory
-structure): \eqn{wget -r -l2 -A "*.RData" -np -nH
---cut-dirs=0 "http://dnet.r-forge.r-project.org/data"}}
+at \url{http://supfam.org/dnet/data} or
+\url{http://dnet.r-forge.r-project.org/data}. For the
+user equipped with fast internet connection, this option
+can be just left as default. But it is always advisable
+to download these files locally. Especially when the user
+needs to run this function many times, there is no need
+to ask the function to remotely download every time (also
+it will unnecessarily increase the runtime). For
+examples, these files (as a whole or part of them) can be
+first downloaded into your current working directory, and
+then set this option as: \eqn{RData.location="."}.
+Surely, the location can be anywhere as long as the user
+provides the correct path pointing to (otherwise, the
+script will have to remotely download each time). Here is
+the UNIX command for downloading all RData files
+(preserving the directory structure): \eqn{wget -r -l2 -A
+"*.RData" -np -nH --cut-dirs=0
+"http://dnet.r-forge.r-project.org/data"}}
 }
 \value{
 an object of class "eTerm", a list with following
