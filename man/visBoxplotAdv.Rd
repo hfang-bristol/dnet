@@ -1,0 +1,154 @@
+\name{visBoxplotAdv}
+\alias{visBoxplotAdv}
+\title{Function to visualise a data frame using advanced boxplot}
+\usage{
+visBoxplotAdv(formula, data, orientation = c("vertical", "horizontal"),
+method = c("center", "hex", "square", "swarm"), corral = c("none",
+"gutter", "wrap", "random", "omit"), corralWidth, cex = 1, spacing = 1,
+breaks = NULL, labels, at = NULL, add = FALSE, log = FALSE,
+xlim = NULL, ylim = NULL, xlab = NULL, ylab = NULL,
+pch = c("circles", "thermometers", "pies")[1], col = par("col"),
+bg = NA, pwpch = NULL, pwcol = NULL, pwbg = NULL, pwpie = NULL,
+do.plot = TRUE, do.boxplot = TRUE, boxplot.notch = FALSE,
+boxplot.border = "#888888C0", boxplot.col = "transparent", ...)
+}
+\arguments{
+\item{formula}{a formula, such as 'y ~ grp', where 'y' is
+a numeric vector of data values to be split into groups
+according to the grouping variable 'grp' (usually a
+factor)}
+
+\item{data}{a data.frame (or list) from which the
+variables in 'formula' should be taken.}
+
+\item{orientation}{the orientation. It can be one of
+"vertical" for the vertical orientation, "horizontal" for
+the horizontal orientation}
+
+\item{method}{the method for arranging the points. It can
+be one of "swarm" for arranging points in increasing
+order (if a point would overlap an existing point, it is
+shifted sideways (along the group axis) by a minimal
+amount sufficient to avoid overlap), "center" for first
+discretizing the values along the data axis (in order to
+create more efficient packing) and then using a square
+grid to produce a symmetric swarm, "hex" for first
+discretization and then arranging points in a hexagonal
+grid, and "square" for first discretization and then
+arranging points in a square grid}
+
+\item{corral}{the method to adjust points that would be
+placed outside their own group region. It can be one of
+"none" for not adjusting runaway points, "gutter" for
+collecting runaway points along the boundary between
+groups, "wrap" for wrapping runaway points to produce
+periodic boundaries, "random" for placing runaway points
+randomly in the region, and "omit" for omitting runaway
+points}
+
+\item{corralWidth}{the width of the "corral" in user
+coordinates}
+
+\item{cex}{size of points relative to the default. This
+must be a single value}
+
+\item{breaks}{breakpoints (optional).  If NULL,
+breakpoints are chosen automatically}
+
+\item{spacing}{relative spacing between points}
+
+\item{labels}{labels for each group. Recycled if
+necessary. By default, these are inferred from the data}
+
+\item{at}{numeric vector giving the locations where the
+swarms should be drawn; defaults to '1:n' where n is the
+number of groups}
+
+\item{add}{whether to add to an existing plot}
+
+\item{log}{whether to use a logarithmic scale on the data
+axis}
+
+\item{xlim}{limits for x-axis}
+
+\item{ylim}{limits for y-axis}
+
+\item{xlab}{labels for x-aixs}
+
+\item{ylab}{labels for y-aixs}
+
+\item{pch}{plotting characters, specified by group and
+recycled if necessary. In additon to the convertional pch
+values, it can also be "circles", "thermometers", or
+"pies". For "pies" (or "thermometers"), users can also
+specify the proportional values (see below "pwpie") to
+visualise another information in the pie (or themometer)
+chart}
+
+\item{col}{plotting colors, specified by group and
+recycled if necessary}
+
+\item{bg}{plotting background, specified by group and
+recycled if necessary}
+
+\item{pwpch}{point-wise version of pch}
+
+\item{pwcol}{point-wise version of col}
+
+\item{pwbg}{point-wise version of bg}
+
+\item{pwpie}{point-wise proportion used when drawing pies
+or themometers}
+
+\item{do.plot}{whether to draw main plot}
+
+\item{do.boxplot}{whether to draw boxplot. It only works
+when the main plot is drawn}
+
+\item{boxplot.notch}{whether to draw a notch in the
+boxplot. If the notches of two plots do not overlap this
+is 'strong evidence' that the two medians differ}
+
+\item{boxplot.border}{the color for the outlines of the
+boxplots}
+
+\item{boxplot.col}{the color for the bodies of the
+boxplots}
+
+\item{...}{additional graphic parameters for the plot}
+}
+\value{
+A data frame with plotting information. It has the same row
+names as the input data
+}
+\description{
+\code{visBoxplotAdv} is supposed to visualise a data frame
+using advanced boxplot. In addition to boxplot, a scatter
+plot is also drawn with various methods to avoid
+co-incident points so that each point is visible (with
+fine-controling the color and plotting character). Also,
+these points can be pies or thermometers, which allows an
+additional proportation data to be visualised as well.
+}
+\note{
+none
+}
+\examples{
+data(TCGA_mutations)
+pd <- Biobase::pData(TCGA_mutations)
+# only tumor types "LAML" or "BLCA"
+data <- pd[pd$TCGA_tumor_type=="LAML" | pd$TCGA_tumor_type=="BLCA",]
+labels <- levels(as.factor(data$TCGA_tumor_type))
+# colors for gender
+pwcol <- as.numeric((data$Gender))
+# pie for relative age
+pwpie <- data$Age/(max(data$Age))
+out <- visBoxplotAdv(formula=time ~ TCGA_tumor_type, data=data,
+pch="pies", pwcol=pwcol, pwpie=pwpie)
+legend("topright", legend=levels(data$Gender), box.col="transparent",
+pch=19, col=unique(pwcol))
+}
+\seealso{
+\code{\link{visBoxplotAdv}}
+}
+

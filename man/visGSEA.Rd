@@ -1,0 +1,49 @@
+\name{visGSEA}
+\alias{visGSEA}
+\title{Function to visualise running enrichment score for a given sample and a gene set}
+\usage{
+visGSEA(eTerm, which_sample = 1, which_term = "GO:0006281", weight = 1,
+orientation = c("vertical", "horizontal"), newpage = T)
+}
+\arguments{
+\item{eTerm}{an object of class "eTerm"}
+
+\item{which_sample}{which sample will be used. It can be
+index or sample names}
+
+\item{which_term}{which term will be used. It can be
+index or term ID or term names}
+
+\item{weight}{type of score weigth. It can be "0" for
+unweighted (an equivalent to Kolmogorov-Smirnov, only
+considering the rank), "1" for weighted by input gene
+score (by default), and "2" for over-weighted, and so on}
+
+\item{orientation}{the orientation of the plots. It can
+be either "vertical" (default) or "horizontal"}
+
+\item{newpage}{logical to indicate whether to open a new
+page. By default, it sets to true for opening a new page}
+}
+\value{
+invisible
+}
+\description{
+\code{visGSEA} is supposed to visualise running enrichment
+score for a given sample and a gene set. To help understand
+the underlying running enrichment score, the input gene
+scores are also displayed. Positions for members in the
+given gene set are color-coded in both displays (red line
+for the positive gene scores, and green line for the
+negative).
+}
+\note{
+none
+}
+\examples{
+#visGSEA(eTerm, which_sample=1, which_term=1)
+}
+\seealso{
+\code{\link{dGSEA}}, \code{\link{dGSEAview}}
+}
+

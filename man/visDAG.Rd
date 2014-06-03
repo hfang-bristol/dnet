@@ -1,0 +1,180 @@
+\name{visDAG}
+\alias{visDAG}
+\title{Function to visualise a direct acyclic graph (DAG) with node colorings according to a named input data vector (if provided)}
+\usage{
+visDAG(g, data = NULL, height = 7, width = 7, margin = rep(0.1, 4),
+colormap = c("yr", "bwr", "jet", "gbr", "wyr", "br", "rainbow", "wb",
+"lightyellow-orange"), ncolors = 40, zlim = NULL, colorbar = T,
+colorbar.fraction = 0.1, newpage = T,
+layout.orientation = c("left_right", "top_bottom", "bottom_top",
+"right_left"), node.info = c("none", "term_id", "term_name", "both",
+"full_term_name"), graph.node.attrs = NULL, graph.edge.attrs = NULL,
+node.attrs = NULL)
+}
+\arguments{
+\item{g}{an object of class "igraph"}
+
+\item{data}{a named input data verctor used to color-code
+vertices/nodes. The input data vector must have names,
+and these names should include all node names of input
+graph, i.e. V(g)$name, since there is a mapping
+operation. The way of how to color-code is to map values
+in the data onto the whole colormap (see the next
+arguments: colormap, ncolors, zlim and colorbar)}
+
+\item{height}{a numeric value specifying the height of
+device}
+
+\item{width}{a numeric value specifying the width of
+device}
+
+\item{margin}{margins as units of length 4 or 1}
+
+\item{colormap}{short name for the colormap. It can be
+one of "jet" (jet colormap), "bwr" (blue-white-red
+colormap), "gbr" (green-black-red colormap), "wyr"
+(white-yellow-red colormap), "br" (black-red colormap),
+"yr" (yellow-red colormap), "wb" (white-black colormap),
+and "rainbow" (rainbow colormap, that is,
+red-yellow-green-cyan-blue-magenta). Alternatively, any
+hyphen-separated HTML color names, e.g.
+"lightyellow-orange" (by default), "blue-black-yellow",
+"royalblue-white-sandybrown",
+"darkgreen-white-darkviolet". A list of standard color
+names can be found in
+\url{http://html-color-codes.info/color-names}}
+
+\item{ncolors}{the number of colors specified over the
+colormap}
+
+\item{zlim}{the minimum and maximum z/data values for
+which colors should be plotted, defaulting to the range
+of the finite values of z. Each of the given colors will
+be used to color an equispaced interval of this range.
+The midpoints of the intervals cover the range, so that
+values just outside the range will be plotted}
+
+\item{colorbar}{logical to indicate whether to append a
+colorbar. If data is null, it always sets to false}
+
+\item{colorbar.fraction}{the relative fraction of
+colorbar block against the device size}
+
+\item{newpage}{logical to indicate whether to open a new
+page. By default, it sets to true for opening a new page}
+
+\item{layout.orientation}{the orientation of the DAG
+layout. It can be one of "left_right" for the left-right
+layout (viewed from the DAG root point), "top_bottom" for
+the top-bottom layout, "bottom_top" for the bottom-top
+layout, and "right_left" for the right-left layout}
+
+\item{node.info}{tells the ontology term information used
+to label nodes. It can be one of "none" for no node
+labeling, "term_id" for using Term ID, "term_name" for
+using Term Name (the first 15 characters), "both" for
+using both of Term ID and Name (the first 15 characters),
+and "full_term_name" for using the full Term Name}
+
+\item{graph.node.attrs}{a list of global node attributes.
+These node attributes will be changed globally. See
+'Note' below for details on the attributes}
+
+\item{graph.edge.attrs}{a list of global edge attributes.
+These edge attributes will be changed globally. See
+'Note' below for details on the attributes}
+
+\item{node.attrs}{a list of local edge attributes. These
+node attributes will be changed locally; as such, for
+each attribute, the input value must be a named vector
+(i.e. using Term ID as names). See 'Note' below for
+details on the attributes}
+}
+\value{
+An object of class 'Ragraph'
+}
+\description{
+\code{visDAG} is supposed to visualise a direct acyclic
+graph (DAG) with node colorings according to a named input
+data vector (if provided)
+}
+\note{
+A list of global node attributes used in
+"graph.node.attrs": \itemize{ \item{"shape": the shape of
+the node: "circle", "rectangle", "rect", "box" and
+"ellipse"} \item{"fixedsize": the logical to use only width
+and height attributes. By default, it sets to true for not
+expanding for the width of the label} \item{"fillcolor":
+the background color of the node} \item{"color": the color
+for the node, corresponding to the outside edge of the
+node} \item{"fontcolor": the color for the node
+text/labelings} \item{"fontsize": the font size for the
+node text/labelings} \item{"height": the height (in inches)
+of the node: 0.5 by default} \item{"width": the width (in
+inches) of the node: 0.75 by default} \item{"style": the
+line style for the node: "solid", "dashed", "dotted",
+"invis" and "bold"} } A list of global edge attributes used
+in "graph.edge.attrs": \itemize{ \item{"color": the color
+of the edge: gray by default} \item{"weight": the weight of
+the edge: 1 by default} \item{"style": the line style for
+the edge: "solid", "dashed", "dotted", "invis" and "bold"}
+} A list of local node attributes used in "node.attrs"
+(only those named Term IDs will be changed locally!):
+\itemize{ \item{"label": a named vector specifying the node
+text/labelings} \item{"shape": a named vector specifying
+the shape of the node: "circle", "rectangle", "rect", "box"
+and "ellipse"} \item{"fixedsize": a named vector specifying
+whether it sets to true for not expanding for the width of
+the label} \item{"fillcolor": a named vector specifying the
+background color of the node} \item{"color": a named vector
+specifying the color for the node, corresponding to the
+outside edge of the node} \item{"fontcolor": a named vector
+specifying the color for the node text/labelings}
+\item{"fontsize": a named vector specifying the font size
+for the node text/labelings} \item{"height": a named vector
+specifying the height (in inches) of the node: 0.5 by
+default} \item{"width": a named vector specifying the width
+(in inches) of the node: 0.75 by default} \item{"style": a
+named vector specifying the line style for the node:
+"solid", "dashed", "dotted", "invis" and "bold"} }
+}
+\examples{
+# 1) load HPPA as igraph object
+data(ig.HPPA)
+g <- ig.HPPA
+
+# 2) randomly select vertices as the query nodes
+# the more common, the query nodes can be term id
+nodes_query <- V(g)[sample(V(g),5)]$name
+
+# 3) obtain the induced subgraph based on all possible paths
+subg <- dDAGinduce(g, nodes_query, path.mode="all_paths")
+
+# 4) just visualise the induced subgraph
+visDAG(g=subg, node.info="both")
+
+# 5) color-code nodes/terms according to its level
+data <- dDAGlevel(subg)
+visDAG(g=subg, data=data, node.info="both")
+# 5a) globally change the node and edge attributes
+visDAG(g=subg, data=data, layout.orientation="top_bottom",
+node.info="both",
+graph.node.attrs=list(fixedsize=FALSE,shape="box",color="transparent"),
+graph.edge.attrs=list(color="black"))
+# 5b) locally highlight the root by changing its shape into "box"
+root <- dDAGroot(subg)
+root.shape <- "box"
+names(root.shape) <- V(subg)[root]$name
+visDAG(g=subg, data=data, node.info="both",
+node.attrs=list(shape=root.shape))
+# 5c) further locally remove the root labelling
+root.label <- ""
+names(root.label) <- V(subg)[root]$name
+visDAG(g=subg, data=data, node.info="both",
+node.attrs=list(shape=root.shape,label=root.label))
+}
+\seealso{
+\code{\link{dDAGreverse}}, \code{\link{dDAGroot}},
+\code{\link{dDAGinduce}}, \code{\link{dDAGlevel}}
+}
+

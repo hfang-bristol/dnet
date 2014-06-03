@@ -1,0 +1,36 @@
+CHANGES IN VERSION 1.0.3
+-----------------------
+
+NEW FEATURES
+
+    o Add functionalities for calculating semantic similarity between ontology terms (and between their annotated genes)
+    
+    o Support for high-performance parallel computing
+    
+
+CHANGES IN VERSION 1.0.2
+-----------------------
+
+NEW FEATURES
+
+    o Populate the RData by human-specific knowledge on druggable gene categories
+    
+    o Support for RData load in a more flexible and automatic way
+    
+    o Support for advanced boxplot
+
+
+CHANGES IN VERSION 1.0.0
+-----------------------
+
+NEW FEATURES
+
+    o An integrated framework for high-throughput biological data analysis in terms of network, ontology and evolution
+
+    o Identification of gene-active networks
+
+    o Network-based sample classifications and visualisations on 2D landscape
+    
+    o Enrichment analysis using a wide variety of built-in ontologies
+    
+    o Analysis for evolution relevance

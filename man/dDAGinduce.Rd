@@ -1,0 +1,61 @@
+\name{dDAGinduce}
+\alias{dDAGinduce}
+\title{Function to generate a subgraph of a direct acyclic graph (DAG) induced by given vertices}
+\usage{
+dDAGinduce(g, nodes_query, path.mode = c("all_paths", "shortest_paths",
+"all_shortest_paths"))
+}
+\arguments{
+\item{g}{an object of class "igraph" or "graphNEL"}
+
+\item{nodes_query}{the vertices for which the calculation
+is performed}
+
+\item{path.mode}{the mode of paths induced by nodes in
+query. It can be "all_paths" for all possible paths to
+the root, "shortest_paths" for only one path to the root
+(for each node in query), "all_shortest_paths" for all
+shortest paths to the root (i.e. for each node, find all
+shortest paths with the equal lengths)}
+}
+\value{
+\itemize{ \item{\code{subg}: an induced subgraph, an object
+of class "igraph" or "graphNEL"} }
+}
+\description{
+\code{dDAGinduce} is supposed to produce a subgraph induced
+by given vertices, given a direct acyclic graph (DAG; an
+ontology). The input is a graph of "igraph" or "graphNET"
+object, a list of the vertices of the graph, and the mode
+defining the paths to the root of DAG. The resultant
+subgraph inherits the class from the input one. The induced
+subgraph contains exactly the vertices of interest and
+their defined paths to the root of DAG.
+}
+\note{
+For the mode "shortest_paths", the induced subgraph is the
+most concise, and thus informative for visualisation when
+there are many nodes in query, while the mode "all_paths"
+results in the complete subgraph.
+}
+\examples{
+# 1) load HPPA as igraph object
+data(ig.HPPA)
+g <- ig.HPPA
+
+# 2) randomly select vertices as the query nodes
+# the query nodes can be igraph vertex sequences
+nodes_query <- sample(V(g),5)
+# more commonly, the query nodes can be term id
+nodes_query <- sample(V(g),5)$name
+
+# 3) obtain the induced subgraph
+# 3a) based on all possible paths (i.e. the complete subgraph induced)
+subg <- dDAGinduce(g, nodes_query, path.mode="all_paths")
+# 3b) based on shortest paths (i.e. the most concise subgraph induced)
+subg <- dDAGinduce(g, nodes_query, path.mode="shortest_paths")
+}
+\seealso{
+\code{\link{dDAGroot}}
+}
+

@@ -1,0 +1,62 @@
+\name{dGSEAview}
+\alias{dGSEAview}
+\title{Function to view enrichment results in a sample-specific manner}
+\usage{
+dGSEAview(eTerm, which_sample = 1, top_num = 10, sortBy = c("adjp",
+"gadjp", "ES", "nES", "pvalue", "FWER", "FDR", "qvalue"), decreasing =
+NULL,
+details = F)
+}
+\arguments{
+\item{eTerm}{an object of class "eTerm"}
+
+\item{which_sample}{which sample will be viewed}
+
+\item{top_num}{the maximum number of gene sets will be
+viewed}
+
+\item{sortBy}{which statistics will be used for sorting
+and viewing gene sets. It can be "adjp" for adjusted p
+value, "gadjp" for globally adjusted p value, "ES" for
+enrichment score, "nES" for normalised enrichment score,
+"pvalue" for p value, "FWER" for family-wise error rate,
+"FDR" for false discovery rate, "qvalue" for q value}
+
+\item{decreasing}{logical to indicate whether to sort in
+a decreasing order. If it is null, it would be true for
+"ES" or "nES"; otherwise it would be false}
+
+\item{details}{logical to indicate whether the detail
+information of gene sets is also viewed. By default, it
+sets to false for no inclusion}
+}
+\value{
+a data frame with following components: \itemize{
+\item{\code{setID}: term ID} \item{\code{ES}: enrichment
+score} \item{\code{nES}: normalised enrichment score}
+\item{\code{pvalue}: nominal p value} \item{\code{adjp}:
+adjusted p value} \item{\code{gadjp}: globally adjusted p
+value} \item{\code{FDR}: false discovery rate}
+\item{\code{qvalue}: q value} \item{\code{setSize}: the
+number of genes in the set; optional, it is only appended
+when "details" is true} \item{\code{name}: term name;
+optional, it is only appended when "details" is true}
+\item{\code{namespace}: term namespace; optional, it is
+only appended when "details" is true}
+\item{\code{distance}: term distance; optional, it is only
+appended when "details" is true} }
+}
+\description{
+\code{dGSEAview} is supposed to view results of gene set
+enrichment analysis but for a specific sample.
+}
+\note{
+none
+}
+\examples{
+#dGSEAview(eTerm, which_sample=1, top_num=10, sortBy="adjp", decreasing=FALSE, details=TRUE)
+}
+\seealso{
+\code{\link{dGSEA}}
+}
+

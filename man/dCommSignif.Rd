@@ -1,0 +1,59 @@
+\name{dCommSignif}
+\alias{dCommSignif}
+\title{Function to test the significance of communities within a graph}
+\usage{
+dCommSignif(g, comm)
+}
+\arguments{
+\item{g}{an object of class "igraph" or "graphNEL"}
+
+\item{comm}{an object of class "communities". Details on
+this class can be found at
+\url{http://igraph.sourceforge.net/doc/R/communities.html}}
+}
+\value{
+\itemize{ \item{\code{significance}: a vector of p-values
+(significance)} }
+}
+\description{
+\code{dCommSignif} is supposed to test the significance of
+communities within a graph. For a community of the graph,
+it first calculates two types of degrees for each node:
+degrees based on parters only within the community itself,
+and the degrees based on its parters NOT in the community
+but in the graph. Then, it performs two-sample Wilcoxon
+tests on these two types of degrees to produce the
+signficance level (p-value)
+}
+\note{
+none
+}
+\examples{
+# 1) generate an vector consisting of random values from beta distribution
+x <- rbeta(1000, shape1=0.5, shape2=1)
+
+# 2) fit a p-value distribution under beta-uniform mixture model
+fit <- dBUMfit(x, ntry=1, hist.bum=FALSE, contour.bum=FALSE)
+
+# 3) calculate the scores according to the fitted BUM and fdr=0.01
+# using "pdf" method
+scores <- dBUMscore(fit, method="pdf", fdr=0.05, scatter.bum=FALSE)
+names(scores) <- as.character(1:length(scores))
+
+# 4) generate a random graph according to the ER model
+g <- erdos.renyi.game(1000, 1/100)
+
+# 5) produce the induced subgraph only based on the nodes in query
+subg <- dNetInduce(g, V(g), knn=0)
+
+# 6) find the module with the maximum score
+module <- dNetFind(subg, scores)
+
+# 7) find the module and test its signficance
+comm <- walktrap.community(module, modularity=TRUE)
+significance <- dCommSignif(module, comm)
+}
+\seealso{
+\code{\link{dCommSignif}}
+}
+

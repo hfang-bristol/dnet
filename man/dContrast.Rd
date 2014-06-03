@@ -1,0 +1,46 @@
+\name{dContrast}
+\alias{dContrast}
+\title{Function to help build the contrast matrix}
+\usage{
+dContrast(level_sorted, contrast.type = c("average", "zero",
+"sequential",
+"pairwise"))
+}
+\arguments{
+\item{level_sorted}{a vector of levels (usually sorted)
+which are contrated to each other}
+
+\item{contrast.type}{the type of the contrast. It can be
+one of either 'average' for the contrast against the
+average of all levels, 'zero' for the contrast against
+the zero, 'sequential' for the contrast in a sequential
+order (it requires the levels being sorted properly), or
+'pairwise' for the pairwise contrast.}
+}
+\value{
+a list with following components: \itemize{
+\item{\code{each}: the contrast being specified}
+\item{\code{name}: the name of the contrast} }
+}
+\description{
+\code{dContrast} is used to help build the contrast matrix
+}
+\note{
+none
+}
+\examples{
+level_sorted <- c("L1","L2","L3","L4")
+
+# the contrast against the average of all levels
+contrasts <- dContrast(level_sorted, contrast.type="average")
+
+# the contrast against the zero
+contrasts <- dContrast(level_sorted, contrast.type="zero")
+
+# the contrast in a sequential order
+contrasts <- dContrast(level_sorted, contrast.type="sequential")
+
+# the pairwise contrast
+contrasts <- dContrast(level_sorted, contrast.type="pairwise")
+}
+

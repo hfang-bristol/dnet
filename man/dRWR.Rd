@@ -1,0 +1,142 @@
+\name{dRWR}
+\alias{dRWR}
+\title{Function to implement Random Walk with Restart (RWR) on the input graph}
+\usage{
+dRWR(g, normalise = c("laplacian", "row", "column", "none"),
+setSeeds = NULL, restart = 0.75, normalise.affinity.matrix = c("none",
+"quantile"), parallel = TRUE, multicores = NULL, verbose = T)
+}
+\arguments{
+\item{g}{an object of class "igraph" or "graphNEL"}
+
+\item{normalise}{the way to normalise the adjacency
+matrix of the input graph. It can be 'laplacian' for
+laplacian normalisation, 'row' for row-wise
+normalisation, 'column' for column-wise normalisation, or
+'none'}
+
+\item{setSeeds}{an input matrix used to define sets of
+starting seeds. One column corresponds to one set of
+seeds that a walker starts with. The input matrix must
+have row names, coming from node names of input graph,
+i.e. V(g)$name, since there is a mapping operation. The
+non-zero entries mean that the corresonding rows (i.e.
+the gene/row names) are used as the seeds, and non-zero
+values can be viewed as how to weight the relative
+importance of seeds. By default, this option sets to
+"NULL", suggesting each node in the graph will be used as
+a set of the seed to pre-compute affinity matrix for the
+input graph. This default does not scale for large input
+graphs since it will loop over every node in the graph;
+however, the pre-computed affinity matrix can be
+extensively reused for obtaining affinity scores between
+any combinations of nodes/seeds, allows for some
+flexibility in the downstream use, in particular when
+sampling a large number of random node combinations for
+statistical testing}
+
+\item{restart}{the restart probability used for RWR. The
+restart probability takes the value from 0 to 1,
+controlling the range from the starting nodes/seeds that
+the walker will explore. The higher the value, the more
+likely the walker is to visit the nodes centered on the
+starting nodes. At the extreme when the restart
+probability is zero, the walker moves freely to the
+neighbors at each step without restarting from seeds,
+i.e., following a random walk (RW)}
+
+\item{normalise.affinity.matrix}{the way to normalise the
+output affinity matrix. It can be 'none' for no
+normalisation, 'quantile' for quantile normalisation to
+ensure that columns (if multiple) of the output affinity
+matrix have the same quantiles}
+
+\item{parallel}{logical to indicate whether parallel
+computation with multicores is used. By default, it sets
+to true, but not necessarily does so. Partly because
+parallel backends available will be system-specific (now
+only Linux or Mac OS). Also, it will depend on whether
+these two packages "foreach" and "doMC" have been
+installed. It can be installed via:
+\code{source("http://bioconductor.org/biocLite.R");
+biocLite(c("foreach","doMC"))}. If not yet installed,
+this option will be disabled}
+
+\item{multicores}{an integer to specify how many cores
+will be registered as the multicore parallel backend to
+the 'foreach' package. If NULL, it will use a half of
+cores available in a user's computer. This option only
+works when parallel computation is enabled}
+
+\item{verbose}{logical to indicate whether the messages
+will be displayed in the screen. By default, it sets to
+true for display}
+}
+\value{
+It returns a sparse matrix, called 'PTmatrix': \itemize{
+\item{When the seeds are NOT given: a pre-computated
+affinity matrix with the dimension of n X n, where n is the
+number of nodes in the input graph. Columns stand for
+starting nodes walking from, and rows for ending nodes
+walking to. Therefore, a column for a starting node
+represents a steady-state affinity vector that the starting
+node will visit all the ending nodes in the graph}
+\item{When the seeds are given: an affinity matrix with the
+dimension of n X nset, where n is the number of nodes in
+the input graph, and nset for the number of the sets of
+seeds (i.e. the number of columns in setSeeds). Each column
+stands for the steady probability vector, storing the
+affinity score of all nodes in the graph to the starting
+nodes/seeds. This steady probability vector can be viewed
+as the "influential impact" over the graph imposed by the
+starting nodes/seeds.} }
+}
+\description{
+\code{dRWR} is supposed to implement Random Walk with
+Restart (RWR) on the input graph. If the seeds (i.e. a set
+of starting nodes) are given, it intends to calculate the
+affinity score of all nodes in the graph to the seeds. If
+the seeds are not give, it will pre-compute affinity matrix
+for nodes in the input graph with respect to each starting
+node (as a seed) by looping over every node in the graph.
+Parallel computing is also supported for Linux or Mac
+operating systems.
+}
+\note{
+The input graph will treat as an unweighted graph if there
+is no 'weight' edge attribute associated with
+}
+\examples{
+\dontrun{
+# 1) generate a random graph according to the ER model
+g <- erdos.renyi.game(100, 1/100)
+
+# 2) produce the induced subgraph only based on the nodes in query
+subg <- dNetInduce(g, V(g), knn=0)
+V(subg)$name <- 1:vcount(subg)
+
+# 3) obtain the pre-computated affinity matrix
+PTmatrix <- dRWR(g=subg, normalise="laplacian", restart=0.75,
+parallel=FALSE)
+# visualise affinity matrix
+visHeatmapAdv(PTmatrix, Rowv=FALSE, Colv=FALSE, colormap="wyr",
+KeyValueName="Affinity")
+
+# 4) obtain affinity matrix given sets of seeds
+# define sets of seeds
+# each seed with equal weight (i.e. all non-zero entries are '1')
+aSeeds <- c(1,0,1,0,1)
+bSeeds <- c(0,0,1,0,1)
+setSeeds <- data.frame(aSeeds,bSeeds)
+rownames(setSeeds) <- 1:5
+# calcualte affinity matrix
+PTmatrix <- dRWR(g=subg, normalise="laplacian", setSeeds=setSeeds,
+restart=0.75, parallel=FALSE)
+PTmatrix
+}
+}
+\seealso{
+\code{\link{dRWRcontact}}, \code{\link{dRWRpipeline}},
+\code{\link{dCheckParallel}}
+}
+

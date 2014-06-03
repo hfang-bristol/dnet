@@ -1,0 +1,57 @@
+\name{dFDRscore}
+\alias{dFDRscore}
+\title{Function to transform fdr into scores according to log-likelihood ratio between the true positives and the false positivies and/or after controlling false discovery rate}
+\usage{
+dFDRscore(fdr, fdr.threshold = NULL, scatter = F)
+}
+\arguments{
+\item{fdr}{a vector containing a list of input fdr}
+
+\item{fdr.threshold}{the given FDR threshold. By default,
+it is set to NULL, meaning there is no constraint. If
+given, those fdr with the FDR below threshold are
+considered significant and thus scored positively.
+Instead, those fdr with the FDR above given threshold are
+considered insigificant and thus scored negatively}
+
+\item{scatter}{logical to indicate whether the scatter
+graph of scores against p-values should be drawn. Also
+indicated is the score corresponding to the given FDR
+threshold (if any)}
+}
+\value{
+\itemize{ \item{\code{scores}: a vector of scores} }
+}
+\description{
+\code{dFDRscore} is supposed to take as input a vector of
+fdr, which are transformed into scores according to
+according to log-likelihood ratio between the true
+positives and the false positivies. Also if the FDR
+threshold is given, it is used to make sure that fdr below
+threshold are considered significant and thus scored
+positively. Instead, those fdr above the given threshold
+are considered insigificant and thus scored negatively.
+}
+\note{
+none
+}
+\examples{
+# 1) generate data with an iid matrix of 1000 x 9
+data <- cbind(matrix(rnorm(1000*3,mean=0,sd=1), nrow=1000, ncol=3),
+matrix(rnorm(1000*3,mean=0.5,sd=1), nrow=1000, ncol=3),
+matrix(rnorm(1000*3,mean=-0.5,sd=1), nrow=1000, ncol=3))
+
+# 2) calculate the significance according to SVD
+# using "fdr" significance
+fdr <- dSVDsignif(data, signif="fdr", num.permutation=10)
+
+# 3) calculate the scores according to the fitted BUM and fdr=0.01
+# no fdr threshold
+scores <- dFDRscore(fdr)
+# using fdr threshold of 0.01
+scores <- dFDRscore(fdr, fdr.threshold=0.1, scatter=TRUE)
+}
+\seealso{
+\code{\link{dSVDsignif}}, \code{\link{dNetPipeline}}
+}
+

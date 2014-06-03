@@ -1,0 +1,33 @@
+\name{dDAGtip}
+\alias{dDAGtip}
+\title{Function to find the tip node(s) of a direct acyclic graph (DAG)}
+\usage{
+dDAGtip(g)
+}
+\arguments{
+\item{g}{an object of class "igraph" or "graphNEL"}
+}
+\value{
+\itemize{ \item{\code{tip}: the tip name (i.e. Term ID)} }
+}
+\description{
+\code{dDAGtip} is supposed to find the tip node(s) of a
+direct acyclic graph (DAG; an ontology). It return the name
+(i.e Term ID) of the tip node(s).
+}
+\note{
+none
+}
+\examples{
+# 1) load HPPA as igraph object
+data(ig.HPPA)
+g <- ig.HPPA
+
+# 2) find tips
+tips <- dDAGtip(g)
+tips
+}
+\seealso{
+\code{\link{dDAGtip}}
+}
+

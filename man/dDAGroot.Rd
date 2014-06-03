@@ -1,0 +1,34 @@
+\name{dDAGroot}
+\alias{dDAGroot}
+\title{Function to find the root node of a direct acyclic graph (DAG)}
+\usage{
+dDAGroot(g)
+}
+\arguments{
+\item{g}{an object of class "igraph" or "graphNEL"}
+}
+\value{
+\itemize{ \item{\code{root}: the root name (i.e. Term ID)}
+}
+}
+\description{
+\code{dDAGroot} is supposed to find the root node of a
+direct acyclic graph (DAG; an ontology). It return the name
+(i.e Term ID) of the root node.
+}
+\note{
+none
+}
+\examples{
+# 1) load HPPA as igraph object
+data(ig.HPPA)
+g <- ig.HPPA
+
+# 2) find the root
+root <- dDAGroot(g)
+root
+}
+\seealso{
+\code{\link{dDAGroot}}
+}
+

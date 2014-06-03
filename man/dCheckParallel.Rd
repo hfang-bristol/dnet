@@ -1,0 +1,40 @@
+\name{dCheckParallel}
+\alias{dCheckParallel}
+\title{Function to check whether parallel computing should be used and how}
+\usage{
+dCheckParallel(multicores = NULL, verbose = T)
+}
+\arguments{
+\item{multicores}{an integer to specify how many cores
+will be registered as the multicore parallel backend to
+the 'foreach' package. If NULL, it will use a half of
+cores available in a user's computer}
+
+\item{verbose}{logical to indicate whether the messages
+will be displayed in the screen. By default, it sets to
+true for display}
+}
+\value{
+TRUE for using parallel computing; FALSE otherwise
+}
+\description{
+\code{dCheckParallel} is used to check whether parallel
+computing should be used and how
+}
+\note{
+Whether parallel computation with multicores is used is
+system-specific (now only Linux or Mac OS). Also, it will
+depend on whether these two packages "foreach" and "doMC"
+have been installed. It can be installed via:
+\code{source("http://bioconductor.org/biocLite.R");
+biocLite(c("foreach","doMC"))}.
+}
+\examples{
+dCheckParallel(multicores=2)
+}
+\seealso{
+\code{\link{dRWR}}, \code{\link{dRWRcontact}},
+\code{\link{dRWRpipeline}}, \code{\link{dDAGtermSim}},
+\code{\link{dDAGgeneSim}}
+}
+
