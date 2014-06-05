@@ -210,7 +210,8 @@ list(
         sd_section("Domain-centric databases in Eukaryotes",
             "These databases are used for domain-centric analysis.",
             c(
-                "Ancestral_domainome"
+                "Ancestral_domainome",
+                "eTOL"
             )
         )
     ),

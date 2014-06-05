@@ -58,6 +58,7 @@
 #' @seealso \code{\link{dDAGreverse}}, \code{\link{dDAGroot}}, \code{\link{dDAGinduce}}, \code{\link{dDAGlevel}}
 #' @include visDAG.r
 #' @examples
+#' \dontrun{
 #' # 1) load HPPA as igraph object
 #' data(ig.HPPA)
 #' g <- ig.HPPA
@@ -86,6 +87,7 @@
 #' root.label <- ""
 #' names(root.label) <- V(subg)[root]$name
 #' visDAG(g=subg, data=data, node.info="both", node.attrs=list(shape=root.shape,label=root.label))
+#' }
 
 visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap=c("yr","bwr","jet","gbr","wyr","br","rainbow","wb","lightyellow-orange"), ncolors=40, zlim=NULL, colorbar=T, colorbar.fraction=0.1, newpage=T, layout.orientation=c("left_right","top_bottom","bottom_top","right_left"), node.info=c("none", "term_id", "term_name", "both", "full_term_name"), graph.node.attrs=NULL, graph.edge.attrs=NULL, node.attrs=NULL)
 {

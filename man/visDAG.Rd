@@ -139,6 +139,7 @@ named vector specifying the line style for the node:
 "solid", "dashed", "dotted", "invis" and "bold"} }
 }
 \examples{
+\dontrun{
 # 1) load HPPA as igraph object
 data(ig.HPPA)
 g <- ig.HPPA
@@ -172,6 +173,7 @@ root.label <- ""
 names(root.label) <- V(subg)[root]$name
 visDAG(g=subg, data=data, node.info="both",
 node.attrs=list(shape=root.shape,label=root.label))
+}
 }
 \seealso{
 \code{\link{dDAGreverse}}, \code{\link{dDAGroot}},

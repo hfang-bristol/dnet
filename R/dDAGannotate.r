@@ -15,6 +15,7 @@
 #' @seealso \code{\link{dDAGinduce}}, \code{\link{dDAGlevel}}
 #' @include dDAGannotate.r
 #' @examples
+#' \dontrun{
 #' # 1) load HPPA as igraph object
 #' data(ig.HPPA)
 #' g <- ig.HPPA
@@ -37,6 +38,7 @@
 #' data <- sapply(V(dag)$annotations, length)
 #' names(data) <- V(dag)$name
 #' visDAG(g=dag, data=data, node.info="both")
+#' }
 
 dDAGannotate <- function (g, annotations, path.mode=c("all_paths","shortest_paths","all_shortest_paths"), verbose=TRUE)
 {
