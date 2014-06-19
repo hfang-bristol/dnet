@@ -12,7 +12,7 @@ An igraph object that contains a functional protein association network in human
 }
 
 \value{
-    an object of class "igraph" (see \url{http://igraph.sourceforge.net/doc/R/aaa-igraph-package.html}). It has attributes for both vertices and edges. 
+    an object of class "igraph" (see \url{http://igraph.org/r/doc/aaa-igraph-package.html}). It has attributes for both vertices and edges. 
     Below are attributes for the vertices:
     \itemize{
         \item{\code{name}: unique id for the vertices}

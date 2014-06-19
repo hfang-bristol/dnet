@@ -28,6 +28,7 @@
 #' @seealso \code{\link{visNet}}
 #' @include visNetCircle.r
 #' @examples
+#' \dontrun{
 #' # 1) generate a random graph according to the ER model
 #' g <- erdos.renyi.game(100, 1/80)
 #'
@@ -63,6 +64,7 @@
 #' visNet(g, colormap="bwr", glayout=layout.fruchterman.reingold, vertex.color=vcolors, 
 #' vertex.frame.color=vcolors, vertex.shape="sphere", mark.groups=mark.groups, mark.col=mark.col, 
 #' mark.border=mark.border, mark.shape=1, mark.expand=10, edge.color=edge.color)
+#' }
 
 visNetCircle <- function(g, com, circles=c("single","multiple"), newpage=T, ordering=NULL, colormap=c("rainbow", "bwr","jet","gbr","wyr","br","yr","wb"), vertex.label=V(g)$name, vertex.size=log(igraph::degree(g))+2, vertex.label.color="black", vertex.label.cex=0.6, vertex.label.dist=0.75, vertex.shape="sphere", edge.width=1, edge.lty=1, edge.color.within="grey", edge.color.crossing="black", mark.shape=1, mark.expand=10, ...)
 {

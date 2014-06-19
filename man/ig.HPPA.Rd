@@ -9,7 +9,7 @@ data(ig.HPPA)
 }
 
 \description{
-An R object that contains information on Human Phenotype Phenotypic Abnormality terms. These terms are organised as a direct acyclic graph (DAG), which is further stored as an object of the class 'igraph' (see \url{http://igraph.sourceforge.net/doc/R/aaa-igraph-package.html}). This data is prepared based on \url{http://compbio.charite.de/svn/hpo/trunk/src/ontology/human-phenotype-ontology.obo}.
+An R object that contains information on Human Phenotype Phenotypic Abnormality terms. These terms are organised as a direct acyclic graph (DAG), which is further stored as an object of the class 'igraph' (see \url{http://igraph.org/r/doc/aaa-igraph-package.html}). This data is prepared based on \url{http://compbio.charite.de/svn/hpo/trunk/src/ontology/human-phenotype-ontology.obo}.
 }
 
 \value{
