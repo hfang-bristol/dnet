@@ -27,7 +27,7 @@ ncolors, zlim and colorbar)}
 
 \item{feature}{the type of the features used. It can be
 one of either 'edge' for the edge feature or 'node' for
-the node feature.}
+the node feature. See 'Note' for explanations.}
 
 \item{node.normalise}{the normalisation of the nodes. It
 can be one of either 'none' for no normalisation or
@@ -90,25 +90,36 @@ within a sheet-shape rectangle grid
 According to which features are used and whether nodes
 should be penalised by degrees, the feature data are
 constructed differently from the input data and input
-graph. When the node features are used, the feature data is
-the input data (or penalised data) with the same dimension.
-When the edge featrues are used, each entry (i.e. given an
-edge and a sample) in the feature data is the absolute
-difference between its two-end nodes (or after being
-penalised). Then, the constructed feature are subject to
-sample correlation analysis by supraHex. That is, a map
-grid (with sheet shape consisting of a rectangular lattice)
-is used to train either column-wise vectors of the feature
-data matrix or the covariance matrix thereof. As a result,
-similar samples are placed closer to each other within this
-map grid. More precisely, to ensure the unique placement,
-each sample mapped to the "sheet"-shape grid with
-rectangular lattice is determinied iteratively in an order
-from the best matched to the next compromised one. If
-multiple samples are hit in the same rectangular lattice,
-the worse one is always sacrificed by moving to the next
-best one till all samples are placed somewhere exclusively
-on their own.
+graph: \itemize{ \item{When the node features are used, the
+feature data is the input data (or penalised data) with the
+same dimension.} \item{When the edge featrues are used,
+each entry (i.e. given an edge and a sample) in the feature
+data is the absolute difference between its two-end nodes
+(or after being penalised).} \item{After that, the
+constructed feature are subject to sample correlation
+analysis by supraHex. That is, a map grid (with sheet shape
+consisting of a rectangular lattice) is used to train
+either column-wise vectors of the feature data matrix or
+the covariance matrix thereof.} \item{As a result, similar
+samples are placed closer to each other within this map
+grid. More precisely, to ensure the unique placement, each
+sample mapped to the "sheet"-shape grid with rectangular
+lattice is determinied iteratively in an order from the
+best matched to the next compromised one. If multiple
+samples are hit in the same rectangular lattice, the worse
+one is always sacrificed by moving to the next best one
+till all samples are placed somewhere exclusively on their
+own.} } The size of "sheet"-shape rectangle grid depends on
+the input arguments: \itemize{ \item{How the input
+parameters are used to determine nHex is taken priority in
+the following order: "xdim & ydim" > "nHex" > "data".}
+\item{If both of xdim and ydim are given,
+\eqn{nHex=xdim*ydim}.} \item{If only data is input,
+\eqn{nHex=5*sqrt(dlen)}, where dlen is the number of rows
+of the input data.} \item{After nHex is determined,
+xy-dimensions of rectangle grid are then determined
+according to the square root of the two biggest eigenvalues
+of the input data.} }
 }
 \examples{
 # 1) generate a random graph according to the ER model
