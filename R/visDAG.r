@@ -339,8 +339,10 @@ visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap
     ########################
     ## local edge attributes lists
     edgeAttrs <- list()
-    edgeAttrs$color <- ifelse(graph::edgeData(dag,attr="relation")=="is_a", "black", "red")
-    edgeAttrs$style <- ifelse(graph::edgeData(dag,attr="relation")=="is_a", "dashed", "dashed")
+    if(class(suppressWarnings(try(graph::edgeData(dag,attr="relation"), T)))!="try-error"){
+        edgeAttrs$color <- ifelse(graph::edgeData(dag,attr="relation")=="is_a", "black", "red")
+        edgeAttrs$style <- ifelse(graph::edgeData(dag,attr="relation")=="is_a", "dashed", "dashed")
+    }
     
     # graph: An object of class 'graphNEL'
     # name: The name of the graph

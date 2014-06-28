@@ -54,7 +54,7 @@ dPvalAggregate <- function (pmatrix, method=c("orderStatistic", "fishers"), orde
         }
         
         omatrix <- pmatrix
-        for (j in 1:nc) {
+        for (j in 1:nr) {
             omatrix[j,] <- sort(as.numeric(pmatrix[j,]), na.last=T)
         }
         

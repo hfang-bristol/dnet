@@ -1,3 +1,19 @@
+cd ~/Databases/ChipSeq/supraHex/Bioinformatics_AN/RTiming/GB_manuscripts/dnet_GM/revision/methods/Net-Cox/sourcecode/
+
+
+cd ~/Databases/ChipSeq/supraHex/Bioinformatics_AN/RTiming/
+R
+load('b.RData')
+
+
+
+
+
+
+
+###############################################################################
+###############################################################################
+
 # This is a demo for TCGA mutational profile dataset from Kandoth et al
 # 
 # This dataset is available from TCGA (see <a href="http://www.ncbi.nlm.nih.gov/pubmed/24132290" target="24132290">http://www.ncbi.nlm.nih.gov/pubmed/24132290</a>), containing somatic mutational profiles for 3096 cancer samples with survival data. These cancer samples belong to one of 12 major cancer types, including breast adenocarcinoma (BRCA), lung adenocarcinoma (LUAD), lung squamous cell carcinoma (LUSC), uterine corpus endometrial carcinoma (UCEC), glioblastoma multiforme (GBM), head and neck squamous cell carcinoma (HNSC), colon and rectal carcinoma (COAD/READ), bladder urothelial carcinoma (BLCA), kidney renal clear cell carcinoma (KIRC), ovarian serous carcinoma (OV) and acute myeloid leukaemia (LAML). For each patient sample, somatic mutations are represented as a profile of  states on genes, where non-zero entry indicates a gene for which how many mutations have occurred in the tumor relative to germ line. The dataset is provided as an 'ExpressionSet' object.
@@ -38,6 +54,35 @@ fit <- survfit(Surv(time, status) ~ TCGA_tumor_type, data=pd, type=c("kaplan-mei
 plot(fit, xscale=365.25, xlab = "Years", ylab="Survival", lty=1:2, col=rainbow(length(tumor_type))) 
 legend("topright", tumor_type, lty=1:2, col=rainbow(length(tumor_type)))
 
+
+# Kaplan-Meier survival curves for individual tumor types
+data_g <- t(md[V(g)$name,])
+data_g <- apply(data_g!=0, 1, sum)
+data <- cbind(pd, net=data_g!=0)
+fit <- survfit(Surv(time, status) ~ TCGA_tumor_type+net, data=data, type=c("kaplan-meier","fh")[1])
+plot(fit, xscale=365.25, xlab = "Years", ylab="Survival", lty=1:2, col=rep(rainbow(length(tumor_type)),each=2)) 
+legend("topright", paste(rep(tumor_type,each=2),c("_T","_F"),sep=""), lty=1:2, col=rep(rainbow(length(tumor_type)),each=2))
+
+## Network-based HR for individual tumor types
+data_g <- t(md[V(g)$name,])
+data_g <- apply(data_g!=0, 1, sum)
+data <- cbind(pd, net=data_g)
+sep_signif <- matrix(1, nrow=length(tumor_type), ncol=2)
+rownames(sep_signif) <- tumor_type
+colnames(sep_signif) <- c("HR", "pvalue")
+for(i in 1:length(tumor_type)){
+    data1 <- data[data$TCGA_tumor_type==tumor_type[i],]
+    fit <- coxph(formula=Surv(time,status) ~ Age + Gender + net, data=data1)
+    res <- as.matrix(anova(fit))
+    sep_signif[i,] <- res[4,c(2,4)]
+}
+out <- data.frame(name=rownames(sep_signif), sep_signif)
+write.table(out, file=paste("sep_signif.txt", sep=""), quote=F, row.names=F,col.names=T,sep="\t")
+
+x <- sort(sep_signif[,1], decreasing=T)
+par(las=1, mar=c(5,8,4,2)) # all axis labels horizontal
+barplot(x,horiz=T, xlab="Cox hazard ratio (HR)")
+
 ############################################################################
 # Survival analysis across tumor types using Cox proportional hazards model
 # Cox regression yields an equation for the hazard/risk as a function of several explanatory variables
@@ -65,7 +110,7 @@ LR <- gene_signif[,1]
 pvals <- gene_signif[,2]
 
 ############################################################################
-## survival analysis of each tumor type
+## survival analysis after removing each tumor type
 type_gene_signif <- list()
 for (k in 1:length(tumor_type)){
     type <- tumor_type[k]
@@ -360,6 +405,7 @@ for(j in 1:B){
     modules[[j]] <- dNetPipeline(g=network, pval=gene_pvals_random[,j], method="fdr", nsize=vcount(g))
 }
 
+#########
 # Estimate the robustness of the identified subnetwork by removal of one tumor type (defined by tissue of origin) and re-identification of the subnetwork based on the remaining tumor types
 gene_pvals_loo <- matrix(1, nrow=nrow(md_selected), ncol=length(tumor_type))
 rownames(gene_pvals_loo) <- rownames(md_selected)
@@ -382,12 +428,150 @@ for(k in 1:length(tumor_type)){
     }
 }
 
-modules <- list()
+####################
+# Estimate the significance of the identified subnetwork based on data randomisation
+B <- 100
+modules_random <- list()
+for(j in 1:B){
+    message(sprintf("###Degree-preserving randomisation: %d", j), appendLF=T)
+    res <- dp_randomisation(ig=network, data=pvals)
+    # For each degree-preserving randomisation for survival p-values
+    modules_random[[j]] <- dNetPipeline(g=network, pval=res, method="customised", nsize=vcount(g))
+}
+
+## A function to degree-preserving randomisation
+    dp_randomisation <- function(ig, data){
+    
+        ind <- match(V(ig)$name, names(data))
+        data_sub <- data[ind]
+    
+        dg <- igraph::degree(ig)
+        at <- unique(quantile(dg, seq(from=0,to=1,by=0.1)))
+        groups <- sapply(dg, function(x){
+            if(length(which(x>at))==0){
+                at[1]
+            }else{
+                at[max(which(x>at))+1]
+            }
+        })
+        dg_random <- 1:length(dg)
+        for(k in 1:length(at)){
+            ind <- which(groups==at[k])
+            dg_random[ind] <- ind[sample(1:length(ind))]
+        }
+        
+        res <- data_sub[dg_random]
+        names(res) <- names(data_sub)
+        return(res)
+    }
+###
+
+# append the confidence information from the source graphs into the target graph
+rmodule <- dNetConfidence(target=g, sources=modules_random, plot=F)
+E(rmodule)$edgeConfidence <- ceiling(E(rmodule)$edgeConfidence)
+# visualise the confidence target graph
+visNet(cmodule, layout=glayout, edge.width=E(cmodule)$edgeConfidence/10, edge.label=E(cmodule)$edgeConfidence, edge.label.cex=0.6)
+
+p_sig <- E(rmodule)$edgeConfidence/100
+
+# The logic of the Fisher method to combine P-values for aggregated/global p-value
+dPvalAggregate(pmatrix=matrix(p_sig,nrow=1), method=c("orderStatistic", "fishers")[2])
+
+p_significance <- -1*log10(p_sig)
+p_significance[is.infinite(p_significance)] <- 2
+
+edge.lty <- sapply(p_significance, function(x){
+    if(x>-1*log10(0.05)){
+        "solid"
+    }else if(x>1 & x<=-1*log10(0.05)){
+        "longdash"
+    }else{
+        "dotted"
+    }
+})
+
+wth <- 3600
+png("net_significance.png", width=wth, height=wth, res=wth*72/480)
+visNet(g, glayout=glayout, vertex.label=V(g)$geneSymbol, vertex.color=vcolors, vertex.frame.color=vcolors, vertex.shape="sphere", mark.groups=mark.groups, mark.col=mark.col, mark.border=mark.border, mark.shape=1, mark.expand=10, edge.color=edge.color, newpage=F, vertex.label.color="blue", vertex.label.dist=0.4, vertex.label.font=2, edge.width=2, edge.lty=edge.lty)
+dev.off()
+
+hist(E(rmodule)$edgeConfidence/100, vcount(g), xlim=c(0,0.4))
+
+####################
+# Tumor type-specific survival network
+gene_pvals_each <- matrix(1, nrow=nrow(md_selected), ncol=length(tumor_type))
+rownames(gene_pvals_each) <- rownames(md_selected)
+colnames(gene_pvals_each) <- tumor_type
+gene_HR_each <- matrix(1, nrow=nrow(md_selected), ncol=length(tumor_type))
+rownames(gene_HR_each) <- rownames(md_selected)
+colnames(gene_HR_each) <- tumor_type
+for(k in 1:length(tumor_type)){
+    type <- tumor_type[k]
+    ind <- match(pData(eset)$TCGA_tumor_type, type)
+    type_md_selected <- md_selected[, !is.na(ind)]
+    
+    for(i in 1:nrow(type_md_selected)){
+        if(i %% 1000==0 || i==1 || i==nrow(type_md_selected)) message(sprintf("%s: %d genes processed (%s)", type, i, as.character(Sys.time())), appendLF=T)
+        gene_mut <- type_md_selected[i,]
+        ## fit a Cox proportional hazards model
+        data <- cbind(pd[!is.na(ind),],gene=gene_mut)
+        ## fit
+        if(class(suppressWarnings(try(fit <- coxph(formula=Surv(time,status) ~ Age + Gender + gene, data=data), T)))=="try-error"){
+            next
+        }else{
+            res <- as.matrix(anova(fit))
+            ## 2nd: likelyhood ratio; 4th: pvalue
+            gene_pvals_each[i,k] <- res[4,4]
+            gene_HR_each[i,k] <- res[4,2]
+        }
+    }
+}
+
+## get network
+modules_each <- list()
 for(j in 1:length(tumor_type)){
     message(sprintf("###Jacknife resampling: %d replicate", j), appendLF=T)
-    # For each leave-one-out, recalculate survival p-values, which is used to calculate node scores
-    modules[[j]] <- dNetPipeline(g=network, pval=gene_pvals_loo[,j], method="fdr", nsize=vcount(g))
+    # For cancer-specific survival networks
+    modules_each[[j]] <- dNetPipeline(g=network, pval=gene_pvals_each[,j], method="customised", significance.threshold=0.05)
 }
+names(modules_each) <- tumor_type
+
+## visualise network
+for(j in 1:length(modules_each)){
+    
+    a <- modules_each[[j]]
+    colormap <- "darkgreen-lightgreen-lightpink-darkred"
+    data <- -1*log10(gene_pvals_each[V(a)$name,j])
+    
+    wth <- 1200
+    png(paste("each.",tumor_type[j],".png", sep=""), width=wth, height=wth, res=wth*72/480)
+    visNet(a, glayout=layout.fruchterman.reingold(a), pattern=data, colormap=colormap, vertex.label=V(a)$geneSymbol, vertex.shape="sphere", zlim=c(0,2), vertex.label.color="blue", vertex.label.dist=0.4, vertex.label.font=1.5, colorbar=F, newpage=F, margin=rep(0,4))
+    dev.off()
+
+    ind <- match(names(data), fd$Symbol)
+    hmap <- data.frame(fd[ind,1:3], Cox_pval=gene_pvals_each[V(a)$name,j], Cox_HR=gene_HR_each[V(a)$name,j])
+    hmap <- hmap[order(hmap$Cox_pval),]
+    write.table(hmap, file=paste("each.",tumor_type[j],".txt", sep=""), quote=F, row.names=F,col.names=T,sep="\t")
+
+}
+
+
+library(Hmisc)
+## enrichment analysis
+for(j in 1:length(modules_each)){
+    
+    a <- modules_each[[j]]
+    eTerm <- dEnricher(data=V(a)$name, identity="symbol", genome="Hs", ontology="DGIdb", sizeRange=c(10,5000), min.overlap=2)
+    out <- dEnricherView(eTerm, top_num=30, sortBy="adjp", details=TRUE)
+    out <- data.frame(name=capitalize(as.character(out$name)), zscore=out$zscore, pvalue=out$pvalue, fdr=out$adjp)[out$adjp<0.05,]
+    write.table(out, file=paste("DGIdb.",tumor_type[j],".txt", sep=""), quote=F, row.names=F,col.names=T,sep="\t")
+}
+
+a <- modules_each[[2]]
+eTerm <- dEnricher(data=V(a)$name, identity="symbol", genome="Hs", ontology="MsigdbC2KEGG")
+eTerm <- dEnricher(data=V(a)$name, identity="symbol", genome="Hs", ontology="MsigdbC2REACTOME")
+eTerm <- dEnricher(data=V(a)$name, identity="symbol", genome="Hs", ontology="MsigdbC2BIOCARTA", min.overlap=2)
+eTerm <- dEnricher(data=V(a)$name, identity="symbol", genome="Hs", ontology="DGIdb", sizeRange=c(10,5000), min.overlap=2)
 
 ############################################################################
 
