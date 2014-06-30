@@ -7,7 +7,9 @@ dDAGtermSim(g, terms = NULL, method = c("Resnik", "Lin", "Schlicker",
 verbose = T)
 }
 \arguments{
-\item{g}{an object of class "igraph" or "graphNEL"}
+\item{g}{an object of class "igraph" or "graphNEL". It
+must contain a vertex attribute called 'annotations' for
+storing annotation data (see example for howto)}
 
 \item{terms}{the terms/nodes between which pair-wise
 semantic similarity is calculated. If NULL, all terms in

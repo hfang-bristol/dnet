@@ -8,7 +8,9 @@ dDAGgeneSim(g, genes = NULL, method.gene = c("BM.average", "BM.max",
 parallel = TRUE, multicores = NULL, verbose = TRUE)
 }
 \arguments{
-\item{g}{an object of class "igraph" or "graphNEL"}
+\item{g}{an object of class "igraph" or "graphNEL". It
+must contain a vertex attribute called 'annotations' for
+storing annotation data (see example for howto)}
 
 \item{genes}{the genes between which pair-wise semantic
 similarity is calculated. If NULL, all genes annotatable
@@ -101,8 +103,11 @@ converted to the full matrix via the function
 \description{
 \code{dDAGgeneSim} is supposed to calculate pair-wise
 semantic similarity between genes based on a direct acyclic
-graph (DAG) with annotated data. Parallel computing is also
-supported for Linux or Mac operating systems.
+graph (DAG) with annotated data. It first calculates
+semantic similarity between terms and then derives semantic
+similarity between genes from terms-term semantic
+similarity. Parallel computing is also supported for Linux
+or Mac operating systems.
 }
 \note{
 For the mode "shortest_paths", the induced subgraph is the

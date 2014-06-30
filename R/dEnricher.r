@@ -427,7 +427,12 @@ dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity
             ## Z-score based on theoretical calculation
             x.exp <- K*M/N
             var.exp <- K*M/N*(N-M)/N*(N-K)/(N-1)
-            suppressWarnings(z <- (X-x.exp)/sqrt(var.exp))
+            if(var.exp==0){
+                z <- NA
+            }else{
+                suppressWarnings(z <- (X-x.exp)/sqrt(var.exp))
+            }
+            
         }else{
             ## Z-score equivalents for deviates from hypergeometric distribution
             x <- X
@@ -855,10 +860,15 @@ dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity
     zscores <- zscores[ind_zscores[!is.na(ind_zscores)]]
     pvals <- pvals[ind_zscores[!is.na(ind_zscores)]]
     
+    ## remove those with zscores=NA
+    flag <- !is.na(zscores)
+    set_info <- set_info[flag,]
+    gs <- gs[flag]
+    overlaps <- overlaps[flag]
+    zscores <- zscores[flag]
+    pvals <- pvals[flag]
     
-    zscores[is.na(zscores)] <- 0
     zscores <- signif(zscores, digits=3)
-    
     pvals <- sapply(pvals, function(x) min(x,1))
     ## Adjust P-values for multiple comparisons
     adjpvals <- stats::p.adjust(pvals, method=p.adjust.method)
