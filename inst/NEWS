@@ -1,14 +1,25 @@
+CHANGES IN VERSION 1.0.5
+-----------------------
+
+NEW FEATURES
+
+    o Bug fixes (such as in 'visDAG') for accommodating an incoming package 'dcGOR'
+
+    o Application in emerging research on cancer patient survival (submitted to Genome Medicine)
+
+
 CHANGES IN VERSION 1.0.4
 -----------------------
 
 NEW FEATURES
 
-    o Populate the RData by adding domain-centric databases in Eukaryotes
+    o Bug fixes
 
     o Using git (and github) to host latest development version of the package
 
 CHANGES IN VERSION 1.0.3
 -----------------------
+
 
 NEW FEATURES
 
