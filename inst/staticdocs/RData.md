@@ -15,9 +15,9 @@ These genesets are derived from the molecular signatures database.
 
 * `Datasets as demos`
 
-They are used in [Demos](http://supfam.org/dnet/demos.html)
+They are used in <a href="demos.html" target="slides" style="font-size: 12px; color: #0000FF; text-decoration: overline; border-bottom: 1px solid #0000FF">Demos</a>.
 
 ## Documentations
 
-For details, please refer to [Documentations](http://supfam.org/dnet/docs.html).
+For details, please refer to <a href="docs.html" target="slides" style="font-size: 12px; color: #0000FF; text-decoration: overline; border-bottom: 1px solid #0000FF">Documentations</a>.
 

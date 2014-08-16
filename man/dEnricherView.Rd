@@ -4,7 +4,7 @@
 \usage{
 dEnricherView(eTerm, top_num = 10, sortBy = c("adjp", "pvalue",
 "zscore",
-"nSet", "nOverlap", "none"), decreasing = NULL, details = F)
+"nAnno", "nOverlap", "none"), decreasing = NULL, details = F)
 }
 \arguments{
 \item{eTerm}{an object of class "eTerm"}
@@ -15,35 +15,35 @@ will be viewed}
 \item{sortBy}{which statistics will be used for sorting
 and viewing gene sets (terms). It can be "adjp" for
 adjusted p value, "pvalue" for p value, "zscore" for
-enrichment z-score, "nSet" for the number of sets
+enrichment z-score, "nAnno" for the number of sets
 (terms), "nOverlap" for the number in overlaps, and
 "none" for ordering according to ID of gene sets (terms)}
 
 \item{decreasing}{logical to indicate whether to sort in
 a decreasing order. If it is null, it would be true for
-"zscore", "nSet" or "nOverlap"; otherwise it would be
+"zscore", "nAnno" or "nOverlap"; otherwise it would be
 false}
 
-\item{details}{logical to indicate whether the detail
+\item{details}{logical to indicate whether the detailed
 information of gene sets (terms) is also viewed. By
 default, it sets to false for no inclusion}
 }
 \value{
 a data frame with following components: \itemize{
-\item{\code{setID}: term ID} \item{\code{nSet}: number of
-sets (terms)} \item{\code{nOverlap}: number in overlaps}
-\item{\code{zscore}: enrichment z-score}
-\item{\code{pvalue}: nominal p value} \item{\code{adjp}:
-adjusted p value} \item{\code{name}: term name; optional,
-it is only appended when "details" is true}
-\item{\code{namespace}: term namespace; optional, it is
-only appended when "details" is true}
+\item{\code{setID}: term ID} \item{\code{nAnno}: number in
+gene members annotated by a term} \item{\code{nOverlap}:
+number in overlaps} \item{\code{zscore}: enrichment
+z-score} \item{\code{pvalue}: nominal p value}
+\item{\code{adjp}: adjusted p value} \item{\code{name}:
+term name; optional, it is only appended when "details" is
+true} \item{\code{namespace}: term namespace; optional, it
+is only appended when "details" is true}
 \item{\code{distance}: term distance; optional, it is only
 appended when "details" is true} }
 }
 \description{
 \code{dEnricherView} is supposed to view results of
-enrichment analysis by dEnricher.
+enrichment analysis by \code{\link{dEnricher}}.
 }
 \note{
 none

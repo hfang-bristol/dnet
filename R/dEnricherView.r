@@ -1,17 +1,17 @@
 #' Function to view enrichment results of dEnricher
 #'
-#' \code{dEnricherView} is supposed to view results of enrichment analysis by dEnricher. 
+#' \code{dEnricherView} is supposed to view results of enrichment analysis by \code{\link{dEnricher}}. 
 #'
 #' @param eTerm an object of class "eTerm"
 #' @param top_num the maximum number of gene sets (terms) will be viewed
-#' @param sortBy which statistics will be used for sorting and viewing gene sets (terms). It can be "adjp" for adjusted p value, "pvalue" for p value, "zscore" for enrichment z-score, "nSet" for the number of sets (terms), "nOverlap" for the number in overlaps, and "none" for ordering according to ID of gene sets (terms)
-#' @param decreasing logical to indicate whether to sort in a decreasing order. If it is null, it would be true for "zscore", "nSet" or "nOverlap"; otherwise it would be false
-#' @param details logical to indicate whether the detail information of gene sets (terms) is also viewed. By default, it sets to false for no inclusion
+#' @param sortBy which statistics will be used for sorting and viewing gene sets (terms). It can be "adjp" for adjusted p value, "pvalue" for p value, "zscore" for enrichment z-score, "nAnno" for the number of sets (terms), "nOverlap" for the number in overlaps, and "none" for ordering according to ID of gene sets (terms)
+#' @param decreasing logical to indicate whether to sort in a decreasing order. If it is null, it would be true for "zscore", "nAnno" or "nOverlap"; otherwise it would be false
+#' @param details logical to indicate whether the detailed information of gene sets (terms) is also viewed. By default, it sets to false for no inclusion
 #' @return
 #' a data frame with following components:
 #' \itemize{
 #'  \item{\code{setID}: term ID}
-#'  \item{\code{nSet}: number of sets (terms)}
+#'  \item{\code{nAnno}: number in gene members annotated by a term}
 #'  \item{\code{nOverlap}: number in overlaps}
 #'  \item{\code{zscore}: enrichment z-score}
 #'  \item{\code{pvalue}: nominal p value}
@@ -27,7 +27,7 @@
 #' @examples
 #' #dEnricherView(eTerm, top_num=10, sortBy="adjp", decreasing=FALSE, details=TRUE)
 
-dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","nSet","nOverlap","none"), decreasing=NULL, details=F) 
+dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","nAnno","nOverlap","none"), decreasing=NULL, details=F) 
 {
 
     if (class(eTerm) != "eTerm" ){
@@ -43,8 +43,8 @@ dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","
         top_num <- length(eTerm$set_info$setID)
     }
     
-    tab <- data.frame(setID         = eTerm$set_info$setID,
-                       nSet         = sapply(eTerm$gs,length),
+    tab <- data.frame( setID         = eTerm$set_info$setID,
+                       nAnno         = sapply(eTerm$gs,length),
                        nOverlap     = sapply(eTerm$overlap,length),
                        zscore       = eTerm$zscore,
                        pvalue       = eTerm$pvalue,
@@ -62,7 +62,7 @@ dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","
     }
     
     if(is.null(decreasing)){
-        if(sortBy=="zscore" | sortBy=="nSet" | sortBy=="nOverlap"){
+        if(sortBy=="zscore" | sortBy=="nAnno" | sortBy=="nOverlap"){
             decreasing <- T
         }else{
             decreasing <- F
@@ -73,7 +73,7 @@ dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","
         adjp={res <- res[order(res[,6], decreasing=decreasing)[1:top_num],]},
         pvalue={res <- res[order(res[,5], decreasing=decreasing)[1:top_num],]},
         zscore={res <- res[order(res[,4], decreasing=decreasing)[1:top_num],]},
-        nSet={res <- res[order(res[,2], decreasing=decreasing)[1:top_num],]},
+        nAnno={res <- res[order(res[,2], decreasing=decreasing)[1:top_num],]},
         nOverlap={res <- res[order(res[,3], decreasing=decreasing)[1:top_num],]},
         none={res <- res[order(res[,1], decreasing=decreasing)[1:top_num],]}
     )

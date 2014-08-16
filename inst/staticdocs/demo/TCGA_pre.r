@@ -1,15 +1,3 @@
-cd ~/Databases/ChipSeq/supraHex/Bioinformatics_AN/RTiming/GB_manuscripts/dnet_GM/revision/methods/Net-Cox/sourcecode/
-
-
-cd ~/Databases/ChipSeq/supraHex/Bioinformatics_AN/RTiming/
-R
-load('b.RData')
-
-
-
-
-
-
 
 ###############################################################################
 ###############################################################################
@@ -708,6 +696,41 @@ abline(mod)
 lines(newx, preds[ ,3], lty = 'dashed', col = 'red')
 lines(newx, preds[ ,2], lty = 'dashed', col = 'red')
 
+#------------
+# re-revision: on the combination of the same number of marker genes directly selected by COX regression. 
+bg_names <- names(sort(LR, decreasing=T)[1:vcount(g)])
+bg_signif <- matrix(1, nrow=length(bg_names), ncol=2)
+rownames(bg_signif) <- bg_names
+colnames(bg_signif) <- c("LR", "pvalue")
+for(i in 1:length(bg_names)){
+    #data_g <- t(md[bg_names[1:i],])
+    data_g <- t(md[bg_names[(length(bg_names)-i+1):length(bg_names)],])
+    
+    if(i!=1){
+        data_g <- apply(data_g!=0, 1, sum)
+    }else{
+        data_g <- as.vector(data_g!=0)
+    }
+    data <- cbind(pd, bnet=data_g)
+    fit <- coxph(formula=Surv(time,status) ~ Age + Gender + TCGA_tumor_type + bnet, data=data)
+    res <- as.matrix(anova(fit))
+    bg_signif[i,] <- res[5,c(2,4)]
+}
+bg_signif[bg_signif[,2]==0,2] <- min(bg_signif[bg_signif[,2]!=0,2])
+
+# median: 6.18 66.12 9.5 79.7
+bp.LR.list <- list(Neti=LR[cg_names], Netc=cg_signif[2:nrow(cg_signif),1], Topi=LR[bg_names], Topc=bg_signif[2:nrow(bg_signif),1])
+par(las=1, mar=c(5,8,4,2)) # all axis labels horizontal
+boxplot(bp.LR.list, outline=F, horizontal=F, names=c("Individual genes\n in the network", "Combined genes\n in the network", "Individual genes\n in the top", "Combined genes\n in the top"), col=c("green","blue","white","white"), border=par("fg"), ylab="Cox hazard ratio (HR)", log="y", ylim=c(1,400), yaxt="n",xaxt="n")
+axis(2, at=c(1,10,100), labels=c(1,10,100), las=2)
+axis(1, at=1:4, labels=c("dnet\n(using genes individually)", "dnet\n(using genes in combination", "top\n(using genes individually", "top\n(using genes in combination"), las=2)
+
+# p-value = 1.1e-11
+stats::ks.test(x=LR[cg_names], y=LR[bg_names], alternative=c("two.sided","less", "greater")[1], exact=NULL)
+# p-value = 3.6e-3
+stats::ks.test(x=cg_signif[2:nrow(cg_signif),1], y=bg_signif[2:nrow(bg_signif),1], alternative=c("two.sided","less", "greater")[1], exact=NULL)
+
+#-------------
 
 
 # 4) visualisation of the gene-active subnetwork overlaid by the node/gene score
