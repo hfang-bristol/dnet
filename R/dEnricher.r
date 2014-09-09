@@ -884,6 +884,17 @@ dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity
     runTime <- as.numeric(difftime(strptime(endT, "%Y-%m-%d %H:%M:%S"), strptime(startT, "%Y-%m-%d %H:%M:%S"), units="secs"))
     message(paste(c("Runtime in total is: ",runTime," secs\n"), collapse=""), appendLF=T)
     
+    ########################################
+    if(1){
+    ## overlaps
+    overlaps <- lapply(overlaps, function(x){
+        ind <- match(x, allGeneID)
+        names(x) <- allSymbol[ind]
+        x
+    })
+    }
+    ########################################
+    
     eTerm <- list(set_info = set_info,
                   gs       = gs,
                   data     = data,

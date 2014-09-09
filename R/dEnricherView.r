@@ -19,6 +19,7 @@
 #'  \item{\code{name}: term name; optional, it is only appended when "details" is true}
 #'  \item{\code{namespace}: term namespace; optional, it is only appended when "details" is true}
 #'  \item{\code{distance}: term distance; optional, it is only appended when "details" is true}
+#'  \item{\code{members}: members (represented as Gene Symbols) in overlaps; optional, it is only appended when "details" is true}
 #' }
 #' @note none
 #' @export
@@ -29,7 +30,11 @@
 
 dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","nAnno","nOverlap","none"), decreasing=NULL, details=F) 
 {
-
+    
+    if(is.logical(eTerm)){
+        stop("There is no enrichment in the 'eTerm' object.\n")
+    }
+    
     if (class(eTerm) != "eTerm" ){
         stop("The function must apply to a 'eTerm' object.\n")
     }
@@ -43,20 +48,35 @@ dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","
         top_num <- length(eTerm$set_info$setID)
     }
     
-    tab <- data.frame( setID         = eTerm$set_info$setID,
-                       nAnno         = sapply(eTerm$gs,length),
-                       nOverlap     = sapply(eTerm$overlap,length),
-                       zscore       = eTerm$zscore,
-                       pvalue       = eTerm$pvalue,
-                       adjp         = eTerm$adjp,
-                       name         = eTerm$set_info$name,
-                       namespace    = eTerm$set_info$namespace,
-                       distance     = eTerm$set_info$distance
-                      )
+    if(dim(eTerm$set_info)[1]==1){
+        tab <- data.frame( setID         = eTerm$set_info$setID,
+                           nAnno         = sapply(eTerm$gs,length),
+                           nOverlap     = length(eTerm$overlap),
+                           zscore       = eTerm$zscore,
+                           pvalue       = eTerm$pvalue,
+                           adjp         = eTerm$adjp,
+                           name         = eTerm$set_info$name,
+                           namespace    = eTerm$set_info$namespace,
+                           distance     = eTerm$set_info$distance,
+                           members      = paste(rownames(eTerm$overlap),collapse=',')
+                          )
+    }else{
     
+        tab <- data.frame( setID         = eTerm$set_info$setID,
+                           nAnno         = sapply(eTerm$gs,length),
+                           nOverlap     = sapply(eTerm$overlap,length),
+                           zscore       = eTerm$zscore,
+                           pvalue       = eTerm$pvalue,
+                           adjp         = eTerm$adjp,
+                           name         = eTerm$set_info$name,
+                           namespace    = eTerm$set_info$namespace,
+                           distance     = eTerm$set_info$distance,
+                           members      = sapply(eTerm$overlap, function(x) paste(names(x),collapse=','))
+                          )
+    }
     
     if(details == T){
-        res <- tab[,c(1:9)]
+        res <- tab[,c(1:10)]
     }else{
         res <- tab[,c(1:6)]
     }
