@@ -191,7 +191,7 @@ dRWRpipeline <- function(data, g, method=c("direct","indirect"), normalise=c("la
     if(parallel==TRUE){
         flag_parallel <- dCheckParallel(multicores=multicores, verbose=verbose)
         if(flag_parallel){
-            exp_b <- foreach(b=1:B, .inorder=T) %dopar% {
+            exp_b <- foreach::foreach(b=1:B, .inorder=T) %dopar% {
                 progress_indicate(b, B, 10, flag=T)
                 if(permutation=="degree"){
                     seeds_random <- dp_randomisation(ig, P0matrix)

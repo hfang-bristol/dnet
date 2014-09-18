@@ -1,0 +1,15 @@
+citEntry(entry="Article",
+    author = "Hai Fang and Julian Gough",
+    title = "The 'dnet' approach promotes emerging research on cancer patient survival",
+    journal = "Genome Medicine",
+    volume = "6",
+    number = "64",
+    year = "2014", 
+    pages = "64",
+    url = "http://genomemedicine.com/content/6/8/64",
+    doi = "10.1186/s13073-014-0064-8",
+    textVersion = paste(
+                "Fang H, Gough J.",
+                "The 'dnet' approach promotes emerging research on cancer patient survival.",
+                "Genome Medicine, 6:64, 2014. http://dx.doi.org/10.1186/s13073-014-0064-8")
+)

@@ -149,7 +149,7 @@ dDAGgeneSim <- function (g, genes=NULL, method.gene=c("BM.average","BM.max","BM.
         flag_parallel <- dCheckParallel(multicores=multicores, verbose=verbose)
         if(flag_parallel){
             if(method.gene=='average'){
-                sim <- foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
                     ind1 <- genes2terms_index[[i]]
                     progress_indicate(i, num_genes, 10, flag=T)
                     fast <- T
@@ -167,7 +167,7 @@ dDAGgeneSim <- function (g, genes=NULL, method.gene=c("BM.average","BM.max","BM.
                     }
                 }
             }else if(method.gene=='max'){
-                sim <- foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
                     ind1 <- genes2terms_index[[i]]
                     progress_indicate(i, num_genes, 10, flag=T)
                     fast <- T
@@ -185,7 +185,7 @@ dDAGgeneSim <- function (g, genes=NULL, method.gene=c("BM.average","BM.max","BM.
                     }
                 }
             }else if(method.gene=='BM.average'){
-                sim <- foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
                     ind1 <- genes2terms_index[[i]]
                     progress_indicate(i, num_genes, 10, flag=T)
                     fast <- T
@@ -204,7 +204,7 @@ dDAGgeneSim <- function (g, genes=NULL, method.gene=c("BM.average","BM.max","BM.
                     }
                 }
             }else if(method.gene=='BM.max'){
-                sim <- foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
                     ind1 <- genes2terms_index[[i]]
                     progress_indicate(i, num_genes, 10, flag=T)
                     fast <- T
@@ -223,7 +223,7 @@ dDAGgeneSim <- function (g, genes=NULL, method.gene=c("BM.average","BM.max","BM.
                     }
                 }
             }else if(method.gene=='BM.complete'){
-                sim <- foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::foreach(i=1:(num_genes-1), .inorder=T, .combine=rbind) %dopar% {
                     ind1 <- genes2terms_index[[i]]
                     progress_indicate(i, num_genes, 10, flag=T)
                     fast <- T
