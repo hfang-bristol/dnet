@@ -219,6 +219,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
         ###### parallel computing
         flag_parallel <- F
         if(parallel==TRUE){
+
             flag_parallel <- dCheckParallel(multicores=multicores, verbose=verbose)
             if(flag_parallel){
                     

@@ -19,6 +19,7 @@ dCheckParallel <- function (multicores=NULL, verbose=T)
     # @import doMC
     # @import foreach
     
+    if(0){
     flag_parallel <- F
     if (requireNamespace("doMC", quietly=T) & requireNamespace("foreach", quietly=T)) {
         if(1){
@@ -41,8 +42,9 @@ dCheckParallel <- function (multicores=NULL, verbose=T)
             flag_parallel <- T
         }
     }
-
-    if(0){
+    }
+    
+    if(1){
     flag_parallel <- F
     pkgs <- c("doMC","foreach")
     if(any(pkgs %in% rownames(installed.packages()))){

@@ -37,16 +37,14 @@ Notes: below are `R command lines (NOT shell command lines in Terminal)`.
 First, install dependant/imported/suggested packages:
 
     source("http://bioconductor.org/biocLite.R")
-    biocLite(c("hexbin","ape","supraHex","graph","Rgraphviz","igraph","Biobase","limma","survival","foreach","doMC"))
+    biocLite(c("hexbin","ape","supraHex","graph","Rgraphviz","igraph","Biobase","limma","survival","foreach","doMC","devtools"))
 
 Second, install the package `dnet` under [stable release version](http://cran.r-project.org/package=dnet):
 
     install.packages("dnet",repos="http://cran.r-project.org",type="source")
 
-Third (`highly recommended`), advisable to update/install the package `dnet` under [latest development version](https://github.com/hfang-bristol/dnet):
+Third (`highly recommended`), update the package `dnet` from [latest development version](https://github.com/hfang-bristol/dnet):
 
-    source("http://bioconductor.org/biocLite.R")
-    biocLite("devtools")
     library(devtools)
     if(!("dnet" %in% rownames(installed.packages()))) remove.packages("dnet")
     install_github(c("dnet"), username="hfang-bristol")
