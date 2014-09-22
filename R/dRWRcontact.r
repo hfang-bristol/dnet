@@ -177,7 +177,7 @@ dRWRcontact <- function(data, g, Amatrix, permutation=c("random","degree"), num.
 
         flag_parallel <- dCheckParallel(multicores=multicores, verbose=verbose)
         if(flag_parallel){
-            exp_b <- foreach::foreach(b=1:B, .inorder=T) %dopar% {
+            exp_b <- foreach::`%dopar%` (foreach::foreach(b=1:B, .inorder=T), {
                 progress_indicate(b, B, 10, flag=T)
                 if(permutation=="degree"){
                     seeds_random <- dp_randomisation(ig, P0matrix)
@@ -189,7 +189,7 @@ dRWRcontact <- function(data, g, Amatrix, permutation=c("random","degree"), num.
                 ## make sure the sum of elements in each steady probability vector is one
                 PT_random <- sum2one(PT_random)
                 as.matrix(t(as.matrix(PT_random)) %*% PT_random)
-            }
+            })
         }
     }
     

@@ -223,7 +223,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
             flag_parallel <- dCheckParallel(multicores=multicores, verbose=verbose)
             if(flag_parallel){
                     
-                PTmatrix <- foreach::foreach(j=1:ncol(P0matrix), .inorder=T, .combine='cbind') %dopar% {
+                PTmatrix <- foreach::`%dopar%` (foreach::foreach(j=1:ncol(P0matrix), .inorder=T, .combine='cbind'), {
                     progress_indicate(j, ncol(P0matrix), 100, flag=T)
                     P0 <- P0matrix[,j]
                     ## Initializing variables
@@ -239,7 +239,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
                         step <- step+1
                     }
                     as.matrix(PT)
-                }
+                })
                     
                 PTmatrix[PTmatrix<1e-6] <- 0
                 PTmatrix <- Matrix::Matrix(PTmatrix, sparse=T)

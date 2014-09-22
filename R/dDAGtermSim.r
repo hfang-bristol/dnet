@@ -102,7 +102,7 @@ dDAGtermSim <- function (g, terms=NULL, method=c("Resnik","Lin","Schlicker","Jia
         if(flag_parallel){
                 
             if(method=="Resnik"){
-                sim <- foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::`%dopar%` (foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind), {
                     ancestor_i <- which(sCP[i,]==1)
                     progress_indicate(i, num_terms, 10, flag=T)
                     fast <- T
@@ -121,9 +121,9 @@ dDAGtermSim <- function (g, terms=NULL, method=c("Resnik","Lin","Schlicker","Jia
                         x[js] <- res
                         x
                     }
-                }
+                })
             }else if(method=="Lin"){
-                sim <- foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::`%dopar%` (foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind), {
                     ancestor_i <- which(sCP[i,]==1)
                     progress_indicate(i, num_terms, 10, flag=T)
                     fast <- T
@@ -142,9 +142,9 @@ dDAGtermSim <- function (g, terms=NULL, method=c("Resnik","Lin","Schlicker","Jia
                         x[js] <- res
                         x
                     }
-                }
+                })
             }else if(method=="Schlicker"){
-                sim <- foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::`%dopar%` (foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind), {
                     ancestor_i <- which(sCP[i,]==1)
                     progress_indicate(i, num_terms, 10, flag=T)
                     fast <- T
@@ -163,9 +163,9 @@ dDAGtermSim <- function (g, terms=NULL, method=c("Resnik","Lin","Schlicker","Jia
                         x[js] <- res
                         x
                     }
-                }
+                })
             }else if(method=="Jiang"){
-                sim <- foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::`%dopar%` (foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind), {
                     ancestor_i <- which(sCP[i,]==1)
                     progress_indicate(i, num_terms, 10, flag=T)
                     fast <- T
@@ -186,9 +186,9 @@ dDAGtermSim <- function (g, terms=NULL, method=c("Resnik","Lin","Schlicker","Jia
                         x[js] <- res
                         x
                     }
-                }
+                })
             }else if(method=="Pesquita"){
-                sim <- foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind) %dopar% {
+                sim <- foreach::`%dopar%` (foreach::foreach(i=1:num_terms, .inorder=T, .combine=rbind), {
                     ancestor_i <- which(sCP[i,]==1)
                     progress_indicate(i, num_terms, 10, flag=T)
                     fast <- T
@@ -220,7 +220,7 @@ dDAGtermSim <- function (g, terms=NULL, method=c("Resnik","Lin","Schlicker","Jia
                         x[js] <- res
                         x
                     }
-                }
+                })
     
             }
 
