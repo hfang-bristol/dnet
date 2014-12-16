@@ -75,8 +75,14 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
     
     if ("weight" %in% list.edge.attributes(ig)){
         adjM <- get.adjacency(ig, type="both", attr="weight", edges=F, names=T, sparse=getIgraphOpt("sparsematrices"))
+        if(verbose){
+            message(sprintf("\tNotes: using weighted graph!"), appendLF=T)
+        }
     }else{
         adjM <- get.adjacency(ig, type="both", attr=NULL, edges=F, names=T, sparse=getIgraphOpt("sparsematrices"))
+        if(verbose){
+            message(sprintf("\tNotes: using unweighted graph!"), appendLF=T)
+        }
     }
     
     if(verbose){
@@ -134,9 +140,53 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
         #col_sum <- apply(PTmatrix, 2, sum)
         col_sum <- Matrix::colSums(PTmatrix, sparseResult=F)
         col_sum_matrix <- matrix(rep(col_sum, nrow(PTmatrix)), ncol=ncol(PTmatrix), nrow=nrow(PTmatrix), byrow =T)
-        res <- as.matrix(PTmatrix/col_sum_matrix)
+        res <- as.matrix(PTmatrix)/col_sum_matrix
         res[is.na(res)] <- 0
         return(res)
+    }
+    
+    ## a function to normalize columns of a matrix to have the same Quantiles
+    normalizeQuantiles <- function (A, ties=TRUE) {
+        n <- dim(A)
+        if(is.null(n)) return(A)
+        if(n[2] == 1) return(A)
+        O <- S <- array(, n)
+        nobs <- rep(n[1], n[2])
+        i <- (0:(n[1] - 1))/(n[1] - 1)
+        for(j in 1:n[2]){
+            Si <- sort(A[, j], method = "quick", index.return = TRUE)
+            nobsj <- length(Si$x)
+            if (nobsj < n[1]){
+                nobs[j] <- nobsj
+                isna <- is.na(A[, j])
+                S[, j] <- approx((0:(nobsj - 1))/(nobsj - 1), Si$x, 
+                    i, ties = "ordered")$y
+                O[!isna, j] <- ((1:n[1])[!isna])[Si$ix]
+            }else{
+                S[, j] <- Si$x
+                O[, j] <- Si$ix
+            }
+        }
+        m <- rowMeans(S)
+        for (j in 1:n[2]){
+            if(ties) r<-rank(A[, j])
+            if(nobs[j] < n[1]){
+                isna <- is.na(A[, j])
+                if(ties){ 
+                    A[!isna, j] <- stats::approx(i, m, (r[!isna] - 1)/(nobs[j] - 1), ties = "ordered")$y
+                }else{ 
+                    A[O[!isna, j], j] <- stats::approx(i, m, (0:(nobs[j] - 1))/(nobs[j] - 1), ties = "ordered")$y
+                }
+            }else{
+                if(ties){
+                    A[, j] <- stats::approx(i, m, (r - 1)/(n[1] - 1), ties = "ordered")$y
+                }else{
+                    A[O[, j], j] <- m
+                }
+            }
+        }
+    
+        return(A)
     }
     
     ####################################################
@@ -280,7 +330,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
     }
     
     ## make sure the sum of elements in each steady probability vector is one
-    PTmatrix <- sum2one(PTmatrix) # input: sparse matrix; output: full matrix
+    system.time(PTmatrix <- sum2one(PTmatrix)) # input: sparse matrix; output: full matrix
     
     if(0){
         ## make sure the sum of elements in each steady probability vector is one
@@ -293,50 +343,6 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
         })
         rownames(PTmatrix) <- rownames(P0matrix)
         colnames(PTmatrix) <- colnames(P0matrix)
-    }
-    ####################################################################################
-    ## a function to normalize columns of a matrix to have the same Quantiles
-    normalizeQuantiles <- function (A, ties=TRUE) {
-        n <- dim(A)
-        if(is.null(n)) return(A)
-        if(n[2] == 1) return(A)
-        O <- S <- array(, n)
-        nobs <- rep(n[1], n[2])
-        i <- (0:(n[1] - 1))/(n[1] - 1)
-        for(j in 1:n[2]){
-            Si <- sort(A[, j], method = "quick", index.return = TRUE)
-            nobsj <- length(Si$x)
-            if (nobsj < n[1]){
-                nobs[j] <- nobsj
-                isna <- is.na(A[, j])
-                S[, j] <- approx((0:(nobsj - 1))/(nobsj - 1), Si$x, 
-                    i, ties = "ordered")$y
-                O[!isna, j] <- ((1:n[1])[!isna])[Si$ix]
-            }else{
-                S[, j] <- Si$x
-                O[, j] <- Si$ix
-            }
-        }
-        m <- rowMeans(S)
-        for (j in 1:n[2]){
-            if(ties) r<-rank(A[, j])
-            if(nobs[j] < n[1]){
-                isna <- is.na(A[, j])
-                if(ties){ 
-                    A[!isna, j] <- stats::approx(i, m, (r[!isna] - 1)/(nobs[j] - 1), ties = "ordered")$y
-                }else{ 
-                    A[O[!isna, j], j] <- stats::approx(i, m, (0:(nobs[j] - 1))/(nobs[j] - 1), ties = "ordered")$y
-                }
-            }else{
-                if(ties){
-                    A[, j] <- stats::approx(i, m, (r - 1)/(n[1] - 1), ties = "ordered")$y
-                }else{
-                    A[O[, j], j] <- m
-                }
-            }
-        }
-    
-        return(A)
     }
     
     ####################################################################################
