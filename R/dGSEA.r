@@ -150,6 +150,7 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
         load_EG <- EG_local[load_flag]
         load(load_EG)
     }
+    EG <- ''
     eval(parse(text=paste("EG <- org.", genome, ".eg", sep="")))
     
     if(verbose){
@@ -284,6 +285,7 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
             load_GS <- GS_local[load_flag]
             load(load_GS)
         }
+        GS <- ''
         eval(parse(text=paste("GS <- org.", genome, ".eg", ontology, sep="")))
     
         if(verbose){

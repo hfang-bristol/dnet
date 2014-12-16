@@ -128,8 +128,8 @@ visNetCircle <- function(g, com, circles=c("single","multiple"), newpage=T, orde
     vcolors <- mcolors[vgroups]
     
     mark.groups <- communities(com)
-    mark.col <- visColoralpha(mcolors, alpha=0.2)
-    mark.border <- visColoralpha(mcolors, alpha=0.8)
+    mark.col <- supraHex::visColoralpha(mcolors, alpha=0.2)
+    mark.border <- supraHex::visColoralpha(mcolors, alpha=0.8)
     
     if(length(edge.color.within) & length(edge.color.crossing)){
         within_crossing <- c(edge.color.within,edge.color.crossing)

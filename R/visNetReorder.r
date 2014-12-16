@@ -3,7 +3,7 @@
 #' \code{visNetReorder} is supposed to visualise the multiple graph colorings reorded within a sheet-shape rectangle grid
 #'
 #' @param g an object of class "igraph" or "graphNEL"
-#' @param data an input data matrix used to color-code vertices/nodes. One column corresponds to one graph node coloring. The input matrix must have row names, and these names should include all node names of input graph, i.e. V(g)$name, since there is a mapping operation. After mapping, the length of the patern vector should be the same as the number of nodes of input graph. The way of how to color-code is to map values in the pattern onto the whole colormap (see the next arguments: colormap, ncolors, zlim and colorbar)
+#' @param data an input data matrix used to color-code vertices/nodes. One column corresponds to one graph node coloring. The input matrix must have row names, and these names should include all node names of input graph, i.e. V(g)$name, since there is a mapping operation. After mapping, the length of the pattern vector should be the same as the number of nodes of input graph. The way of how to color-code is to map values in the pattern onto the whole colormap (see the next arguments: colormap, ncolors, zlim and colorbar)
 #' @param height a numeric value specifying the height of device
 #' @param sReorder an object of class "sReorder"
 #' @param margin margins as units of length 4 or 1

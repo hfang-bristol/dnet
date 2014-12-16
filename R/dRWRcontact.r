@@ -177,6 +177,7 @@ dRWRcontact <- function(data, g, Amatrix, permutation=c("random","degree"), num.
 
         flag_parallel <- dCheckParallel(multicores=multicores, verbose=verbose)
         if(flag_parallel){
+            b <- 1
             exp_b <- foreach::`%dopar%` (foreach::foreach(b=1:B, .inorder=T), {
                 progress_indicate(b, B, 10, flag=T)
                 if(permutation=="degree"){
@@ -195,8 +196,8 @@ dRWRcontact <- function(data, g, Amatrix, permutation=c("random","degree"), num.
     
     ###### non-parallel computing
     if(flag_parallel==F){
-        exp_b <- list()
-        for (b in 1:B){
+        #exp_b <- list()
+        exp_b <- lapply(1:B, function(b){
             progress_indicate(b, B, 10, flag=T)
         
             if(permutation=="degree"){
@@ -210,8 +211,9 @@ dRWRcontact <- function(data, g, Amatrix, permutation=c("random","degree"), num.
             ## make sure the sum of elements in each steady probability vector is one
             PT_random <- sum2one(PT_random)
         
-            exp_b[[b]] <- as.matrix(t(as.matrix(PT_random)) %*% PT_random)
-        }
+            #exp_b[[b]] <- as.matrix(t(as.matrix(PT_random)) %*% PT_random)
+            as.matrix(t(as.matrix(PT_random)) %*% PT_random)
+        })
     }
     
     if(verbose){

@@ -222,7 +222,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
 
             flag_parallel <- dCheckParallel(multicores=multicores, verbose=verbose)
             if(flag_parallel){
-                    
+                j <- 1
                 PTmatrix <- foreach::`%dopar%` (foreach::foreach(j=1:ncol(P0matrix), .inorder=T, .combine='cbind'), {
                     progress_indicate(j, ncol(P0matrix), 100, flag=T)
                     P0 <- P0matrix[,j]

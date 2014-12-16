@@ -148,6 +148,7 @@ dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity
         load_EG <- EG_local[load_flag]
         load(load_EG)
     }
+    EG <- ''
     eval(parse(text=paste("EG <- org.", genome, ".eg", sep="")))
     
     if(verbose){
@@ -200,6 +201,7 @@ dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity
         load_GS <- GS_local[load_flag]
         load(load_GS)
     }
+    GS <- ''
     eval(parse(text=paste("GS <- org.", genome, ".eg", ontology, sep="")))
     
     if(verbose){
@@ -554,6 +556,7 @@ dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity
             load_g <- g_local[load_flag]
             load(load_g)
         }
+        g <- ''
         eval(parse(text=paste("g <- ig.", ontology, sep="")))
         
         if(verbose){
