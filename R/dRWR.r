@@ -131,9 +131,10 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
     
     ## A function to make sure the sum of elements in each steady probability vector is one
     sum2one <- function(PTmatrix){
-        col_sum <- apply(PTmatrix, 2, sum)
+        #col_sum <- apply(PTmatrix, 2, sum)
+        col_sum <- Matrix::colSums(PTmatrix, sparseResult=F)
         col_sum_matrix <- matrix(rep(col_sum, nrow(PTmatrix)), ncol=ncol(PTmatrix), nrow=nrow(PTmatrix), byrow =T)
-        res <- PTmatrix/col_sum_matrix
+        res <- as.matrix(PTmatrix/col_sum_matrix)
         res[is.na(res)] <- 0
         return(res)
     }
@@ -279,19 +280,19 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
     }
     
     ## make sure the sum of elements in each steady probability vector is one
-    PTmatrix <- sum2one(PTmatrix)
+    PTmatrix <- sum2one(PTmatrix) # input: sparse matrix; output: full matrix
     
     if(0){
-    ## make sure the sum of elements in each steady probability vector is one
-    PTmatrix <- sapply(1:ncol(PTmatrix), function(i){
-        if(sum(PTmatrix[,i])!=0){
-            PTmatrix[,i]/sum(PTmatrix[,i])
-        }else{
-            PTmatrix[,i]
-        }
-    })
-    rownames(PTmatrix) <- rownames(P0matrix)
-    colnames(PTmatrix) <- colnames(P0matrix)
+        ## make sure the sum of elements in each steady probability vector is one
+        PTmatrix <- sapply(1:ncol(PTmatrix), function(i){
+            if(sum(PTmatrix[,i])!=0){
+                PTmatrix[,i]/sum(PTmatrix[,i])
+            }else{
+                PTmatrix[,i]
+            }
+        })
+        rownames(PTmatrix) <- rownames(P0matrix)
+        colnames(PTmatrix) <- colnames(P0matrix)
     }
     ####################################################################################
     ## a function to normalize columns of a matrix to have the same Quantiles
@@ -342,7 +343,6 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
     if(ncol(PTmatrix) == 1){
         normalise.affinity.matrix <- "none"
     }
-    
     if(normalise.affinity.matrix=="quantile"){
         PTmatrix <- normalizeQuantiles(PTmatrix)
     }
