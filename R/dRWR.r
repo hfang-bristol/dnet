@@ -137,8 +137,8 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
     
     ## A function to make sure the sum of elements in each steady probability vector is one
     sum2one <- function(PTmatrix){
-        #col_sum <- apply(PTmatrix, 2, sum)
-        col_sum <- Matrix::colSums(PTmatrix, sparseResult=F)
+        col_sum <- apply(PTmatrix, 2, sum)
+        #col_sum <- Matrix::colSums(PTmatrix, sparseResult=F)
         col_sum_matrix <- matrix(rep(col_sum, nrow(PTmatrix)), ncol=ncol(PTmatrix), nrow=nrow(PTmatrix), byrow =T)
         res <- as.matrix(PTmatrix)/col_sum_matrix
         res[is.na(res)] <- 0
@@ -293,7 +293,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
                 })
                     
                 PTmatrix[PTmatrix<1e-6] <- 0
-                PTmatrix <- Matrix::Matrix(PTmatrix, sparse=T)
+                #PTmatrix <- Matrix::Matrix(PTmatrix, sparse=T)
             }
         }
         
@@ -321,7 +321,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
                 }
                 #PTmatrix[,j] <- as.matrix(PT, ncol=1)
                 PT[PT<1e-6] <- 0
-                PTmatrix[,j] <- Matrix::Matrix(PT, sparse=T)
+                #PTmatrix[,j] <- Matrix::Matrix(PT, sparse=T)
             
                 progress_indicate(j, ncol(P0matrix), 100, flag=T)
         
@@ -330,7 +330,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
     }
     
     ## make sure the sum of elements in each steady probability vector is one
-    system.time(PTmatrix <- sum2one(PTmatrix)) # input: sparse matrix; output: full matrix
+    PTmatrix <- sum2one(PTmatrix) # input/output: full matrix
     
     if(0){
         ## make sure the sum of elements in each steady probability vector is one

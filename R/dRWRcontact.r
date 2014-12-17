@@ -157,7 +157,7 @@ dRWRcontact <- function(data, g, Amatrix, permutation=c("random","degree"), num.
     PTmatrix <- sAmatrix %*% Matrix::Matrix(P0matrix, sparse=T)
     
     ## make sure the sum of elements in each steady probability vector is one
-    PTmatrix <- sum2one(PTmatrix)
+    PTmatrix <- sum2one(as.matrix(PTmatrix))
     
     ####################################################
     if(verbose){
@@ -188,7 +188,7 @@ dRWRcontact <- function(data, g, Amatrix, permutation=c("random","degree"), num.
                 }
                 PT_random <- sAmatrix %*% Matrix::Matrix(seeds_random, sparse=T)
                 ## make sure the sum of elements in each steady probability vector is one
-                PT_random <- sum2one(PT_random)
+                PT_random <- sum2one(as.matrix(PT_random))
                 as.matrix(t(as.matrix(PT_random)) %*% PT_random)
             })
         }
@@ -209,7 +209,7 @@ dRWRcontact <- function(data, g, Amatrix, permutation=c("random","degree"), num.
         
             PT_random <- sAmatrix %*% Matrix::Matrix(seeds_random, sparse=T)
             ## make sure the sum of elements in each steady probability vector is one
-            PT_random <- sum2one(PT_random)
+            PT_random <- sum2one(as.matrix(PT_random))
         
             #exp_b[[b]] <- as.matrix(t(as.matrix(PT_random)) %*% PT_random)
             as.matrix(t(as.matrix(PT_random)) %*% PT_random)

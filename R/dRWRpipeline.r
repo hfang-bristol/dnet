@@ -160,7 +160,7 @@ dRWRpipeline <- function(data, g, method=c("direct","indirect"), normalise=c("la
         PTmatrix <- sAmatrix %*% Matrix::Matrix(P0matrix, sparse=T)
         
         ## make sure the sum of elements in each steady probability vector is one
-        PTmatrix <- sum2one(PTmatrix)
+        PTmatrix <- sum2one(as.matrix(PTmatrix))
         
     }else if(method=='direct'){
     
@@ -204,7 +204,7 @@ dRWRpipeline <- function(data, g, method=c("direct","indirect"), normalise=c("la
                 if(method=='indirect'){
                     PT_random <- sAmatrix %*% Matrix::Matrix(seeds_random, sparse=T)
                     ## make sure the sum of elements in each steady probability vector is one
-                    PT_random <- sum2one(PT_random)
+                    PT_random <- sum2one(as.matrix(PT_random))
                 }else if(method=='direct'){
                     PT_random <- suppressWarnings(suppressMessages(dRWR(g=ig, normalise=normalise, setSeeds=seeds_random, restart=restart, normalise.affinity.matrix=normalise.affinity.matrix, parallel=parallel, multicores=multicores)))
                     PTmatrix <- Matrix::Matrix(PTmatrix, sparse=T)
@@ -230,7 +230,7 @@ dRWRpipeline <- function(data, g, method=c("direct","indirect"), normalise=c("la
             if(method=='indirect'){
                 PT_random <- sAmatrix %*% Matrix::Matrix(seeds_random, sparse=T)
                 ## make sure the sum of elements in each steady probability vector is one
-                PT_random <- sum2one(PT_random)
+                PT_random <- sum2one(as.matrix(PT_random))
             }else if(method=='direct'){
                 PT_random <- suppressWarnings(suppressMessages(dRWR(g=ig, normalise=normalise, setSeeds=seeds_random, restart=restart, normalise.affinity.matrix=normalise.affinity.matrix)))
                 PTmatrix <- Matrix::Matrix(PTmatrix, sparse=T)
