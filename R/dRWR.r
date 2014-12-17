@@ -322,6 +322,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
                 #PTmatrix[,j] <- as.matrix(PT, ncol=1)
                 PT[PT<1e-6] <- 0
                 #PTmatrix[,j] <- Matrix::Matrix(PT, sparse=T)
+                PTmatrix[,j] <- PT
             
                 progress_indicate(j, ncol(P0matrix), 100, flag=T)
         
