@@ -331,6 +331,10 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
     }
     
     ## make sure the sum of elements in each steady probability vector is one
+    if(verbose){
+        now <- Sys.time()
+        message(sprintf("Fourth, rescale steady probability vector (%s) ...", as.character(now)), appendLF=T)
+    }
     PTmatrix <- sum2one(PTmatrix) # input/output: full matrix
     
     if(0){

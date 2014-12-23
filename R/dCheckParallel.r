@@ -55,11 +55,11 @@ dCheckParallel <- function (multicores=NULL, verbose=T)
             doMC::registerDoMC()
             cores <- foreach::getDoParWorkers()
             if(is.null(multicores)){
-                multicores <- max(1, ceiling(cores*0.5))
+                multicores <- max(1, ceiling(cores))
             }else if(is.na(multicores)){
-                multicores <- max(1, ceiling(cores*0.5))
-            }else if(multicores < 1 | multicores > cores){
-                multicores <- max(1, ceiling(cores*0.5))
+                multicores <- max(1, ceiling(cores))
+            }else if(multicores < 1 | multicores > 2*cores){
+                multicores <- max(1, ceiling(cores))
             }else{
                 multicores <- as.integer(multicores)
             }
