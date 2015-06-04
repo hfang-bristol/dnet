@@ -10,6 +10,7 @@ R (http://www.r-project.org) is a language and environment for statistical compu
 Assume you have a `ROOT (sudo)` privilege:
     
     sudo su
+    # here enter your password
     wget http://www.stats.bris.ac.uk/R/src/base/R-3/R-3.2.0.tar.gz
     tar xvfz R-3.2.0.tar.gz
     cd R-3.2.0
@@ -24,7 +25,7 @@ Assume you do not have a ROOT privilege and want R installation under your home 
     wget http://www.stats.bris.ac.uk/R/src/base/R-3/R-3.2.0.tar.gz
     tar xvfz R-3.2.0.tar.gz
     cd R-3.2.0
-    ./configure --prefix=/home/hfang/R-3.2.0
+    ./configure --prefix=/home/hfang/R-3.2.0 # Alternatively: ./configure --prefix=$HOME/R-3.2.0
     make
     make check
     make install
@@ -46,7 +47,7 @@ Second, install the package `dnet` under [stable release version hosted in CRAN]
 Third (`highly recommended`), update the package `dnet` from [latest development version hosted in GitHub](https://github.com/hfang-bristol/dnet):
 
     library(devtools)
-    if(!("dnet" %in% rownames(installed.packages()))) remove.packages("dnet")
+    if("dnet" %in% rownames(installed.packages())) remove.packages("dnet")
     install_github(c("hfang-bristol/dnet"))
 
 ## 3. Workflow of the package
