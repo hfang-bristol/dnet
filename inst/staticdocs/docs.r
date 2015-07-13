@@ -55,8 +55,9 @@ list(
                 "ig.GOBP",
                 "ig.GOCC",
                 "ig.HPPA",
-                "ig.HPON",
                 "ig.HPMI",
+                "ig.HPCM",
+                "ig.HPMA",
                 "ig.DO",
                 "ig.MP",
                 "dDAGinduce",
@@ -72,7 +73,7 @@ list(
             )
         ),
         sd_section("Built-in databases in human",
-            "These databases are used for analysis (i.e. enrichment, evolution and network analysis) in human (Hs; tax_id=10090).",
+            "These databases are used for analysis (i.e. enrichment, evolution and network analysis) in human (Hs; tax_id=9606).",
             c(
                 "org.Hs.eg",
                 "org.Hs.egDO", 
@@ -80,19 +81,20 @@ list(
                 "org.Hs.egGOCC",
                 "org.Hs.egGOMF",
                 "org.Hs.egHPMI", 
-                "org.Hs.egHPON",
+                "org.Hs.egHPCM",
+                "org.Hs.egHPMA",
                 "org.Hs.egHPPA",
                 "org.Hs.egMP",
                 "org.Hs.egPS",
                 "org.Hs.egSF",  
                 "org.Hs.egDGIdb",              
-                "org.Hs.string",
-                "org.Hs.string900"
+                "org.Hs.string"
             )
         ),
         sd_section("Built-in genesets in human",
             "These genesets are derived from the molecular signatures database (Msigdb) in human (Hs).",
             c(
+                "org.Hs.egMsigdbH",
                 "org.Hs.egMsigdbC1",
                 "org.Hs.egMsigdbC2CGP", 
                 "org.Hs.egMsigdbC2CP",
@@ -119,7 +121,8 @@ list(
                 "org.Mm.egGOCC",
                 "org.Mm.egGOMF",
                 "org.Mm.egHPMI", 
-                "org.Mm.egHPON",
+                "org.Mm.egHPCM",
+                "org.Mm.egHPMA",
                 "org.Mm.egHPPA",
                 "org.Mm.egMP",
                 "org.Mm.egPS",

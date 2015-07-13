@@ -9,7 +9,7 @@ data(org.Hs.egHPPA)
 }
 
 \description{
-An R object that contains associations between Human Phenotype Phenotypic Abnormality terms and Human Entrez Genes. This data is first prepared based on \url{http://compbio.charite.de/svn/hpo/trunk/src/ontology/human-phenotype-ontology.obo} and  \url{http://compbio.charite.de/hudson/job/hpo.annotations.monthly/lastStableBuild/artifact/annotation/ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt}.
+An R object that contains associations between HPPA terms and Human Entrez Genes. This data is first prepared based on \url{http://purl.obolibrary.org/obo/hp.obo} and  \url{http://compbio.charite.de/hudson/job/hpo.annotations.monthly/lastStableBuild/artifact/annotation/ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt}.
 }
 
 \value{

@@ -60,7 +60,7 @@ for(i in 1:nrow(md_selected)){
 names(HR) <- rownames(md_selected)
 names(pvals) <- rownames(md_selected)
 
-# An igraph object that contains a functional protein association network in human. The network is extracted from the STRING database (version 9.1). Only those associations with medium confidence (score>=400) are retained.
+# An igraph object that contains a functional protein association network in human. The network is extracted from the STRING database (version 10). Only those associations with medium confidence (score>=400) are retained.
 org.Hs.string <- dRDataLoader(RData='org.Hs.string')
 # restrict to those edges with high confidence (score>=700)
 network <- subgraph.edges(org.Hs.string, eids=E(org.Hs.string)[combined_score>=700])
@@ -75,7 +75,7 @@ V(network)$name <- V(network)$symbol
 network
 
 # Identification of gene-active network
-net <- dNetPipeline(g=network, pval=pvals, method="customised", significance.threshold=3e-02)
+net <- dNetPipeline(g=network, pval=pvals, method="customised", significance.threshold=2.5e-02)
 net
 
 # visualisation of the gene-active network itself

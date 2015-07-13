@@ -6,7 +6,7 @@
 #' @param identity the type of gene identity (i.e. row names of input data), either "symbol" for gene symbols (by default) or "entrez" for Entrez Gene ID. The option "symbol" is preferred as it is relatively stable from one update to another; also it is possible to search against synonyms (see the next parameter)
 #' @param check.symbol.identity logical to indicate whether synonyms will be searched against when gene symbols cannot be matched. By default, it sets to FALSE since it may take a while to do such check using all possible synoyms
 #' @param genome the genome identity. It can be one of "Hs" for human, "Mm" for mouse, "Rn" for rat, "Gg" for chicken, "Ce" for c.elegans, "Dm" for fruitfly, "Da" for zebrafish, and "At" for arabidopsis
-#' @param ontology the ontology supported currently. It can be "GOBP" for Gene Ontology Biological Process, "GOMF" for Gene Ontology Molecular Function, "GOCC" for Gene Ontology Cellular Component, "PS" for phylostratific age information, "PS2" for the collapsed PS version (inferred ancestors being collapsed into one with the known taxonomy information), "SF" for domain superfamily assignments, "DO" for Disease Ontology, "HPPA" for Human Phenotype Phenotypic Abnormality, "HPMI" for Human Phenotype Mode of Inheritance, "HPON" for Human Phenotype ONset and clinical course, "MP" for Mammalian Phenotype, and Drug-Gene Interaction database (DGIdb) and the molecular signatures database (Msigdb) only in human (including "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7"). Note: These four ("GOBP", "GOMF", "GOCC" and "PS") are availble for all genomes/species; for "Hs" and "Mm", these five ("DO", "HPPA", "HPMI", "HPON" and "MP") are also supported; all "Msigdb" are only supported in "Hs". For details on the eligibility for pairs of input genome and ontology, please refer to the online Documentations at \url{http://supfam.org/dnet/docs.html}
+#' @param ontology the ontology supported currently. It can be "GOBP" for Gene Ontology Biological Process, "GOMF" for Gene Ontology Molecular Function, "GOCC" for Gene Ontology Cellular Component, "PS" for phylostratific age information, "PS2" for the collapsed PS version (inferred ancestors being collapsed into one with the known taxonomy information), "SF" for domain superfamily assignments, "DO" for Disease Ontology, "HPPA" for Human Phenotype Phenotypic Abnormality, "HPMI" for Human Phenotype Mode of Inheritance, "HPCM" for Human Phenotype Clinical Modifier, "HPMA" for Human Phenotype Mortality Aging, "MP" for Mammalian Phenotype, and Drug-Gene Interaction database (DGIdb) and the molecular signatures database (Msigdb) only in human (including "MsigdbH", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7"). Note: These four ("GOBP", "GOMF", "GOCC" and "PS") are availble for all genomes/species; for "Hs" and "Mm", these six ("DO", "HPPA", "HPMI", "HPCM", "HPMA" and "MP") are also supported; all "Msigdb" are only supported in "Hs". For details on the eligibility for pairs of input genome and ontology, please refer to the online Documentations at \url{http://supfam.org/dnet/docs.html}
 #' @param sizeRange the minimum and maximum size of members of each gene set in consideration. By default, it sets to a minimum of 10 but no more than 1000
 #' @param min.overlap the minimum number of overlaps. Only those gene sets that overlap with input data at least min.overlap (3 by default) will be processed
 #' @param which_distance which distance of terms in the ontology is used to restrict terms in consideration. By default, it sets to 'NULL' to consider all distances
@@ -16,7 +16,7 @@
 #' @param elim.pvalue the parameter only used when "ontology.algorithm" is "elim". It is used to control how to declare a signficantly enriched term (and subsequently all genes in this term are eliminated from all its ancestors)
 #' @param lea.depth the parameter only used when "ontology.algorithm" is "lea". It is used to control how many maximum depth is uded to consider the children of a term (and subsequently all genes in these children term are eliminated from the use for the recalculation of the signifance at this term)
 #' @param verbose logical to indicate whether the messages will be displayed in the screen. By default, it sets to false for no display
-#' @param RData.location the characters to tell the location of built-in RData files. By default, it remotely locates at \url{http://supfam.org/dnet/data} or \url{http://dnet.r-forge.r-project.org/data}. For the user equipped with fast internet connection, this option can be just left as default. But it is always advisable to download these files locally. Especially when the user needs to run this function many times, there is no need to ask the function to remotely download every time (also it will unnecessarily increase the runtime). For examples, these files (as a whole or part of them) can be first downloaded into your current working directory, and then set this option as: \eqn{RData.location="."}. Surely, the location can be anywhere as long as the user provides the correct path pointing to (otherwise, the script will have to remotely download each time). Here is the UNIX command for downloading all RData files (preserving the directory structure): \eqn{wget -r -l2 -A "*.RData" -np -nH --cut-dirs=0 "http://dnet.r-forge.r-project.org/data"}
+#' @param RData.location the characters to tell the location of built-in RData files. By default, it remotely locates at \url{http://dnet.r-forge.r-project.org/data}. For the user equipped with fast internet connection, this option can be just left as default. But it is always advisable to download these files locally. Especially when the user needs to run this function many times, there is no need to ask the function to remotely download every time (also it will unnecessarily increase the runtime). For examples, these files (as a whole or part of them) can be first downloaded into your current working directory, and then set this option as: \eqn{RData.location="."}. Surely, the location can be anywhere as long as the user provides the correct path pointing to (otherwise, the script will have to remotely download each time). Here is the UNIX command for downloading all RData files (preserving the directory structure): \eqn{wget -r -l2 -A "*.RData" -np -nH --cut-dirs=0 "http://dnet.r-forge.r-project.org/data"}
 #' @return 
 #' an object of class "eTerm", a list with following components:
 #' \itemize{
@@ -48,12 +48,12 @@
 #' data
 #' 
 #' # enrichment analysis
-#' eTerm <- dEnricher(data, identity="symbol", genome="Hs", ontology="DO")
+#' eTerm <- dEnricher(data, identity="symbol", genome="Hs", ontology="HPPA")
 #' dEnricherView(eTerm, top_num=10, sortBy="adjp", decreasing=FALSE, details=TRUE)
 #'
 #' # visualise the top significant terms in the ontology hierarchy
-#' ig.DO <- dRDataLoader(RData='ig.DO')
-#' g <- ig.DO
+#' ig.HPPA <- dRDataLoader(RData='ig.HPPA')
+#' g <- ig.HPPA
 #' nodes_query <- names(sort(eTerm$adjp)[1:5])
 #' nodes.highlight <- rep("red", length(nodes_query))
 #' names(nodes.highlight) <- nodes_query
@@ -64,7 +64,7 @@
 #' visDAG(g=subg, data=eTerm$zscore[V(subg)$name], node.info="both", colormap="darkblue-white-darkorange", node.attrs=list(color=nodes.highlight))
 #' }
 
-dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FALSE, genome=c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"), ontology=c("GOBP","GOMF","GOCC","PS","PS2","SF","DO","HPPA","HPMI","HPON","MP", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7", "DGIdb"), sizeRange=c(10,1000), min.overlap=3, which_distance=NULL, test=c("HypergeoTest","FisherTest","BinomialTest"), p.adjust.method=c("BH", "BY", "bonferroni", "holm", "hochberg", "hommel"), ontology.algorithm=c("none","pc","elim","lea"), elim.pvalue=1e-2, lea.depth=2, verbose=T, RData.location="http://supfam.org/dnet/data")
+dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FALSE, genome=c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"), ontology=c("GOBP","GOMF","GOCC","PS","PS2","SF","DO","HPPA","HPMI","HPCM","HPMA","MP", "MsigdbH", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7", "DGIdb"), sizeRange=c(10,1000), min.overlap=3, which_distance=NULL, test=c("HypergeoTest","FisherTest","BinomialTest"), p.adjust.method=c("BH", "BY", "bonferroni", "holm", "hochberg", "hommel"), ontology.algorithm=c("none","pc","elim","lea"), elim.pvalue=1e-2, lea.depth=2, verbose=T, RData.location="http://supfam.org/dnet/data")
 {
     startT <- Sys.time()
     message(paste(c("Start at ",as.character(startT)), collapse=""), appendLF=T)
@@ -85,153 +85,55 @@ dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity
         stop("The input data must be a vector.\n")
     }
     
-    if(verbose){
-        now <- Sys.time()
-        message(sprintf("First, load the ontology %s and its gene associations in the genome %s (%s) ...", ontology, genome, as.character(now)), appendLF=T)
-    }
     
-    ###############################
-    ## check the eligibility for pairs of input genome and ontology
-    all.ontologies <- c("GOBP","GOMF","GOCC","PS","PS2","SF","DO","HPPA","HPMI","HPON","MP", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7", "DGIdb")
-    possible.ontologies <- switch(genome,
-                       Hs = all.ontologies[c(1:6, 7:11, 12:26, 27)],
-                       Mm = all.ontologies[c(1:6, 7:11)],
-                       Rn = all.ontologies[c(1:6)],
-                       Gg = all.ontologies[c(1:6)],
-                       Ce = all.ontologies[c(1:6)],
-                       Dm = all.ontologies[c(1:6)],
-                       Da = all.ontologies[c(1:6)],
-                       At = all.ontologies[c(1:6)]
-                       )
-    if(!(ontology %in% possible.ontologies)){
-        stop(sprintf("The input pair of genome (%s) and ontology (%s) are not supported.\nThe supported ontologies in genome (%s): %s.\n", genome, ontology, genome, paste(possible.ontologies,collapse=", ")))
-    }
-
-    ###############################
-    ## make sure there is no "/" at the end
-    path_host <- gsub("/$", "", RData.location)
-    if(path_host=="" || length(path_host)==0 || is.na(path_host)){
-        path_host <- "http://dnet.r-forge.r-project.org/data"
-    }
-
-    #########
-    ## load Enterz Gene information
-    EG <- list()
-    load_EG_remote <- paste(path_host, "/", genome, "/org.", genome, ".eg.RData", sep="")
-    load_EG_local1 <- file.path(path_host, paste("data/", genome, "/org.", genome, ".eg.RData", sep=""))
-    load_EG_local2 <- file.path(path_host, paste(genome, "/org.", genome, ".eg.RData", sep=""))
-    load_EG_local3 <- file.path(path_host, paste("org.", genome, "/org.", genome, ".eg.RData", sep=""))
-    ## first, load local R files
-    EG_local <- c(load_EG_local1, load_EG_local2, load_EG_local3)
-    load_flag <- sapply(EG_local, function(x){
-        if(.Platform$OS.type=="windows") x <- gsub("/", "\\\\", x)
-        ifelse(file.exists(x), TRUE, FALSE)
-    })
-    ## otherwise, load remote R files
-    if(sum(load_flag)==0){
-        con <- url(load_EG_remote)
-        if(class(suppressWarnings(try(load(con), T)))=="try-error"){
-            load_EG_remote <- paste("http://dnet.r-forge.r-project.org/data/", genome, "/org.", genome, ".eg.RData", sep="")
-            con <- url(load_EG_remote)
-            if(class(suppressWarnings(try(load(con), T)))=="try-error"){
-                load_EG_remote <- paste("http://supfam.org/dnet/data/", genome, "/org.", genome, ".eg.RData", sep="")
-                con <- url(load_EG_remote)
-                if(class(suppressWarnings(try(load(con), T)))=="try-error"){
-                    stop("Built-in Rdata files cannot be loaded. Please check your internet connection or their location in your local machine.\n")
-                }
-            }
-        }
-        close(con)
-        
-        load_EG <- load_EG_remote
-    }else{
-        load_EG <- EG_local[load_flag]
-        load(load_EG)
-    }
-    EG <- ''
-    eval(parse(text=paste("EG <- org.", genome, ".eg", sep="")))
+    if(!is.na(genome) & !is.na(ontology)){
+	
+		if(verbose){
+			now <- Sys.time()
+			message(sprintf("First, load the ontology %s and its gene associations in the genome %s (%s) ...", ontology, genome, as.character(now)), appendLF=T)
+		}
     
-    if(verbose){
-        message(sprintf("\tLoad Enterz Gene information from %s", load_EG), appendLF=T)
-    }
+		#########
+		## load Enterz Gene information
+    	EG <- dRDataLoader(paste('org.', genome, '.eg', sep=''), RData.location=RData.location)
+    	
+		#########
+		## load GS information
+		## flag the simplified version of PS
+		flag_PS2 <- FALSE
+		if(ontology=="PS2"){
+			flag_PS2 <- TRUE
+			ontology <- "PS"
+		}
+    	GS <- dRDataLoader(paste('org.', genome, '.eg', ontology, sep=''), RData.location=RData.location)
+    	
+		################
+		if(flag_PS2){
+			tmp <- as.character(unique(GS$set_info$name))
+			inds <- sapply(tmp,function(x) which(GS$set_info$name==x))
+		
+			## new set_info
+			set_info <- data.frame()
+			for(i in 1:length(inds)){
+				set_info<- rbind(set_info,as.matrix(GS$set_info[max(inds[[i]]),]))
+			}
+			## new gs
+			gs <- list()
+			for(i in 1:length(inds)){
+				gs[[i]] <- unlist(GS$gs[inds[[i]]], use.names=F)
+			}
+			names(gs) <- rownames(set_info)
+		
+			## new GS
+			GS$set_info <- set_info
+			GS$gs <- gs
+		}
+		################
+	
+	}else{
+		stop("There is no input for genome and/or ontology.\n")
+	}
     
-    #########
-    ## load annotation information
-    genome_location <- genome
-    if(length(grep("Msigdb",ontology))>0){
-        genome_location <- "Msigdb"
-    }
-    
-    ## flag the simplified version of PS
-    flag_PS2 <- FALSE
-    if(ontology=="PS2"){
-        flag_PS2 <- TRUE
-        ontology <- "PS"
-    }
-    
-    GS <- list()
-    load_GS_remote <- paste(path_host, "/", genome_location, "/org.", genome, ".eg", ontology, ".RData", sep="")
-    load_GS_local1 <- file.path(path_host, paste("data/", genome_location, "/org.", genome, ".eg", ontology, ".RData", sep=""))
-    load_GS_local2 <- file.path(path_host, paste(genome_location, "/org.", genome, ".eg", ontology, ".RData", sep=""))
-    load_GS_local3 <- file.path(path_host, paste("org.", genome, ".eg", ontology, ".RData", sep=""))
-    ## first, load local R files
-    GS_local <- c(load_GS_local1, load_GS_local2, load_GS_local3)
-    load_flag <- sapply(GS_local, function(x){
-        if(.Platform$OS.type=="windows") x <- gsub("/", "\\\\", x)
-        ifelse(file.exists(x), TRUE, FALSE)
-    })
-    ## otherwise, load remote R files
-    if(sum(load_flag)==0){
-        con <- url(load_GS_remote)
-        if(class(suppressWarnings(try(load(con), T)))=="try-error"){
-            load_GS_remote <- paste("http://dnet.r-forge.r-project.org/data/", genome_location, "/org.", genome, ".eg", ontology, ".RData", sep="")
-            con <- url(load_GS_remote)
-            if(class(suppressWarnings(try(load(con), T)))=="try-error"){
-                load_GS_remote <- paste("http://supfam.org/dnet/data/", genome_location, "/org.", genome, ".eg", ontology, ".RData", sep="")
-                con <- url(load_GS_remote)
-                if(class(suppressWarnings(try(load(con), T)))=="try-error"){
-                    stop("Built-in Rdata files cannot be loaded. Please check your internet connection or their location in your local machine.\n")
-                }
-            }
-        }
-        close(con)
-        
-        load_GS <- load_GS_remote
-    }else{
-        load_GS <- GS_local[load_flag]
-        load(load_GS)
-    }
-    GS <- ''
-    eval(parse(text=paste("GS <- org.", genome, ".eg", ontology, sep="")))
-    
-    if(verbose){
-        message(sprintf("\tLoad annotation information from %s", load_GS), appendLF=T)
-    }
-    
-    
-    ################
-    if(flag_PS2){
-        tmp <- as.character(unique(GS$set_info$name))
-        inds <- sapply(tmp,function(x) which(GS$set_info$name==x))
-        
-        ## new set_info
-        set_info <- data.frame()
-        for(i in 1:length(inds)){
-            set_info<- rbind(set_info,as.matrix(GS$set_info[max(inds[[i]]),]))
-        }
-        ## new gs
-        gs <- list()
-        for(i in 1:length(inds)){
-            gs[[i]] <- unlist(GS$gs[inds[[i]]], use.names=F)
-        }
-        names(gs) <- rownames(set_info)
-        
-        ## new GS
-        GS$set_info <- set_info
-        GS$gs <- gs
-    }
-    
-    ################
     
     ###############################
     # A function converting from symbol to entrezgene
@@ -521,48 +423,11 @@ dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity
             now <- Sys.time()
             message(sprintf("Third, perform enrichment analysis using %s based on %s algorithm to respect ontology structure (%s) ...", test, ontology.algorithm, as.character(now)), appendLF=T)
         }
-    
-        ###############################
+        
+        #########
         ## load ontology information
-        g <- list()
-        load_g_remote <- paste(path_host, "/Obo/ig.", ontology, ".RData", sep="")
-        load_g_local1 <- file.path(path_host, paste("data/Obo/ig.", ontology, ".RData", sep=""))
-        load_g_local2 <- file.path(path_host, paste("Obo/ig.", ontology, ".RData", sep=""))
-        load_g_local3 <- file.path(path_host, paste("ig.", ontology, ".RData", sep=""))
-        ## first, load local R files
-        g_local <- c(load_g_local1, load_g_local2, load_g_local3)
-        load_flag <- sapply(g_local, function(x){
-            if(.Platform$OS.type=="windows") x <- gsub("/", "\\\\", x)
-            ifelse(file.exists(x), TRUE, FALSE)
-        })
-        ## otherwise, load remote R files
-        if(sum(load_flag)==0){
-            con <- url(load_g_remote)
-            if(class(suppressWarnings(try(load(con), T)))=="try-error"){
-                load_g_remote <- paste("http://dnet.r-forge.r-project.org/data/Obo/ig.", ontology, ".RData", sep="")
-                con <- url(load_g_remote)
-                if(class(suppressWarnings(try(load(con), T)))=="try-error"){
-                    load_g_remote <- paste("http://supfam.org/dnet/data/Obo/ig.", ontology, ".RData", sep="")
-                    con <- url(load_g_remote)
-                    if(class(suppressWarnings(try(load(con), T)))=="try-error"){
-                        stop("Built-in Rdata files cannot be loaded. Please check your internet connection or Rdata location in your local machine.\n")
-                    }
-                }
-            }
-            close(con)
-            
-            load_g <- load_g_remote
-        }else{
-            load_g <- g_local[load_flag]
-            load(load_g)
-        }
-        g <- ''
-        eval(parse(text=paste("g <- ig.", ontology, sep="")))
-        
-        if(verbose){
-            message(sprintf("\tLoad ontology information from %s", load_g), appendLF=T)
-        }
-        
+        g <- dRDataLoader(paste('ig.', ontology, sep=''), RData.location=RData.location)
+                
         ###############################
         subg <- dDAGinduce(g, terms, path.mode="all_paths")
         

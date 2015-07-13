@@ -3,7 +3,7 @@ As part of the package, the built-in RData (with `.RData` extension; available a
 
 * `Ontologies`
 
-Ontologies include Gene Ontology (GO) and its three subontologies (BP: Biological Process; MF: Molecular Function; CC: Cellular Component), Human Phenotype (HP) and its three subontologies (PA: Phenotypic Abnormality; ON: ONset and clinical course; MI: Mode of Inheritance), Disease Ontology (DO), and Mammalian Phenotype (MP). Terms in an ontology are organised as a direct acyclic graph (DAG), which is further stored as an object of the class [igraph](http://igraph.org/r/doc/aaa-igraph-package.html).
+Ontologies include Gene Ontology (GO) and its three subontologies (BP: Biological Process; MF: Molecular Function; CC: Cellular Component), Human Phenotype (HP) and its three subontologies (PA: Phenotypic Abnormality; CM: Clinical Modifier; MI: Mode of Inheritance; MA: Mortality Aging), Disease Ontology (DO), and Mammalian Phenotype (MP). Terms in an ontology are organised as a direct acyclic graph (DAG), which is further stored as an object of the class [igraph](http://igraph.org/r/doc/aaa-igraph-package.html).
 
 * `Organism-specific databases`
 
@@ -11,7 +11,7 @@ Organisms supported are: human (`Hs`; tax_id=10090), mouse (`Mm`; tax_id=10090),
 
 * `Genesets in human`
 
-These genesets are derived from the molecular signatures database.
+These genesets are derived from the molecular signatures database (Msigdb).
 
 * `Datasets as demos`
 

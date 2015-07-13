@@ -28,7 +28,7 @@ org.Hs.egMsigdbC2KEGG$set_info[1:3,]
 ## load the network for human Entrez Genes as an 'igraph' object
 org.Hs.string <- dRDataLoader(RData='org.Hs.string')
 org.Hs.string
-## This network is extracted from the STRING database (version 9.1). Only those associations with medium confidence (score>=400) are retained. And the users can restrict to those edges with high confidence (score>=700, for example)
+## This network is extracted from the STRING database. Only those associations with medium confidence (score>=400) are retained. And the users can restrict to those edges with high confidence (score>=700, for example)
 network <- igraph::subgraph.edges(org.Hs.string, eids=E(org.Hs.string)[combined_score>=700])
 network
 
