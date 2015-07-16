@@ -16,7 +16,7 @@
 #' @param sigTail the tail used to calculate the statistical significance. It can be either "two-tails" for the significance based on two-tails  or "one-tail" for the significance based on one tail
 #' @param p.adjust.method the method used to adjust p-values. It can be one of "BH", "BY", "bonferroni", "holm", "hochberg" and "hommel". The first two methods "BH" (widely used) and "BY" control the false discovery rate (FDR: the expected proportion of false discoveries amongst the rejected hypotheses); the last four methods "bonferroni", "holm", "hochberg" and "hommel" are designed to give strong control of the family-wise error rate (FWER). Notes: FDR is a less stringent condition than FWER
 #' @param verbose logical to indicate whether the messages will be displayed in the screen. By default, it sets to false for no display
-#' @param RData.location the characters to tell the location of built-in RData files. By default, it remotely locates at \url{http://dnet.r-forge.r-project.org/data}. For the user equipped with fast internet connection, this option can be just left as default. But it is always advisable to download these files locally. Especially when the user needs to run this function many times, there is no need to ask the function to remotely download every time (also it will unnecessarily increase the runtime). For examples, these files (as a whole or part of them) can be first downloaded into your current working directory, and then set this option as: \eqn{RData.location="."}. Surely, the location can be anywhere as long as the user provides the correct path pointing to (otherwise, the script will have to remotely download each time). Here is the UNIX command for downloading all RData files (preserving the directory structure): \eqn{wget -r -l2 -A "*.RData" -np -nH --cut-dirs=0 "http://dnet.r-forge.r-project.org/data"}
+#' @param RData.location the characters to tell the location of built-in RData files. By default, it remotely locates at \url{http://dnet.r-forge.r-project.org/RData}. Be aware of several versions and the latest one is matched to the current package version. For the user equipped with fast internet connection, this option can be just left as default. But it is always advisable to download these files locally. Especially when the user needs to run this function many times, there is no need to ask the function to remotely download every time (also it will unnecessarily increase the runtime). For examples, these files (as a whole or part of them) can be first downloaded into your current working directory, and then set this option as: \eqn{RData.location="."}. Surely, the location can be anywhere as long as the user provides the correct path pointing to (otherwise, the script will have to remotely download each time). Here is the UNIX command for downloading all RData files (preserving the directory structure): \eqn{wget -r -l2 -A "*.RData" -np -nH --cut-dirs=0 "http://dnet.r-forge.r-project.org/RData"}
 #' @return 
 #' an object of class "eTerm", a list with following components:
 #' \itemize{
@@ -47,19 +47,27 @@
 #' @include dGSEA.r
 #' @examples
 #' \dontrun{
-#' load(url("http://supfam.org/dnet/data/Hiratani_TableS1.RData"))
-#' ls() # you should see three variables: 'RT', 'CpG' and 'EX'
-#' data <- RT[1:1000,1:2]
-#' eTerm <- dGSEA(data, identity="symbol", genome="Mm", ontology="MP", which_distance=c(1,2))
+#' # load data
+#' library(Biobase)
+#' TCGA_mutations <-dRDataLoader(RData='TCGA_mutations')
+#' symbols <- as.character(fData(TCGA_mutations)$Symbol)
+#' 
+#' # gene set enrichment analysis (GSEA) using KEGG pathways
+#' ## calculate the total mutations for each gene
+#' tol <- apply(exprs(TCGA_mutations), 1, sum)
+#' data <- data.frame(tol=tol)
+#' eTerm <- dGSEA(data, identity="symbol", genome="Hs", ontology="MsigdbC2KEGG")
 #' res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp", decreasing=FALSE, details=TRUE)
 #' visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
 #' output <- dGSEAwrite(eTerm, which_content="gadjp", which_score="gadjp", filename="eTerm.txt")
 #'
 #' ## based on customised gene sets
-#' eTerm <- dGSEA(data, identity="symbol", genome="Mm", ontology="Customised", customised.genesets=rownames(data)[1:100])
+#' eTerm <- dGSEA(data, identity="symbol", genome="Hs", ontology="Customised", customised.genesets=sample(rownames(data),100))
+#' res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp", decreasing=FALSE, details=TRUE)
+#' visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
 #' }
 
-dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FALSE, genome=c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"), ontology=c("GOBP","GOMF","GOCC","PS","PS2","SF","DO","HPPA","HPMI","HPCM","HPMA","MP", "MsigdbH", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7", "DGIdb", "Customised"), customised.genesets=NULL, sizeRange=c(10,20000), which_distance=NULL, weight=1, nperm=1000, fast=T, sigTail=c("two-tails","one-tail"), p.adjust.method=c("BH", "BY", "bonferroni", "holm", "hochberg", "hommel"), verbose=T, RData.location="http://supfam.org/dnet/data")
+dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FALSE, genome=c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"), ontology=c("GOBP","GOMF","GOCC","PS","PS2","SF","DO","HPPA","HPMI","HPCM","HPMA","MP", "MsigdbH", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7", "DGIdb", "Customised"), customised.genesets=NULL, sizeRange=c(10,20000), which_distance=NULL, weight=1, nperm=1000, fast=T, sigTail=c("two-tails","one-tail"), p.adjust.method=c("BH", "BY", "bonferroni", "holm", "hochberg", "hommel"), verbose=T, RData.location="http://supfam.org/dnet/RData/1.0.7")
 {
     startT <- Sys.time()
     message(paste(c("Start at ",as.character(startT)), collapse=""), appendLF=T)

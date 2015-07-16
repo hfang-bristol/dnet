@@ -37,17 +37,18 @@ dRDataLoader(RData = c(NA, "TCGA_mutations", "ig.DO", "ig.GOBP",
 "org.Mm.egMP", "org.Mm.egPS", "org.Mm.egSF", "org.Mm.string",
 "org.Rn.eg",
 "org.Rn.egGOBP", "org.Rn.egGOCC", "org.Rn.egGOMF", "org.Rn.egPS",
-"org.Rn.egSF", "Hiratani_TableS1", "CLL", "org.Rn.string"), genome =
-c(NA,
-"Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"), ontology = c(NA,
-"GOBP",
-"GOMF", "GOCC", "PS", "PS2", "SF", "DO", "HPPA", "HPMI", "HPCM",
-"HPMA", "MP",
-"MsigdbH", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG",
-"MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR",
-"MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC",
-"MsigdbC6", "MsigdbC7", "DGIdb"),
-RData.location = "http://supfam.org/dnet/data")
+"org.Rn.egSF", "CLL", "org.Rn.string"), genome = c(NA, "Hs", "Mm",
+"Rn",
+"Gg", "Ce", "Dm", "Da", "At"), ontology = c(NA, "GOBP", "GOMF", "GOCC",
+"PS", "PS2", "SF", "DO", "HPPA", "HPMI", "HPCM", "HPMA", "MP",
+"MsigdbH",
+"MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG",
+"MsigdbC2REACTOME",
+"MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN",
+"MsigdbC4CM",
+"MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7",
+"DGIdb"),
+RData.location = "http://supfam.org/dnet/RData/1.0.7")
 }
 \arguments{
 \item{RData}{which built-in RData to load. It can be one of
@@ -75,8 +76,9 @@ RData.location = "http://supfam.org/dnet/data")
 "org.Mm.egHPCM", "org.Mm.egHPMA", "org.Mm.egHPMI", "org.Mm.egHPPA",
 "org.Mm.egMP", "org.Mm.egPS", "org.Mm.egSF", "org.Mm.string",
 "org.Rn.eg", "org.Rn.egGOBP", "org.Rn.egGOCC", "org.Rn.egGOMF",
-"org.Rn.egPS", "org.Rn.egSF", "Hiratani_TableS1", "CLL",
-"org.Rn.string". On the meanings, please refer to the Documentations}
+"org.Rn.egPS", "org.Rn.egSF", "CLL", "org.Rn.string". On the meanings,
+please refer to the Documentations at
+\url{http://supfam.org/dnet/docs.html}}
 
 \item{genome}{the genome identity. It can be one of "Hs" for human,
 "Mm" for mouse, "Rn" for rat, "Gg" for chicken, "Ce" for c.elegans,
@@ -105,20 +107,21 @@ Documentations at \url{http://supfam.org/dnet/docs.html}}
 
 \item{RData.location}{the characters to tell the location of built-in
 RData files. By default, it remotely locates at
-\url{http://dnet.r-forge.r-project.org/data}. For the user equipped
-with fast internet connection, this option can be just left as default.
-But it is always advisable to download these files locally. Especially
-when the user needs to run this function many times, there is no need
-to ask the function to remotely download every time (also it will
-unnecessarily increase the runtime). For examples, these files (as a
-whole or part of them) can be first downloaded into your current
-working directory, and then set this option as:
+\url{http://dnet.r-forge.r-project.org/RData}. Be aware of several
+versions and the latest one is matched to the current package version.
+For the user equipped with fast internet connection, this option can be
+just left as default. But it is always advisable to download these
+files locally. Especially when the user needs to run this function many
+times, there is no need to ask the function to remotely download every
+time (also it will unnecessarily increase the runtime). For examples,
+these files (as a whole or part of them) can be first downloaded into
+your current working directory, and then set this option as:
 \eqn{RData.location="."}. Surely, the location can be anywhere as long
 as the user provides the correct path pointing to (otherwise, the
 script will have to remotely download each time). Here is the UNIX
 command for downloading all RData files (preserving the directory
 structure): \eqn{wget -r -l2 -A "*.RData" -np -nH --cut-dirs=0
-"http://dnet.r-forge.r-project.org/data"}}
+"http://dnet.r-forge.r-project.org/RData"}}
 }
 \value{
 any use-specified variable that is given on the right side of the

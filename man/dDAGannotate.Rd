@@ -54,11 +54,11 @@ subgraph.
 \examples{
 \dontrun{
 # 1) load HPPA as igraph object
-data(ig.HPPA)
+ig.HPPA <-dRDataLoader(RData='ig.HPPA')
 g <- ig.HPPA
 
 # 2) load human genes annotated by HPPA
-data(org.Hs.egHPPA)
+org.Hs.egHPPA <- dRDataLoader(RData='org.Hs.egHPPA')
 GS <- org.Hs.egHPPA # as 'GS' object
 
 # 3) prepare for annotation data

@@ -58,7 +58,7 @@ determine the actual coordinates. This function can be one of
 "layout.reingold.tilford", "layout.fruchterman.reingold.grid",
 "layout.lgl", "layout.graphopt", "layout.svd" and "layout.norm". A full
 explanation of these layouts can be found in
-\url{http://igraph.org/r/doc/layout.html}}
+\url{http://igraph.org/r/doc/layout_nicely.html}}
 
 \item{vertex.frame.color}{the color of the frame of the vertices. If it
 is NA, then there is no frame}

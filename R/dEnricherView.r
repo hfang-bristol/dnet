@@ -10,13 +10,13 @@
 #' @return
 #' a data frame with following components:
 #' \itemize{
-#'  \item{\code{setID}: term ID}
+#'  \item{\code{setID}: term ID; as rownames}
+#'  \item{\code{name}: term name}
 #'  \item{\code{nAnno}: number in gene members annotated by a term}
 #'  \item{\code{nOverlap}: number in overlaps}
 #'  \item{\code{zscore}: enrichment z-score}
 #'  \item{\code{pvalue}: nominal p value}
 #'  \item{\code{adjp}: adjusted p value}
-#'  \item{\code{name}: term name; optional, it is only appended when "details" is true}
 #'  \item{\code{namespace}: term namespace; optional, it is only appended when "details" is true}
 #'  \item{\code{distance}: term distance; optional, it is only appended when "details" is true}
 #'  \item{\code{members}: members (represented as Gene Symbols) in overlaps; optional, it is only appended when "details" is true}
@@ -49,34 +49,34 @@ dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","
     }
     
     if(dim(eTerm$set_info)[1]==1){
-        tab <- data.frame( setID         = eTerm$set_info$setID,
+        tab <- data.frame( name         = eTerm$set_info$name,
                            nAnno         = sapply(eTerm$gs,length),
                            nOverlap     = length(eTerm$overlap),
                            zscore       = eTerm$zscore,
                            pvalue       = eTerm$pvalue,
                            adjp         = eTerm$adjp,
-                           name         = eTerm$set_info$name,
                            namespace    = eTerm$set_info$namespace,
                            distance     = eTerm$set_info$distance,
                            members      = paste(rownames(eTerm$overlap),collapse=',')
                           )
     }else{
     
-        tab <- data.frame( setID         = eTerm$set_info$setID,
+        tab <- data.frame( name         = eTerm$set_info$name,
                            nAnno         = sapply(eTerm$gs,length),
                            nOverlap     = sapply(eTerm$overlap,length),
                            zscore       = eTerm$zscore,
                            pvalue       = eTerm$pvalue,
                            adjp         = eTerm$adjp,
-                           name         = eTerm$set_info$name,
                            namespace    = eTerm$set_info$namespace,
                            distance     = eTerm$set_info$distance,
                            members      = sapply(eTerm$overlap, function(x) paste(names(x),collapse=','))
                           )
     }
     
+    rownames(tab) <- eTerm$set_info$setID
+    
     if(details == T){
-        res <- tab[,c(1:10)]
+        res <- tab[,c(1:9)]
     }else{
         res <- tab[,c(1:6)]
     }
@@ -95,7 +95,7 @@ dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","
         zscore={res <- res[order(res[,4], decreasing=decreasing)[1:top_num],]},
         nAnno={res <- res[order(res[,2], decreasing=decreasing)[1:top_num],]},
         nOverlap={res <- res[order(res[,3], decreasing=decreasing)[1:top_num],]},
-        none={res <- res[order(res[,1], decreasing=decreasing)[1:top_num],]}
+        none={res <- res[order(rownames(res), decreasing=decreasing)[1:top_num],]}
     )
     
     res

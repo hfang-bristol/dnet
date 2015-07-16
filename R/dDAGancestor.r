@@ -18,7 +18,7 @@
 #' @include dDAGancestor.r
 #' @examples
 #' # 1) load HPPA as igraph object
-#' data(ig.HPPA)
+#' ig.HPPA <-dRDataLoader(RData='ig.HPPA')
 #' g <- ig.HPPA
 #'
 #' # 2) randomly give two terms
@@ -84,7 +84,8 @@ dDAGancestor <- function (g, term1=NULL, term2=NULL, verbose=T)
         ## store in a sparse matrix of children X ancestors
         sCP <- Matrix::Matrix(0, nrow=length(terms), ncol=length(allterms), sparse=T)
         for(i in 1:length(neighs.in)){
-            sCP[i,neighs.in[[i]]] <- 1
+        	sCP[i,unlist(neighs.in[i])] <- 1       	
+            #sCP[i,neighs.in[[i]]] <- 1
         }
         rownames(sCP) <- terms
         colnames(sCP) <- allterms

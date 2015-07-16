@@ -58,7 +58,7 @@ prob2gene <- function(eset){
 esetGene <- prob2gene(eset)
 esetGene
 
-# An igraph object that contains a functional protein association network in human. The network is extracted from the STRING database (version 9.1). Only those associations with medium confidence (score>=400) are retained.
+# An igraph object that contains a functional protein association network in human. The network is extracted from the STRING database (version 10). Only those associations with medium confidence (score>=400) are retained.
 org.Hs.string <- dRDataLoader(RData='org.Hs.string')
 org.Hs.string
 
@@ -84,19 +84,21 @@ mat_data <- D[sorted$ix,]
 # prepare colors for the column sidebar
 # color for stages (S9-S14)
 stages <- sub("_.*","",colnames(mat_data))
-lvs <- unique(stages)
-lvs_color <- visColormap(colormap="rainbow")(length(lvs))
-col_stages <- sapply(stages, function(x) lvs_color[x==lvs])
+sta_lvs <- unique(stages)
+sta_color <- visColormap(colormap="rainbow")(length(sta_lvs))
+col_stages <- sapply(stages, function(x) sta_color[x==sta_lvs])
 # color for replicates (R1-R3)
 replicates <- sub(".*_","",colnames(mat_data))
-lvs <- unique(replicates)
-lvs_color <- visColormap(colormap="rainbow")(length(lvs))
-col_replicates <- sapply(replicates, function(x) lvs_color[x==lvs])
+rep_lvs <- unique(replicates)
+rep_color <- visColormap(colormap="rainbow")(length(rep_lvs))
+col_replicates <- sapply(replicates, function(x) rep_color[x==rep_lvs])
 # combine both color vectors
 ColSideColors <- cbind(col_stages,col_replicates)
 colnames(ColSideColors) <- c("Stages","Replicates")
+
 visHeatmapAdv(mat_data, Rowv=FALSE, Colv=FALSE, colormap="gbr", zlim=c(-1,1), density.info="density", tracecol="yellow", ColSideColors=ColSideColors, labRow=NA)
-#legend("topright", legend=lvs, col=lvs_color, lty=1, lwd=10)
+legend(0,0.8, legend=rep_lvs, col=rep_color, lty=1, lwd=5, cex=0.6, box.col="transparent", horiz=F)
+legend(0,0.6, legend=sta_lvs, col=sta_color, lty=1, lwd=5, cex=0.6, box.col="transparent", horiz=F)
 
 # 1) preparation of node significance
 ## define the design matrix in a order manner

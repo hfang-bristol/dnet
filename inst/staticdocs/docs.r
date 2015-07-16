@@ -25,7 +25,8 @@ list(
                 'visNetArc',
                 'visNetCircle',
                 'visBoxplotAdv',
-                'dRDataLoader'
+                'dRDataLoader',
+                'dFunArgs'
             )
         ),
         sd_section("Random Walk with Restart (RWR)",

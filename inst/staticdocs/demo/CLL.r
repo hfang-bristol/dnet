@@ -53,7 +53,7 @@ prob2gene <- function(eset){
 esetGene <- prob2gene(esetNew)
 esetGene
 
-# An igraph object that contains a functional protein association network in human. The network is extracted from the STRING database (version 9.1). Only those associations with medium confidence (score>=400) are retained.
+# An igraph object that contains a functional protein association network in human. The network is extracted from the STRING database (version 10). Only those associations with medium confidence (score>=400) are retained.
 org.Hs.string <- dRDataLoader(RData='org.Hs.string')
 org.Hs.string
 

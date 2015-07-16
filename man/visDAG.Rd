@@ -141,7 +141,7 @@ node: 0.75 by default}
 \examples{
 \dontrun{
 # 1) load HPPA as igraph object
-data(ig.HPPA)
+ig.HPPA <-dRDataLoader(RData='ig.HPPA')
 g <- ig.HPPA
 
 # 2) randomly select vertices as the query nodes

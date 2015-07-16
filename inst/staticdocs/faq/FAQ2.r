@@ -39,7 +39,7 @@ data(TCGA_mutations)
 symbols <- as.character(fData(TCGA_mutations)$Symbol)
 
 ## Enrichment analysis using Disease Ontology (DO)
-data <- symbols[1:50] # select the first 50 human genes
+data <- symbols[1:100] # select the first 100 human genes
 eTerm <- dEnricher(data, identity="symbol", genome="Hs", ontology="DO")
 
 ## gene set enrichment analysis (GSEA) using KEGG pathways

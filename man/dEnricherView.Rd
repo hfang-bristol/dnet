@@ -30,14 +30,13 @@ inclusion}
 \value{
 a data frame with following components:
 \itemize{
-\item{\code{setID}: term ID}
+\item{\code{setID}: term ID; as rownames}
+\item{\code{name}: term name}
 \item{\code{nAnno}: number in gene members annotated by a term}
 \item{\code{nOverlap}: number in overlaps}
 \item{\code{zscore}: enrichment z-score}
 \item{\code{pvalue}: nominal p value}
 \item{\code{adjp}: adjusted p value}
-\item{\code{name}: term name; optional, it is only appended when
-"details" is true}
 \item{\code{namespace}: term namespace; optional, it is only appended
 when "details" is true}
 \item{\code{distance}: term distance; optional, it is only appended

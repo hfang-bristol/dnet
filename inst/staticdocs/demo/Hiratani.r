@@ -9,7 +9,7 @@
 ###############################################################################
 
 # Load this multilayer dataset
-load(url("http://dnet.r-forge.r-project.org/data/Datasets/Hiratani_TableS1.RData"))
+load(url("http://dnet.r-forge.r-project.org/RData/1.0.7/Hiratani_TableS1.RData"))
 ls() # you should see three variables: 'RT', 'CpG' and 'EX'
 
 # Load the package 'dnet'
@@ -37,7 +37,7 @@ pData(esetGene)
 
 # Now, load the gene network in mouse
 # As part of dnet package, this network has been prepared and stored as an igraph object
-# The network is extracted from the STRING database (version 9.1). Only those associations with medium confidence (score>=400) are retained.
+# The network is extracted from the STRING database (version 10). Only those associations with medium confidence (score>=400) are retained.
 org.Mm.string <- dRDataLoader(RData='org.Mm.string')
 org.Mm.string
 

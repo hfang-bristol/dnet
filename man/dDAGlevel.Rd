@@ -46,7 +46,7 @@ deriving nodes according to their closeness to the root.
 }
 \examples{
 # 1) load HPPA as igraph object
-data(ig.HPPA)
+ig.HPPA <-dRDataLoader(RData='ig.HPPA')
 g <- ig.HPPA
 
 # 2) randomly select vertices as the query nodes

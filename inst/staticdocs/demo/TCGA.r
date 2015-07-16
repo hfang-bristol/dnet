@@ -17,7 +17,7 @@ for(pkg in c("Biobase","survival")){
 }
 
 # load an "ExpressionSet" object
-data(TCGA_mutations)
+TCGA_mutations <- dRDataLoader(RData='TCGA_mutations')
 eset <- TCGA_mutations
 # extract information about phenotype data
 pd <- pData(eset)

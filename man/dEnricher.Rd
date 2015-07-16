@@ -21,7 +21,7 @@ p.adjust.method = c("BH", "BY", "bonferroni", "holm", "hochberg",
 ontology.algorithm = c("none", "pc", "elim", "lea"), elim.pvalue =
 0.01,
 lea.depth = 2, verbose = T,
-RData.location = "http://supfam.org/dnet/data")
+RData.location = "http://supfam.org/dnet/RData/1.0.7")
 }
 \arguments{
 \item{data}{an input vector. It contains either Entrez Gene ID or
@@ -120,20 +120,21 @@ displayed in the screen. By default, it sets to false for no display}
 
 \item{RData.location}{the characters to tell the location of built-in
 RData files. By default, it remotely locates at
-\url{http://dnet.r-forge.r-project.org/data}. For the user equipped
-with fast internet connection, this option can be just left as default.
-But it is always advisable to download these files locally. Especially
-when the user needs to run this function many times, there is no need
-to ask the function to remotely download every time (also it will
-unnecessarily increase the runtime). For examples, these files (as a
-whole or part of them) can be first downloaded into your current
-working directory, and then set this option as:
+\url{http://dnet.r-forge.r-project.org/RData}. Be aware of several
+versions and the latest one is matched to the current package version.
+For the user equipped with fast internet connection, this option can be
+just left as default. But it is always advisable to download these
+files locally. Especially when the user needs to run this function many
+times, there is no need to ask the function to remotely download every
+time (also it will unnecessarily increase the runtime). For examples,
+these files (as a whole or part of them) can be first downloaded into
+your current working directory, and then set this option as:
 \eqn{RData.location="."}. Surely, the location can be anywhere as long
 as the user provides the correct path pointing to (otherwise, the
 script will have to remotely download each time). Here is the UNIX
 command for downloading all RData files (preserving the directory
 structure): \eqn{wget -r -l2 -A "*.RData" -np -nH --cut-dirs=0
-"http://dnet.r-forge.r-project.org/data"}}
+"http://dnet.r-forge.r-project.org/RData"}}
 }
 \value{
 an object of class "eTerm", a list with following components:
@@ -194,19 +195,17 @@ maximum of both p-values in these two calculations.}
 \examples{
 \dontrun{
 # load data
-data(Fang)
-data <- as.character(Fang.geneinfo$Symbol[1:50])
-data
+library(Biobase)
+TCGA_mutations <- dRDataLoader(RData='TCGA_mutations')
+symbols <- as.character(fData(TCGA_mutations)$Symbol)
 
-# enrichment analysis
-eTerm <- dEnricher(data, identity="symbol", genome="Hs",
-ontology="HPPA")
-dEnricherView(eTerm, top_num=10, sortBy="adjp", decreasing=FALSE,
-details=TRUE)
+# Enrichment analysis using Disease Ontology (DO)
+data <- symbols[1:100] # select the first 100 human genes
+eTerm <- dEnricher(data, identity="symbol", genome="Hs", ontology="DO")
 
 # visualise the top significant terms in the ontology hierarchy
-ig.HPPA <- dRDataLoader(RData='ig.HPPA')
-g <- ig.HPPA
+ig.DO <- dRDataLoader(RData='ig.DO')
+g <- ig.DO
 nodes_query <- names(sort(eTerm$adjp)[1:5])
 nodes.highlight <- rep("red", length(nodes_query))
 names(nodes.highlight) <- nodes_query

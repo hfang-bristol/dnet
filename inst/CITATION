@@ -6,7 +6,7 @@ citEntry(entry="Article",
     issue = "8",
     year = "2014", 
     pages = "64",
-    url = "http://genomemedicine.com/content/6/8/64",
+    url = "http://dx.doi.org/10.1186/s13073-014-0064-8",
     doi = "10.1186/s13073-014-0064-8",
     textVersion = paste(
                 "Fang H, Gough J.",

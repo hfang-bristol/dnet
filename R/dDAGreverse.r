@@ -13,7 +13,7 @@
 #' @include dDAGreverse.r
 #' @examples
 #' # 1) load HPPA as igraph object
-#' data(ig.HPPA)
+#' ig.HPPA <-dRDataLoader(RData='ig.HPPA')
 #' g <- ig.HPPA
 #'
 #' # 2) the graph with reverse edge direction
