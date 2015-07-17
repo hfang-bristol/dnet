@@ -114,7 +114,7 @@ dRDataLoader <- function(RData=c(NA,"TCGA_mutations", "ig.DO", "ig.GOBP", "ig.GO
             load(load_RData)
         }
     }else{
-        load_RData <- sprintf("package 'dnet' version %s", packageVersion("dnet"))
+        load_RData <- sprintf("package 'dnet' version %s", utils::packageVersion("dnet"))
     }
     
     out <- ''

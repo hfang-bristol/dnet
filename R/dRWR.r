@@ -159,7 +159,7 @@ dRWR <- function(g, normalise=c("laplacian","row","column","none"), setSeeds=NUL
             if (nobsj < n[1]){
                 nobs[j] <- nobsj
                 isna <- is.na(A[, j])
-                S[, j] <- approx((0:(nobsj - 1))/(nobsj - 1), Si$x, 
+                S[, j] <- stats::approx((0:(nobsj - 1))/(nobsj - 1), Si$x, 
                     i, ties = "ordered")$y
                 O[!isna, j] <- ((1:n[1])[!isna])[Si$ix]
             }else{

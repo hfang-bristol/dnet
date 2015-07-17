@@ -156,7 +156,7 @@ visNetArc <- function(g, orientation=c('vertical','horizontal'), newpage=T, orde
     ######################################################################################
     ## Visualisation
     if (newpage){
-        dev.new()
+        grDevices::dev.new()
     }
     if(orientation == "horizontal"){
         plot(0.5, 0.5, xlim = c(-0.015, 1.015), ylim = c(-0.01, 1*max_rad*2), type="n", xlab = "", ylab = "", axes=F)
@@ -165,13 +165,13 @@ visNetArc <- function(g, orientation=c('vertical','horizontal'), newpage=T, orde
             radio <- radios[i]
             x <- locs[i] + radio*cos(z)
             y <- radio*sin(z)
-            lines(x, y, col=edge.color[i], lwd=edge.width[i], lty=edge.lty, lend=1, ljoin=2, lmitre=1)
+            graphics::lines(x, y, col=edge.color[i], lwd=edge.width[i], lty=edge.lty, lend=1, ljoin=2, lmitre=1)
         }
         if (!is.null(vertex.pch)){
-            points(x=centers, y=rep(0, nsize), pch=vertex.pch, col=vertex.color, bg=vertex.frame.color, cex=vertex.size, lwd=vertex.lwd)
+            graphics::points(x=centers, y=rep(0, nsize), pch=vertex.pch, col=vertex.color, bg=vertex.frame.color, cex=vertex.size, lwd=vertex.lwd)
         }
         if (!is.null(labels)){
-            mtext(labels, side=1, line=0, at=centers, cex=vertex.label.cex, outer=F, col=vertex.label.color, las=2, font=1, ...)
+            graphics::mtext(labels, side=1, line=0, at=centers, cex=vertex.label.cex, outer=F, col=vertex.label.color, las=2, font=1, ...)
         }
     
     }else if(orientation == "vertical"){
@@ -182,14 +182,14 @@ visNetArc <- function(g, orientation=c('vertical','horizontal'), newpage=T, orde
             radio <- radios[i]
             y <- locs[i] + radio*cos(z)
             x <- radio*sin(z)
-            lines(x, y, col=edge.color[i], lwd=edge.width[i], lty=edge.lty, lend=1, ljoin=2, lmitre=1)
+            graphics::lines(x, y, col=edge.color[i], lwd=edge.width[i], lty=edge.lty, lend=1, ljoin=2, lmitre=1)
         }
         
         if (!is.null(vertex.pch)){
-            points(y=centers, x=rep(0, nsize), pch=vertex.pch, col=vertex.color, bg=vertex.frame.color, cex=vertex.size, lwd=vertex.lwd)
+            graphics::points(y=centers, x=rep(0, nsize), pch=vertex.pch, col=vertex.color, bg=vertex.frame.color, cex=vertex.size, lwd=vertex.lwd)
         }
         if (!is.null(labels)){
-            mtext(labels, side=2, line=0, at=centers, cex=vertex.label.cex, outer=F, col=vertex.label.color, las=2, font=1, ...)
+            graphics::mtext(labels, side=2, line=0, at=centers, cex=vertex.label.cex, outer=F, col=vertex.label.color, las=2, font=1, ...)
         }    
     }
     

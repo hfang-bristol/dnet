@@ -24,7 +24,7 @@
 #' invisible
 #' @note none
 #' @export
-#' @seealso \code{\link{visNet}}
+#' @seealso \code{\link{visNet}}, \code{\link{visNetAnimate}}
 #' @include visNetMul.r
 #' @examples
 #' # 1) generate a random graph according to the ER model
@@ -83,8 +83,8 @@ visNetMul <- function (g, data, height=7, margin=rep(0.1,4), border.color="#EEEE
     data <- as.matrix(data[nodes_mapped,])
     
     ## determine the color range
-    vmin <- floor(quantile(data, 0.05))
-    vmax <- ceiling(quantile(data, 0.95))
+    vmin <- floor(stats::quantile(data, 0.05))
+    vmax <- ceiling(stats::quantile(data, 0.95))
     if(vmin < 0 & vmax > 0){
         vsym <- abs(min(vmin, vmax))
         vmin <- -1*vsym
@@ -148,10 +148,10 @@ visNetMul <- function (g, data, height=7, margin=rep(0.1,4), border.color="#EEEE
     
     ######################################################################################
     if (newpage){
-        dev.new(width=height*colNum/rowNum, height=height)
+        grDevices::dev.new(width=height*colNum/rowNum, height=height)
     }
-    par(mfrow=c(rowNum,colNum), mar=margin)
-    layout(layout_matrix, widths=layout_widths, heights=layout_heights)
+    graphics::par(mfrow=c(rowNum,colNum), mar=margin)
+    graphics::layout(layout_matrix, widths=layout_widths, heights=layout_heights)
     if(is.function(glayout)){
         glayout_fix <- glayout(ig)
     }else{
@@ -159,10 +159,10 @@ visNetMul <- function (g, data, height=7, margin=rep(0.1,4), border.color="#EEEE
     }
     for(k in 1:length(cnames)){
         visNet(ig, glayout=glayout_fix, pattern=data[,k], colormap=colormap, ncolors=ncolors, zlim=zlim, colorbar=F, newpage=F, ...)
-        mtext(sprintf("%s",cnames[k]), line=-1.5, side=mtext.side, adj=mtext.adj, cex=mtext.cex, font=mtext.font, col=mtext.col)
-        box("figure",col=border.color)
+        graphics::mtext(sprintf("%s",cnames[k]), line=-1.5, side=mtext.side, adj=mtext.adj, cex=mtext.cex, font=mtext.font, col=mtext.col)
+        graphics::box("figure",col=border.color)
     }
-    #box("outer", col="black", lwd=4)
+    #graphics::box("outer", col="black", lwd=4)
     
     ######################################################################################
     ## colorbar
@@ -185,14 +185,14 @@ visNetMul <- function (g, data, height=7, margin=rep(0.1,4), border.color="#EEEE
             ybottom <- yValue
             xright <- xValue+wValue
             ytop <- yValue+hValue
-            rect(xleft,ybottom,xright,ytop, col=colors[i], border="transparent")
+            graphics::rect(xleft,ybottom,xright,ytop, col=colors[i], border="transparent")
         
             if(i == 1 | i == 1+length(colors)/2){
                 tx <- (i-1)/lab.scale + zlim[1]
-                text(x=xright+0.1, y=ybottom, labels=tx, cex=1)
+                graphics::text(x=xright+0.1, y=ybottom, labels=tx, cex=1)
             }else if(i==length(colors)){
                 tx <- i/lab.scale + zlim[1]
-                text(x=xright+0.2, y=ytop, labels=tx, cex=1)
+                graphics::text(x=xright+0.2, y=ytop, labels=tx, cex=1)
             }
         }
     }

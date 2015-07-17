@@ -112,7 +112,7 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
     ######################################################################################
     ## Visualisation
     if (newpage){
-        dev.new()
+        grDevices::dev.new()
     }
     
     fontsize_axis <- 0.7
@@ -121,7 +121,7 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
     if(orientation == "vertical"){
 
         ## For input data
-        par(fig=c(0.05,1,0.4,1))
+        graphics::par(fig=c(0.05,1,0.4,1))
         plot(0,
             xlab="", xaxt="n",
             ylab="Input gene score",
@@ -130,49 +130,49 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
         )
     
         # value line 
-        lines(1:nGene, rank.score.sorted, type="l", lwd=1, cex=1, col="black")
+        graphics::lines(1:nGene, rank.score.sorted, type="l", lwd=1, cex=1, col="black")
         # zero line
-        lines(c(1,nGene), c(0,0), lwd=1, lty=1, cex=1, col="grey") 
+        graphics::lines(c(1,nGene), c(0,0), lwd=1, lty=1, cex=1, col="grey") 
         # left line
-        lines(c(1,1), c(0,rank.score.sorted[1]), lwd=1, lty=1, cex=1, col="grey")
+        graphics::lines(c(1,1), c(0,rank.score.sorted[1]), lwd=1, lty=1, cex=1, col="grey")
         # right line
-        lines(c(nGene,nGene), c(0,rank.score.sorted[nGene]), lwd=1, lty=1, cex=1, col="grey")
+        graphics::lines(c(nGene,nGene), c(0,rank.score.sorted[nGene]), lwd=1, lty=1, cex=1, col="grey")
 
         temp <- sapply(match(gs[[which_term]], geneid.sorted), function(x) {
             if(rank.score.sorted[x]>=0){
-                lines(c(x, x), c(0, rank.score.sorted[x]), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
+                graphics::lines(c(x, x), c(0, rank.score.sorted[x]), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
             }else{
-                lines(c(x, x), c(0, rank.score.sorted[x]), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
+                graphics::lines(c(x, x), c(0, rank.score.sorted[x]), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
             }
         })
     
         ## Running enrichment plot
-        par(fig=c(0.05,1,0,0.6), new=TRUE)
+        graphics::par(fig=c(0.05,1,0,0.6), new=TRUE)
         plot(1:nGene, RES,
             xlab=paste("Ranked genes (in a decreasing order) with ", length(gs[[which_term]]), " in geneset", sep="", collapse=""), xaxt="n",
             ylab="Running enrichment score",
             xlim=c(1, nGene), ylim=c(min.caxis, max.caxis), 
             type="l", las=2, lwd=2, cex=1, cex.axis=fontsize_axis, col="black"
         )
-        axis(1, at=c(1, sum(rank.score.sorted>=0), nGene), cex.axis=fontsize_axis)
-        lines(c(1, nGene), c(0, 0), lwd=1, lty=1, cex=1, col="grey") # zero RES line
+        graphics::axis(1, at=c(1, sum(rank.score.sorted>=0), nGene), cex.axis=fontsize_axis)
+        graphics::lines(c(1, nGene), c(0, 0), lwd=1, lty=1, cex=1, col="grey") # zero RES line
     
         temp <- sapply(match(gs[[which_term]], geneid.sorted), function(x) {
             if(rank.score.sorted[x]>=0){
-                lines(c(x, x), c(0, RES[x]), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
+                graphics::lines(c(x, x), c(0, RES[x]), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
             }else{
-                lines(c(x, x), c(0, RES[x]), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
+                graphics::lines(c(x, x), c(0, RES[x]), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
             }
         })
     
-        points(es.position, RES[es.position], lwd=2, col="blue") # at peak
+        graphics::points(es.position, RES[es.position], lwd=2, col="blue") # at peak
     
         pvalue <- signif(eTerm$pvalue[which_term,which_sample],digits=2)
         adjp <- signif(eTerm$adjp[which_term,which_sample],digits=2)
     
         if(RES[es.position]<0){
     
-            lines(c(es.position, es.position), c(RES[es.position], 0), lwd=2, lty=3, cex=1, col="blue") # peak line 
+            graphics::lines(c(es.position, es.position), c(RES[es.position], 0), lwd=2, lty=3, cex=1, col="blue") # peak line 
         
             leading <- sum(flag >= es.position) # number of leading genes
             leg.txt <- paste("Peak at rank=", es.position,
@@ -181,10 +181,10 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
                              "\np-value=", ifelse(pvalue<0.01 & pvalue!=0, format(pvalue,scientific=T), pvalue),
                              "\nadjusted p-value=", ifelse(adjp<0.01 & adjp!=0, format(adjp,scientific=T), adjp),
                              sep="", collapse="")
-            text(x=es.position, y=max.caxis, adj=c(0,1), col="blue", labels=leg.txt, cex=0.5)
+            graphics::text(x=es.position, y=max.caxis, adj=c(0,1), col="blue", labels=leg.txt, cex=0.5)
 
         }else{
-            lines(c(es.position, es.position), c(0, RES[es.position]), lwd=2, lty=3, cex=1, col="blue") # peak line
+            graphics::lines(c(es.position, es.position), c(0, RES[es.position]), lwd=2, lty=3, cex=1, col="blue") # peak line
         
             leading <- sum(flag <= es.position) # number of leading genes
             leg.txt <- paste("Peak at rank=", es.position,
@@ -193,71 +193,71 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
                              "\np-value=", ifelse(pvalue<0.01 & pvalue!=0, format(pvalue,scientific=T), pvalue),
                              "\nadjusted p-value=", ifelse(adjp<0.01 & adjp!=0, format(adjp,scientific=T), adjp),
                              sep="", collapse="")
-            text(x=es.position, y=-1*max.caxis/10, adj=c(0,1), col="blue", labels=leg.txt, cex=0.5)        
+            graphics::text(x=es.position, y=-1*max.caxis/10, adj=c(0,1), col="blue", labels=leg.txt, cex=0.5)        
 
         }
         
-        mtext(paste("Sample:", sample_names[which_sample], "\nGeneset:", set_info$name[which_term]), side=3, outer=TRUE, line=-3, cex=1)
+        graphics::mtext(paste("Sample:", sample_names[which_sample], "\nGeneset:", set_info$name[which_term]), side=3, outer=TRUE, line=-3, cex=1)
         
     }else if(orientation == "horizontal"){
     
         ## For input data
-        par(fig=c(0.05,0.55,0,1))
+        graphics::par(fig=c(0.05,0.55,0,1))
         plot(0,
             ylab=paste("Ranked genes (in a decreasing order) with ", length(gs[[which_term]]), " in geneset", sep="", collapse=""), yaxt="n",
             xlab="Input gene score", 
             ylim=c(nGene, 1), xlim=c(min(rank.score.sorted), max(rank.score.sorted)), 
             type="l", lwd=2, cex=1, cex.axis=fontsize_axis, col="black"
         )
-        axis(2, at=c(1, sum(rank.score.sorted>=0), nGene), las=2, cex.axis=fontsize_axis)
+        graphics::axis(2, at=c(1, sum(rank.score.sorted>=0), nGene), las=2, cex.axis=fontsize_axis)
     
         if(0){
         for (x in seq(1, nGene, ceiling(nGene/500))) {
             if(rank.score.sorted[x]>=0){
-                lines(c(0,rank.score.sorted[x]), c(x,x), lwd=1, cex=1, col="red")
+                graphics::lines(c(0,rank.score.sorted[x]), c(x,x), lwd=1, cex=1, col="red")
             }else{
-                lines(c(0,rank.score.sorted[x]), c(x,x), lwd=1, cex=1, col="green")
+                graphics::lines(c(0,rank.score.sorted[x]), c(x,x), lwd=1, cex=1, col="green")
             }
         }
         }
     
         # value line 
-        lines(rank.score.sorted, 1:nGene, type="l", lwd=1, cex=1, col="black") 
+        graphics::lines(rank.score.sorted, 1:nGene, type="l", lwd=1, cex=1, col="black") 
         # zero line
-        lines(c(0,0), c(1,nGene), lwd=1, lty=1, cex=1, col="grey") 
+        graphics::lines(c(0,0), c(1,nGene), lwd=1, lty=1, cex=1, col="grey") 
         # top line
-        lines(c(0,rank.score.sorted[1]), c(1,1), lwd=1, lty=1, cex=1, col="grey")
+        graphics::lines(c(0,rank.score.sorted[1]), c(1,1), lwd=1, lty=1, cex=1, col="grey")
         # bottom line
-        lines(c(0,rank.score.sorted[nGene]), c(nGene,nGene), lwd=1, lty=1, cex=1, col="grey")
+        graphics::lines(c(0,rank.score.sorted[nGene]), c(nGene,nGene), lwd=1, lty=1, cex=1, col="grey")
 
         temp <- sapply(match(gs[[which_term]], geneid.sorted), function(x) {
             if(rank.score.sorted[x]>=0){
-                lines(c(0, rank.score.sorted[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
+                graphics::lines(c(0, rank.score.sorted[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
             }else{
-                lines(c(0, rank.score.sorted[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
+                graphics::lines(c(0, rank.score.sorted[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
             }
         })
     
         ## Running enrichment plot
-        par(fig=c(0.4,1,0,1), new=TRUE)
+        graphics::par(fig=c(0.4,1,0,1), new=TRUE)
         plot(RES, 1:nGene,
             ylab="", yaxt="n",
             xlab="Running enrichment score",
             ylim=c(nGene, 1), xlim=c(min.caxis, max.caxis), 
             type="l", lwd=2, cex=1, cex.axis=fontsize_axis, col="black"
             )
-        lines(c(0, 0), c(1, nGene) , lwd=1, lty=1, cex=1, col="grey") # zero RES line
+        graphics::lines(c(0, 0), c(1, nGene) , lwd=1, lty=1, cex=1, col="grey") # zero RES line
     
     
         temp <- sapply(match(gs[[which_term]], geneid.sorted), function(x) {
             if(rank.score.sorted[x]>=0){
-                lines(c(0, RES[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
+                graphics::lines(c(0, RES[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
             }else{
-                lines(c(0, RES[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
+                graphics::lines(c(0, RES[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
             }
         })
     
-        points(RES[es.position], es.position, lwd=2, col="blue") # at peak
+        graphics::points(RES[es.position], es.position, lwd=2, col="blue") # at peak
     
     
         pvalue <- signif(eTerm$pvalue[which_term,which_sample],digits=2)
@@ -265,7 +265,7 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
     
         if(RES[es.position]<0){
     
-            lines(c(RES[es.position], 0), c(es.position, es.position), lwd=2, lty=3, cex=1, col="blue") # peak line 
+            graphics::lines(c(RES[es.position], 0), c(es.position, es.position), lwd=2, lty=3, cex=1, col="blue") # peak line 
         
             leading <- sum(flag >= es.position) # number of leading genes
             leg.txt <- paste("Peak at rank=", es.position,
@@ -274,10 +274,10 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
                              "\np-value=", ifelse(pvalue<0.01 & pvalue!=0, format(pvalue,scientific=T), pvalue),
                              "\nadjusted p-value=", ifelse(adjp<0.01 & adjp!=0, format(adjp,scientific=T), adjp),
                              sep="", collapse="")
-            text(x=max.caxis/10, y=es.position, adj=c(0,1), col="blue", labels=leg.txt, cex=0.5)
+            graphics::text(x=max.caxis/10, y=es.position, adj=c(0,1), col="blue", labels=leg.txt, cex=0.5)
 
         }else{
-            lines(c(0, RES[es.position]), c(es.position, es.position), lwd=2, lty=3, cex=1, col="blue") # peak line
+            graphics::lines(c(0, RES[es.position]), c(es.position, es.position), lwd=2, lty=3, cex=1, col="blue") # peak line
         
             leading <- sum(flag <= es.position) # number of leading genes
             leg.txt <- paste("Peak at rank=", es.position,
@@ -286,11 +286,11 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
                              "\np-value=", ifelse(pvalue<0.01 & pvalue!=0, format(pvalue,scientific=T), pvalue),
                              "\nadjusted p-value=", ifelse(adjp<0.01 & adjp!=0, format(adjp,scientific=T), adjp),
                              sep="", collapse="")
-            text(x=min.caxis, y=es.position, adj=c(0,1), col="blue", labels=leg.txt, cex=0.5)        
+            graphics::text(x=min.caxis, y=es.position, adj=c(0,1), col="blue", labels=leg.txt, cex=0.5)        
 
         }
         
-        mtext(paste("Sample:", sample_names[which_sample], "\nGeneset:", set_info$name[which_term]), side=3, outer=TRUE, line=-3, cex=1)
+        graphics::mtext(paste("Sample:", sample_names[which_sample], "\nGeneset:", set_info$name[which_term]), side=3, outer=TRUE, line=-3, cex=1)
     }
     
     invisible()

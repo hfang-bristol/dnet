@@ -193,7 +193,7 @@ dSVDsignif <- function(data, num.eigen=NULL, pval.eigen=1e-2, signif=c("fdr","pv
             if(verbose){
                 progress_indicate(i, length(DS_sorted$x), 10, flag=T)
             }
-            fdr_sorted[i] <- median(apply(DS_perm > DS_sorted$x[i], 2, sum))/i
+            fdr_sorted[i] <- stats::median(apply(DS_perm > DS_sorted$x[i], 2, sum))/i
         }
 
         if(verbose){

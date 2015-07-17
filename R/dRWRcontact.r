@@ -105,7 +105,7 @@ dRWRcontact <- function(data, g, Amatrix, permutation=c("random","degree"), num.
     ## A function to degree-preserving randomisation
     dp_randomisation <- function(ig, data){
         dg <- igraph::degree(ig)
-        at <- unique(quantile(dg, seq(from=0,to=1,by=0.1)))
+        at <- unique(stats::quantile(dg, seq(from=0,to=1,by=0.1)))
         groups <- sapply(dg, function(x){
             if(length(which(x>at))==0){
                 at[1]

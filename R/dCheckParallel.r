@@ -21,7 +21,7 @@ dCheckParallel <- function (multicores=NULL, verbose=T)
     
     flag_parallel <- F
     pkgs <- c("doMC","foreach")
-    if(all(pkgs %in% rownames(installed.packages()))){
+    if(all(pkgs %in% rownames(utils::installed.packages()))){
         tmp <- sapply(pkgs, function(pkg) {
             #suppressPackageStartupMessages(require(pkg, character.only=T))
             requireNamespace(pkg, quietly=T)

@@ -127,22 +127,22 @@ dBUMscore <- function(fit, method=c("pdf","cdf"), fdr=NULL, scatter.bum=T)
     
     if(scatter.bum){
         
-        dev.new()
+        grDevices::dev.new()
         
         plot(pval, scores, pch=".", main="Scores vs P-values", xlab="P-values", ylab="Scores")
         
-        abline(v=tau, lty=2, col="darkgray")
-        abline(h=0, lty=2, col="darkgray")
-        points(tau, 0, cex=1.5)
+        graphics::abline(v=tau, lty=2, col="darkgray")
+        graphics::abline(h=0, lty=2, col="darkgray")
+        graphics::points(tau, 0, cex=1.5)
         if(tau == tau_bound | tau >= 1){
             Lines <- list(bquote(tau==.(round(tau,3))), bquote(fdr>=.(round(fdr,3))))
         }else{
             Lines <- list(bquote(tau==.(round(tau,3))), bquote(fdr==.(round(fdr,3))))
         }
         if(tau < 0.5){
-            text(tau, 0+(strheight("X")*1.5*seq(length(Lines))), do.call(expression, Lines), adj=c(-0.2,0), cex=0.8)
+            graphics::text(tau, 0+(graphics::strheight("X")*1.5*seq(length(Lines))), do.call(expression, Lines), adj=c(-0.2,0), cex=0.8)
         }else{
-            text(tau, 0+(strheight("X")*1.5*seq(length(Lines))), do.call(expression, Lines), adj=c(1,0), cex=0.8)
+            graphics::text(tau, 0+(graphics::strheight("X")*1.5*seq(length(Lines))), do.call(expression, Lines), adj=c(1,0), cex=0.8)
         }
     }
     

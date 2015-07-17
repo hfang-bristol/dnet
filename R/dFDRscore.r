@@ -54,14 +54,14 @@ dFDRscore <- function(fdr, fdr.threshold=NULL, scatter=F)
 
     if(scatter){
         
-        dev.new()
+        grDevices::dev.new()
         
         plot(fdr, scores, pch=".", main="Scores vs FDR", xlab="FDR", ylab="Scores")
         
         if(!is.null(fdr.threshold)){
-            abline(v=fdr.threshold, lty=2, col="darkgray")
-            abline(h=0, lty=2, col="darkgray")
-            points(fdr.threshold, 0, cex=1.5)
+            graphics::abline(v=fdr.threshold, lty=2, col="darkgray")
+            graphics::abline(h=0, lty=2, col="darkgray")
+            graphics::points(fdr.threshold, 0, cex=1.5)
         }
         
     }

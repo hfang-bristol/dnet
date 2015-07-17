@@ -59,7 +59,7 @@ dPvalAggregate <- function (pmatrix, method=c("orderStatistic", "fishers"), orde
         }
         
         x <- as.numeric(omatrix[,order])
-        ap <- pbeta(x, shape1=order, shape2=nc-order+1) # distribution function for Beta distribution
+        ap <- stats::pbeta(x, shape1=order, shape2=nc-order+1) # distribution function for Beta distribution
         names(ap) <- rownames(pmatrix)
         
     }else if (method == "fishers") {
@@ -69,7 +69,7 @@ dPvalAggregate <- function (pmatrix, method=c("orderStatistic", "fishers"), orde
         fmatrix[fmatrix==0] <- min(fmatrix[fmatrix!=0])
         fmatrix <- log(fmatrix)
         x <- -2*apply(fmatrix, 1, sum)
-        ap <- pchisq(x, df=2*nc, lower.tail=F) # distribution function for Chi-Squared distribution
+        ap <- stats::pchisq(x, df=2*nc, lower.tail=F) # distribution function for Chi-Squared distribution
         names(ap) <- rownames(pmatrix)
         
     }

@@ -126,8 +126,8 @@ visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap
         if(flag==1){
             ## determine the color range
             if(is.null(zlim)){
-                vmin <- floor(quantile(data, 0.05))
-                vmax <- ceiling(quantile(data, 0.95))
+                vmin <- floor(stats::quantile(data, 0.05))
+                vmax <- ceiling(stats::quantile(data, 0.95))
                 if(vmin < 0 & vmax > 0){
                     vsym <- abs(min(vmin, vmax))
                     vmin <- -1*vsym
@@ -255,16 +255,16 @@ visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap
     ########################################################################
 
     flag <- 0
-    if(length(dev.list())==0){
+    if(length(grDevices::dev.list())==0){
         flag <- 1
     }
     ## global Graphviz attributes
-    #opar <- par() # make a copy of current settings
-    par("fin"=c(0.69,0.69))
+    #opar <- graphics::par() # make a copy of current settings
+    graphics::par("fin"=c(0.69,0.69))
     graphAttrs <- Rgraphviz::getDefaultAttrs(curAttrs=list(), layoutType='dot')
     
     if(flag==1){
-        dev.off(which=dev.cur())
+        grDevices::dev.off(which=grDevices::dev.cur())
     }
     
     graphAttrs$cluster <- NULL
@@ -374,10 +374,10 @@ visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap
     ######################################################################################
 
     if (newpage){
-        dev.new(width=width, height=height)
+        grDevices::dev.new(width=width, height=height)
     }
-    par(mfrow=c(rowNum,colNum), mar=margin)
-    layout(layout_matrix, widths=layout_widths, heights=layout_heights)
+    graphics::par(mfrow=c(rowNum,colNum), mar=margin)
+    graphics::layout(layout_matrix, widths=layout_widths, heights=layout_heights)
     
     Rgraphviz::plot(agDAG, "dot")
     #slotNames(agDAG)
@@ -404,20 +404,20 @@ visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap
             ybottom <- yValue
             xright <- xValue+wValue
             ytop <- yValue+hValue
-            rect(xleft,ybottom,xright,ytop, col=colors[i], border="transparent")
+            graphics::rect(xleft,ybottom,xright,ytop, col=colors[i], border="transparent")
         
             if(i == 1 | i == 1+length(colors)/2){
                 tx <- (i-1)/lab.scale + zlim[1]
-                text(x=xright+0.2, y=ybottom, labels=tx, cex=1)
+                graphics::text(x=xright+0.2, y=ybottom, labels=tx, cex=1)
             }else if(i==length(colors)){
                 tx <- i/lab.scale + zlim[1]
-                text(x=xright+0.2, y=ytop, labels=tx, cex=1)
+                graphics::text(x=xright+0.2, y=ytop, labels=tx, cex=1)
             }
         }
     }
     
     # restore original settings
-    #suppressWarnings(par(opar))
+    #suppressWarnings(graphics::par(opar))
     
     invisible(agDAG)
 }

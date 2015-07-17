@@ -147,7 +147,7 @@ dGSEAwrite <- function(eTerm, which_content=c("gadjp","adjp","pvalue","FWER","FD
     
     ## If the filename is given, output data is written into a tab-delimited text file
     if(!is.null(filename)){
-        write.table(output, file=filename, quote=F, row.names=F, sep="\t")
+        utils::write.table(output, file=filename, quote=F, row.names=F, sep="\t")
         
         message(paste(c("A file called ",filename," has been successfully written!\n"), collapse=""), appendLF=T)
     }

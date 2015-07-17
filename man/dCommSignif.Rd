@@ -10,7 +10,7 @@ dCommSignif(g, comm)
 \item{g}{an object of class "igraph" or "graphNEL"}
 
 \item{comm}{an object of class "communities". Details on this class can
-be found at \url{http://igraph.sourceforge.net/doc/R/communities.html}}
+be found at \url{http://igraph.org/r/doc/communities.html}}
 }
 \value{
 \itemize{

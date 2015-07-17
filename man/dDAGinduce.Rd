@@ -40,6 +40,7 @@ nodes in query, while the mode "all_paths" results in the complete
 subgraph.
 }
 \examples{
+\dontrun{
 # 1) load HPPA as igraph object
 ig.HPPA <-dRDataLoader(RData='ig.HPPA')
 g <- ig.HPPA
@@ -55,6 +56,7 @@ nodes_query <- sample(V(g),5)$name
 subg <- dDAGinduce(g, nodes_query, path.mode="all_paths")
 # 3b) based on shortest paths (i.e. the most concise subgraph induced)
 subg <- dDAGinduce(g, nodes_query, path.mode="shortest_paths")
+}
 }
 \seealso{
 \code{\link{dDAGroot}}

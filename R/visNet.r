@@ -82,8 +82,8 @@ visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr"
                 
         if(flag==1){
             if(is.null(zlim)){
-                vmin <- floor(quantile(pattern, 0.05))
-                vmax <- ceiling(quantile(pattern, 0.95))
+                vmin <- floor(stats::quantile(pattern, 0.05))
+                vmax <- ceiling(stats::quantile(pattern, 0.95))
                 if(vmin < 0 & vmax > 0){
                     vsym <- abs(min(vmin, vmax))
                     vmin <- -1*vsym
@@ -155,7 +155,7 @@ visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr"
     ######################################################################################
     ## Visualisation
     if (newpage){
-        dev.new()
+        grDevices::dev.new()
     }
     
     plot.igraph(ig, layout=glayout, 
@@ -173,7 +173,7 @@ visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr"
     ## colorbar
     if (!is.null(pattern) && length(pattern)==nsize){
         if(colorbar){
-            par(fig=c(0,0.1,0.5,1), new=TRUE)
+            graphics::par(fig=c(0,0.1,0.5,1), new=TRUE)
             palette.name <- visColormap(colormap=colormap)
             colors <- palette.name(ncolors)
             lab.scale <- length(colors)/(zlim[2]-zlim[1])
@@ -188,14 +188,14 @@ visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr"
                 ybottom <- yValue
                 xright <- xValue+wValue
                 ytop <- yValue+hValue
-                rect(xleft,ybottom,xright,ytop, col=colors[i], border="transparent")
+                graphics::rect(xleft,ybottom,xright,ytop, col=colors[i], border="transparent")
         
                 if(i == 1 | i == 1+length(colors)/2){
                     tx <- (i-1)/lab.scale + zlim[1]
-                    text(x=xright*2, y=ybottom, labels=tx, cex=0.6)
+                    graphics::text(x=xright*2, y=ybottom, labels=tx, cex=0.6)
                 }else if(i==length(colors)){
                     tx <- i/lab.scale + zlim[1]
-                    text(x=xright*2, y=ytop, labels=tx, cex=0.6)
+                    graphics::text(x=xright*2, y=ytop, labels=tx, cex=0.6)
                 }
             }
         }

@@ -110,6 +110,6 @@ visNetMul(g=subg, colormap="bwr", data=data,
 glayout=layout.fruchterman.reingold)
 }
 \seealso{
-\code{\link{visNet}}
+\code{\link{visNet}}, \code{\link{visNetAnimate}}
 }
 

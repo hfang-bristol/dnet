@@ -3,7 +3,7 @@
 #' \code{dCommSignif} is supposed to test the significance of communities within a graph. For a community of the graph, it first calculates two types of degrees for each node: degrees based on parters only within the community itself, and the degrees based on its parters NOT in the community but in the graph. Then, it performs two-sample Wilcoxon tests on these two types of degrees to produce the signficance level (p-value)
 #'
 #' @param g an object of class "igraph" or "graphNEL"
-#' @param comm an object of class "communities". Details on this class can be found at \url{http://igraph.sourceforge.net/doc/R/communities.html}
+#' @param comm an object of class "communities". Details on this class can be found at \url{http://igraph.org/r/doc/communities.html}
 #' @return 
 #' \itemize{
 #'  \item{\code{significance}: a vector of p-values (significance)}
@@ -62,7 +62,7 @@ dCommSignif <- function(g, comm)
         subg <- igraph::induced.subgraph(g, vids)
         within.degrees <- igraph::degree(subg)
         cross.degrees <- igraph::degree(g, vids) - within.degrees
-        wilcox.test(within.degrees, cross.degrees, ...)
+        stats::wilcox.test(within.degrees, cross.degrees, ...)
     }
     
     significance <- sapply(1:length(comm), function(x) {

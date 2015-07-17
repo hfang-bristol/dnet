@@ -619,7 +619,7 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
         if(sigTail=="one-tail"){
             # one-tail
             FDR <- sapply(1:length(nES.observed), function(x){
-                median(apply(nES.expected>=nES.observed[x],2,sum)) / sum(nES.observed>=nES.observed[x])
+                stats::median(apply(nES.expected>=nES.observed[x],2,sum)) / sum(nES.observed>=nES.observed[x])
             })
             FDR <- ifelse(FDR>1,1,FDR)
         }else{
@@ -629,10 +629,10 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
             FDR <- sapply(1:length(nES.observed), function(x){
                 if(nES.observed[x] >= 0){
                     called <- sum(nES.observed.pos>=nES.observed[x])
-                    ifelse(called>0, median(apply(nES.expected>=nES.observed[x],2,sum)) / called, 1)
+                    ifelse(called>0, stats::median(apply(nES.expected>=nES.observed[x],2,sum)) / called, 1)
                 }else{
                     called <- sum(nES.observed.neg<=nES.observed[x])
-                    ifelse(called>0, median(apply(nES.expected<=nES.observed[x],2,sum)) / called, 1)
+                    ifelse(called>0, stats::median(apply(nES.expected<=nES.observed[x],2,sum)) / called, 1)
                 }
             })
             FDR <- ifelse(FDR>1, 1, FDR)
@@ -692,7 +692,7 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
     
     ## globally adjusted p value for Multiple Comparisons
     vec <- c(SS.pvalue)
-    gadjp <- p.adjust(vec, method="BH")
+    gadjp <- stats::p.adjust(vec, method="BH")
     SS.gadjp <- matrix(gadjp, nrow=nSet, ncol=nSample)
     colnames(SS.gadjp) <- colnames(data)
     rownames(SS.gadjp) <- names(gs)

@@ -23,6 +23,7 @@ node(s).
 none
 }
 \examples{
+\dontrun{
 # 1) load HPPA as igraph object
 ig.HPPA <-dRDataLoader(RData='ig.HPPA')
 g <- ig.HPPA
@@ -30,6 +31,7 @@ g <- ig.HPPA
 # 2) find tips
 tips <- dDAGtip(g)
 tips
+}
 }
 \seealso{
 \code{\link{dDAGtip}}

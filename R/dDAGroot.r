@@ -12,6 +12,7 @@
 #' @seealso \code{\link{dDAGroot}}
 #' @include dDAGroot.r
 #' @examples
+#' \dontrun{
 #' # 1) load HPPA as igraph object
 #' ig.HPPA <-dRDataLoader(RData='ig.HPPA')
 #' g <- ig.HPPA
@@ -19,6 +20,7 @@
 #' # 2) find the root
 #' root <- dDAGroot(g)
 #' root
+#' }
 
 dDAGroot <- function (g)
 {

@@ -52,7 +52,7 @@
 #' out <- visBoxplotAdv(formula=time ~ TCGA_tumor_type, data=data, pch="pies", pwcol=pwcol, pwpie=pwpie)
 #' legend("topright", legend=levels(data$Gender), box.col="transparent", pch=19, col=unique(pwcol))
 
-visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"), method=c("center","hex","square","swarm"), corral=c("none","gutter","wrap","random","omit"), corralWidth, cex=1, spacing=1, breaks=NULL, labels, at=NULL, add=FALSE, log=FALSE, xlim=NULL, ylim=NULL, xlab=NULL, ylab=NULL, pch=c("circles","thermometers","pies")[1], col=par("col"), bg=NA, pwpch=NULL, pwcol=NULL, pwbg=NULL, pwpie=NULL, do.plot=TRUE, do.boxplot=TRUE, boxplot.notch=FALSE, boxplot.border="#888888C0", boxplot.col="transparent", ...)
+visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"), method=c("center","hex","square","swarm"), corral=c("none","gutter","wrap","random","omit"), corralWidth, cex=1, spacing=1, breaks=NULL, labels, at=NULL, add=FALSE, log=FALSE, xlim=NULL, ylim=NULL, xlab=NULL, ylab=NULL, pch=c("circles","thermometers","pies")[1], col=graphics::par("col"), bg=NA, pwpch=NULL, pwcol=NULL, pwbg=NULL, pwpie=NULL, do.plot=TRUE, do.boxplot=TRUE, boxplot.notch=FALSE, boxplot.border="#888888C0", boxplot.col="transparent", ...)
 {
 
     if(missing(formula) || (length(formula)!=3)){
@@ -155,9 +155,9 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
 
     ## Resolve xlim, ylim, dlim, xlab, ylab
     if(log) {
-        dlim <- 10 ^ (extendrange(log10(x.val[x.val > 0])))
+        dlim <- 10 ^ (grDevices::extendrange(log10(x.val[x.val > 0])))
     }else{
-        dlim <- extendrange(x.val, f=0.01)
+        dlim <- grDevices::extendrange(x.val, f=0.01)
     }
     
     glim <- c(min(at)-0.5, max(at)+0.5)
@@ -254,13 +254,13 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
     }
 
     #### Calculate the size of a plotting character along group- or data-axis
-    sizeMultiplier <- par('cex') * cex * spacing
+    sizeMultiplier <- graphics::par('cex') * cex * spacing
     if(orientation=="horizontal") {
-        size.g <- yinch(0.08, warn.log = FALSE) * sizeMultiplier
-        size.d <- xinch(0.08, warn.log = FALSE) * sizeMultiplier
+        size.g <- graphics::yinch(0.08, warn.log = FALSE) * sizeMultiplier
+        size.d <- graphics::xinch(0.08, warn.log = FALSE) * sizeMultiplier
     } else {# vertical
-        size.g <- xinch(0.08, warn.log = FALSE) * sizeMultiplier
-        size.d <- yinch(0.08, warn.log = FALSE) * sizeMultiplier
+        size.g <- graphics::xinch(0.08, warn.log = FALSE) * sizeMultiplier
+        size.d <- graphics::yinch(0.08, warn.log = FALSE) * sizeMultiplier
     }
 
 
@@ -299,13 +299,13 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
 
 
     # jitter points horizontally
-    swarmX <- function(x, y, xsize = xinch(0.08, warn.log = FALSE), ysize = yinch(0.08, warn.log = FALSE), log = NULL, cex = par("cex")){ 
+    swarmX <- function(x, y, xsize = graphics::xinch(0.08, warn.log = FALSE), ysize = graphics::yinch(0.08, warn.log = FALSE), log = NULL, cex = graphics::par("cex")){ 
         if(is.null(log)) {
-            log <- paste(ifelse(par('xlog'), 'x', ''), ifelse(par('ylog'), 'y', ''), sep = '')
+            log <- paste(ifelse(graphics::par('xlog'), 'x', ''), ifelse(graphics::par('ylog'), 'y', ''), sep = '')
         }
         xlog <- 'x' %in% strsplit(log, NULL)[[1L]]
         ylog <- 'y' %in% strsplit(log, NULL)[[1L]]
-        xy <- xy.coords(x = x, y = y, recycle = TRUE, log = log)
+        xy <- grDevices::xy.coords(x = x, y = y, recycle = TRUE, log = log)
         stopifnot((length(unique(xy$x)) <= 1))
         if(xlog) xy$x <- log10(xy$x)
         if(ylog) xy$y <- log10(xy$y)
@@ -316,13 +316,13 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
     }
 
     # jitter points vertically
-    swarmY <- function(x, y, xsize = xinch(0.08, warn.log = FALSE), ysize = yinch(0.08, warn.log = FALSE), log = NULL, cex = par("cex")) { 
+    swarmY <- function(x, y, xsize = graphics::xinch(0.08, warn.log = FALSE), ysize = graphics::yinch(0.08, warn.log = FALSE), log = NULL, cex = graphics::par("cex")) { 
         if(is.null(log)) {
-            log <- paste(ifelse(par('xlog'), 'x', ''), ifelse(par('ylog'), 'y', ''), sep = '')
+            log <- paste(ifelse(graphics::par('xlog'), 'x', ''), ifelse(graphics::par('ylog'), 'y', ''), sep = '')
         }
         xlog <- 'x' %in% strsplit(log, NULL)[[1L]]
         ylog <- 'y' %in% strsplit(log, NULL)[[1L]]
-        xy <- xy.coords(x = x, y = y, recycle = TRUE, log = log)
+        xy <- grDevices::xy.coords(x = x, y = y, recycle = TRUE, log = log)
         stopifnot((length(unique(xy$y)) <= 1))
         if(xlog) xy$x <- log10(xy$x)
         if(ylog) xy$y <- log10(xy$y)
@@ -333,9 +333,9 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
     }
     
     floating.pie.asp <- function (xpos, ypos, x, edges = 200, radius = 1, col = NULL, startpos = 0, ...){
-        u <- par("usr")
+        u <- graphics::par("usr")
         user.asp <- diff(u[3:4])/diff(u[1:2])
-        p <- par("pin")
+        p <- graphics::par("pin")
         inches.asp <- p[2]/p[1]
         asp <- user.asp/inches.asp
         if (!is.numeric(x) || any(is.na(x) | x < 0)) 
@@ -344,10 +344,10 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
         dx <- diff(x)
         nx <- length(dx)
         col <- if (is.null(col)) 
-            rainbow(nx)
+            grDevices::rainbow(nx)
         else rep(col, length.out = nx)
         if (length(i <- which(dx == 1))) {
-            symbols(xpos, ypos, circles = radius, inches = FALSE, add = TRUE, bg = col[i], fg = col[which(dx == 0)])
+            graphics::symbols(xpos, ypos, circles = radius, inches = FALSE, add = TRUE, bg = col[i], fg = col[which(dx == 0)])
         }else {
             bc <- 2 * pi * (x[1:nx] + dx/2) + startpos
             for (i in seq_len(nx)) {
@@ -355,7 +355,7 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
                 t2p <- 2 * pi * seq(x[i], x[i + 1], length = n) + startpos
                 xc <- c(cos(t2p) * radius + xpos, xpos)
                 yc <- c(sin(t2p) * radius * asp + ypos, ypos)
-                polygon(xc, yc, col = col[i], ...)
+                graphics::polygon(xc, yc, col = col[i], ...)
             }
         }
     }
@@ -401,7 +401,7 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
         }
 
         x.index <- lapply(d.index, function(v) {
-            if(length(na.omit(v)) == 0) return(v)
+            if(length(stats::na.omit(v)) == 0) return(v)
             v.s <- lapply(split(v, v), seq_along)
             if(method == 'center')
                 v.s <- lapply(v.s, function(a) a - mean(a))
@@ -424,7 +424,7 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
             if(n.groups > 1) {
                 corralWidth <- min(at[-1] - at[-n.groups]) - (2 * size.g)
             } else {
-                corralWidth <- 2 * (min(diff(c(par('usr')[1], at, par('usr')[2]))) - size.g)
+                corralWidth <- 2 * (min(diff(c(graphics::par('usr')[1], at, graphics::par('usr')[2]))) - size.g)
             }
         } else {
             stopifnot(length(corralWidth) == 1)
@@ -438,7 +438,7 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
             g.offset <- lapply(g.offset, function(zz) ((zz + halfCorralWidth) %% (halfCorralWidth * 2)) - halfCorralWidth)
         }
         if(corral == 'random') {
-            g.offset <- lapply(g.offset, function(zz) ifelse(zz > halfCorralWidth | zz < -halfCorralWidth, runif(length(zz), -halfCorralWidth, halfCorralWidth), zz))
+            g.offset <- lapply(g.offset, function(zz) ifelse(zz > halfCorralWidth | zz < -halfCorralWidth, stats::runif(length(zz), -halfCorralWidth, halfCorralWidth), zz))
         }
         if(corral == 'omit') {
             g.offset <- lapply(g.offset, function(zz) ifelse(zz > halfCorralWidth, NA, ifelse(zz < -halfCorralWidth, NA, zz)))
@@ -499,55 +499,55 @@ visBoxplotAdv <- function(formula, data, orientation=c("vertical","horizontal"),
         if(orientation=="horizontal") {
             
             if(is.numeric(out$pch)){
-                points(out$y, out$x, pch=out$pch, col=out$col, bg=out$bg, cex=cex)
+                graphics::points(out$y, out$x, pch=out$pch, col=out$col, bg=out$bg, cex=cex)
             }else{
                 for(i in 1:length(out$pch)){
                     pch_tmp <- out$pch[i]
                     if(pch_tmp == 'circles'){
-                        symbols(out$y[i], out$x[i], circles=min(size.g, size.d)/2, inches=F, fg=out$col[i], bg=out$bg[i], add=T)
+                        graphics::symbols(out$y[i], out$x[i], circles=min(size.g, size.d)/2, inches=F, fg=out$col[i], bg=out$bg[i], add=T)
                     }else if(pch_tmp == 'thermometers'){
-                        symbols(out$y[i], out$x[i], thermometers=cbind(0.4*size.d, 0.8*size.g, out$pie[i]), inches=F, fg=out$col[i], bg=out$bg[i], add=T)
+                        graphics::symbols(out$y[i], out$x[i], thermometers=cbind(0.4*size.d, 0.8*size.g, out$pie[i]), inches=F, fg=out$col[i], bg=out$bg[i], add=T)
                     }else if(pch_tmp == 'pies'){
                         floating.pie.asp(xpos=out$y[i], ypos=out$x[i], x=cbind(out$pie[i], 1-out$pie[i]), edges=200, radius=0.8*max(size.g, size.d)/2, col=cbind(out$col[i], "transparent"), startpos=0, border=out$col[i])
                     }else{
-                        points(out$x[i], out$y[i], pch=out$pch[i], col=out$col[i], bg=out$bg[i], cex=cex)
+                        graphics::points(out$x[i], out$y[i], pch=out$pch[i], col=out$col[i], bg=out$bg[i], cex=cex)
                     }
                 }
             }
             
             if(!add) {
-                axis(1, ...)
-                axis(2, at=at, labels=labels, tick=FALSE, ...)
-                box(...)
+                graphics::axis(1, ...)
+                graphics::axis(2, at=at, labels=labels, tick=FALSE, ...)
+                graphics::box(...)
             }
             ## add boxplot
             if(do.boxplot){
-                boxplot(formula=formula, data=data, at=at, names=labels, outline=F, add=T, horizontal=T, notch=boxplot.notch, border=boxplot.border, col=boxplot.col)
+                graphics::boxplot(formula=formula, data=data, at=at, names=labels, outline=F, add=T, horizontal=T, notch=boxplot.notch, border=boxplot.border, col=boxplot.col)
             }
             
         }else if(orientation=="vertical") {
             
             if(is.numeric(out$pch)){
-                points(out$x, out$y, pch=out$pch, col=out$col, bg=out$bg, cex=cex)
+                graphics::points(out$x, out$y, pch=out$pch, col=out$col, bg=out$bg, cex=cex)
             }else{
                 for(i in 1:length(out$pch)){
                     pch_tmp <- out$pch[i]
                     if(pch_tmp == 'circles'){
-                        symbols(out$x[i], out$y[i], circles=min(size.g, size.d)/2, inches=F, fg=out$col[i], bg=out$bg[i], add=T)
+                        graphics::symbols(out$x[i], out$y[i], circles=min(size.g, size.d)/2, inches=F, fg=out$col[i], bg=out$bg[i], add=T)
                     }else if(pch_tmp == 'thermometers'){
-                        symbols(out$x[i], out$y[i], thermometers=cbind(0.4*size.g, 0.8*size.d, out$pie[i]), inches=F, fg=out$col[i], bg=out$bg[i], add=T)
+                        graphics::symbols(out$x[i], out$y[i], thermometers=cbind(0.4*size.g, 0.8*size.d, out$pie[i]), inches=F, fg=out$col[i], bg=out$bg[i], add=T)
                     }else if(pch_tmp == 'pies'){
                         floating.pie.asp(xpos=out$x[i], ypos=out$y[i], x=cbind(out$pie[i], 1-out$pie[i]), edges=200, radius=0.8*min(size.g, size.d)/2, col=cbind(out$col[i], "transparent"), startpos=0, border=out$col[i])
                     }else{
-                        points(out$x[i], out$y[i], pch=out$pch[i], col=out$col[i], bg=out$bg[i], cex=cex)
+                        graphics::points(out$x[i], out$y[i], pch=out$pch[i], col=out$col[i], bg=out$bg[i], cex=cex)
                     }
                 }
             }
             
             if(!add) {
-                axis(2, ...)
-                axis(1, at=at, labels=labels, tick=FALSE, ...)
-                box(...)
+                graphics::axis(2, ...)
+                graphics::axis(1, at=at, labels=labels, tick=FALSE, ...)
+                graphics::box(...)
             }
             ## add boxplot
             if(do.boxplot){

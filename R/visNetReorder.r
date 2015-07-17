@@ -87,8 +87,8 @@ visNetReorder <- function (g, data, sReorder, height=7, margin=rep(0.1,4), borde
     data <- as.matrix(data[nodes_mapped,])
     
     ## determine the color range
-    vmin <- floor(quantile(data, 0.05))
-    vmax <- ceiling(quantile(data, 0.95))
+    vmin <- floor(stats::quantile(data, 0.05))
+    vmax <- ceiling(stats::quantile(data, 0.95))
     if(vmin < 0 & vmax > 0){
         vsym <- abs(min(vmin, vmax))
         vmin <- -1*vsym
@@ -153,10 +153,10 @@ visNetReorder <- function (g, data, sReorder, height=7, margin=rep(0.1,4), borde
     
     ######################################################################################
     if (newpage){
-        dev.new(width=height*colNum/rowNum, height=height)
+        grDevices::dev.new(width=height*colNum/rowNum, height=height)
     }
-    par(mfrow=c(rowNum,colNum), mar=margin)
-    layout(layout_matrix, widths=layout_widths, heights=layout_heights)
+    graphics::par(mfrow=c(rowNum,colNum), mar=margin)
+    graphics::layout(layout_matrix, widths=layout_widths, heights=layout_heights)
     if(is.function(glayout)){
         glayout_fix <- glayout(ig)
     }else{
@@ -164,10 +164,10 @@ visNetReorder <- function (g, data, sReorder, height=7, margin=rep(0.1,4), borde
     }
     for(k in 1:length(cnames)){
         visNet(ig, glayout=glayout_fix, pattern=data[,k], colormap=colormap, ncolors=ncolors, zlim=zlim, colorbar=F, newpage=F, ...)
-        mtext(sprintf("%s",cnames[k]), line=-1, side=mtext.side, adj=mtext.adj, cex=mtext.cex, font=mtext.font, col=mtext.col)
-        box("figure",col=border.color)
+        graphics::mtext(sprintf("%s",cnames[k]), line=-1, side=mtext.side, adj=mtext.adj, cex=mtext.cex, font=mtext.font, col=mtext.col)
+        graphics::box("figure",col=border.color)
     }
-    #box("outer", col="black", lwd=4)
+    #graphics::box("outer", col="black", lwd=4)
     
     ######################################################################################
     ## colorbar
@@ -190,21 +190,21 @@ visNetReorder <- function (g, data, sReorder, height=7, margin=rep(0.1,4), borde
             ybottom <- yValue
             xright <- xValue+wValue
             ytop <- yValue+hValue
-            rect(xleft,ybottom,xright,ytop, col=colors[i], border="transparent")
+            graphics::rect(xleft,ybottom,xright,ytop, col=colors[i], border="transparent")
         
             if(i == 1 | i == 1+length(colors)/2){
                 tx <- (i-1)/lab.scale + zlim[1]
-                text(x=xright+0.25, y=ybottom, labels=tx, cex=1)
+                graphics::text(x=xright+0.25, y=ybottom, labels=tx, cex=1)
             }else if(i==length(colors)){
                 tx <- i/lab.scale + zlim[1]
-                text(x=xright+0.25, y=ytop, labels=tx, cex=1)
+                graphics::text(x=xright+0.25, y=ytop, labels=tx, cex=1)
             }
         }
         
         ## for the rest of blocks
         for(k in seq(from=length(cnames)+2, to=tolNum-rowNum-colNum+2, by=1)){
             plot(c(0,1),c(0,1),xlab="", ylab="", axes=F, type="n")
-            box("figure",col=border.color)
+            graphics::box("figure",col=border.color)
         }
         
     }

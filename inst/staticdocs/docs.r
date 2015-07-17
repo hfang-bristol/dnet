@@ -21,6 +21,7 @@ list(
                 'dContrast',
                 'visNet',
                 'visNetMul',
+                'visNetAnimate',
                 'visNetReorder',
                 'visNetArc',
                 'visNetCircle',

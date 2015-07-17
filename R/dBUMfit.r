@@ -48,8 +48,8 @@ dBUMfit <- function(x, ntry=1, hist.bum=T, contour.bum=T, verbose=T)
 {
 
     ## Initial values for the parameters (a and lambda) to be optimized over
-    a <- runif(ntry, 0.1, 0.9)
-    lambda <- runif(ntry, 0.1, 0.9)
+    a <- stats::runif(ntry, 0.1, 0.9)
+    lambda <- stats::runif(ntry, 0.1, 0.9)
   
     ## beta-uniform mixture model with shape2=1
     fbum <- function(x, lambda, a){
@@ -78,7 +78,7 @@ dBUMfit <- function(x, ntry=1, hist.bum=T, contour.bum=T, verbose=T)
     value <- Inf
     best <- list()
     for(i in 1:ntry){
-        test.optim <- try(opt <- optim(c(lambda[i],a[i]), fn=fn, gr=gr, x=x, lower=rep(1e-5,3), method="L-BFGS-B", upper=rep(1-1e-5,3)))
+        test.optim <- try(opt <- stats::optim(c(lambda[i],a[i]), fn=fn, gr=gr, x=x, lower=rep(1e-5,3), method="L-BFGS-B", upper=rep(1-1e-5,3)))
         
         if ((!class(test.optim)=="try-error") && all(opt$par >= 1e-5) && all(opt$par <= 1-1e-5)){
             
@@ -117,18 +117,18 @@ dBUMfit <- function(x, ntry=1, hist.bum=T, contour.bum=T, verbose=T)
         
         if(hist.bum){
             
-            dev.new()
+            grDevices::dev.new()
             
             ## A function to return the upper bound of pi (when pvalue equels 1)
             piUbound <- function (x){
                 return(x$lambda + (1 - x$lambda) * x$a)
             }
     
-            hist(fit$pvalues, breaks=100, probability=T, main="Histogram of p-values and Beta-Uniform-Mixture (BUM) model", xlab="P-values", ylab="Density (%)")
+            graphics::hist(fit$pvalues, breaks=100, probability=T, main="Histogram of p-values and Beta-Uniform-Mixture (BUM) model", xlab="P-values", ylab="Density (%)")
             px <- seq(from=0, to=1, 1/100)
-            lines(px, fit$lambda+(1-fit$lambda)*fit$a*px^(fit$a-1), lwd=3, col="darkblue")
-            lines(px, piUbound(fit)*(px<=1), col="darkgreen", lwd=2)
-            lines(px, fit$lambda+(1-fit$lambda)*fit$a*px^(fit$a-1)-piUbound(fit), lwd=2, col="darkred")
+            graphics::lines(px, fit$lambda+(1-fit$lambda)*fit$a*px^(fit$a-1), lwd=3, col="darkblue")
+            graphics::lines(px, piUbound(fit)*(px<=1), col="darkgreen", lwd=2)
+            graphics::lines(px, fit$lambda+(1-fit$lambda)*fit$a*px^(fit$a-1)-piUbound(fit), lwd=2, col="darkred")
             
             #abline(h=piUbound(fit), col="darkgreen", lwd=2)
             #axis(side=2, labels=expression(pi), at=piUbound(fit))
@@ -138,13 +138,13 @@ dBUMfit <- function(x, ntry=1, hist.bum=T, contour.bum=T, verbose=T)
             expression(paste("With density for the noise component: ", pi, "=", lambda+(1-lambda)*a, sep="")),
             expression(paste("With density for the signal component: ", f(x)-pi, "=", (1-lambda)*a*(x^(a-1)-1), sep=""))
             )
-            legend("top", legend=leg.txt, pch=15, col=c("darkblue", "darkgreen", "darkred"), border="transparent", box.col="transparent", cex=0.8)
+            graphics::legend("top", legend=leg.txt, pch=15, col=c("darkblue", "darkgreen", "darkred"), border="transparent", box.col="transparent", cex=0.8)
             
         }
         
         if(contour.bum){
         
-            dev.new()
+            grDevices::dev.new()
         
             v <- seq(0.05, 0.95, 0.05)
             z <- matrix(0, nrow=length(v), ncol=length(v))
@@ -156,16 +156,16 @@ dBUMfit <- function(x, ntry=1, hist.bum=T, contour.bum=T, verbose=T)
   
             Lines <- list(bquote(lambda==.(round(fit$lambda,3))), bquote(a==.(round(fit$a,3))))
   
-            filled.contour(v, v, z, 
-                nlevels=24, color.palette=colorRampPalette(unlist(strsplit("darkblue-lightblue-white-lightyellow-darkorange","-"))),
+            graphics::filled.contour(v, v, z, 
+                nlevels=24, color.palette=grDevices::colorRampPalette(unlist(strsplit("darkblue-lightblue-white-lightyellow-darkorange","-"))),
                 main="Log-likelihood as a function of parameters", xlab=expression(lambda), ylab="a",
                 plot.axes={
-                    axis(1, seq(0,1,0.1))
-                    axis(2, seq(0,1,0.1))       
-                    abline(v=fit$lambda, lty=2, col="black")
-                    abline(h=fit$a, lty=2, col="black")
-                    points(fit$lambda, fit$a, cex=2)
-                    text(fit$lambda, fit$a+(strheight("X")*1.5*seq(length(Lines))), do.call(expression, Lines), adj=c(-0.2,0))
+                    graphics::axis(1, seq(0,1,0.1))
+                    graphics::axis(2, seq(0,1,0.1))       
+                    graphics::abline(v=fit$lambda, lty=2, col="black")
+                    graphics::abline(h=fit$a, lty=2, col="black")
+                    graphics::points(fit$lambda, fit$a, cex=2)
+                    graphics::text(fit$lambda, fit$a+(graphics::strheight("X")*1.5*seq(length(Lines))), do.call(expression, Lines), adj=c(-0.2,0))
                 }
             )
         }
