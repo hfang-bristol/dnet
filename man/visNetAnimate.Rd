@@ -106,9 +106,10 @@ bottom alignment, 1 for right or top alignment)}
 }
 \value{
 If specifying the output file name (see argument 'filename' above), the
-output file is either 'filename.pdf' or 'filename.mp4' in the current
-working directory. If no output file name specified, by default the
-output file is either 'visNetAnimate.pdf' or 'visNetAnimate.mp4'
+output file is either 'filename.pdf' or 'filename.mp4' or
+'filename.gif' in the current working directory. If no output file name
+specified, by default the output file is either 'visNetAnimate.pdf' or
+'visNetAnimate.mp4' or 'visNetAnimate.gif'
 }
 \description{
 \code{visNetAnimate} is supposed to animate the same graph but with
@@ -122,27 +123,48 @@ installed (also put its path into the system PATH variable; see
 }
 \note{
 When producing mp4 video, this function requires the installation of
-the software 'ffmpeg' at \url{https://www.ffmpeg.org}. Assuming you
-have a ROOT (sudo) privilege, shell command lines for ffmpeg
-installation in Terminal (for both Linux and Mac) are:
+the software 'ffmpeg' at \url{https://www.ffmpeg.org}. Shell command
+lines for ffmpeg installation in Terminal (for both Linux and Mac) are:
+\itemize{
+\item{1) \code{wget -O ffmpeg.tar.gz
+http://www.ffmpeg.org/releases/ffmpeg-2.7.1.tar.gz}}
+\item{2) \code{mkdir ~/ffmpeg | tar xvfz ffmpeg.tar.gz -C ~/ffmpeg
+--strip-components=1}}
+\item{3) \code{cd ffmpeg}}
+\item{4a) \code{./configure --disable-yasm} # Assuming you want
+installation with a ROOT (sudo) privilege}
+\item{4b) \code{./configure --disable-yasm --prefix=$HOME/ffmpeg} #
+Assuming you want local installation without ROOT (sudo) privilege}
+\item{5) \code{make}}
+\item{6) \code{make install}}
+\item{7) # add the system PATH variable to your ~/.bash_profile file if
+you follow 4b) route. \code{export PATH=$HOME/ffmpeg:$PATH}}
+\item{8) \code{ffmpeg -h} # the help information to make sure ffmpeg
+has been installed successfully}
+}
 \cr
-wget http://www.ffmpeg.org/releases/ffmpeg-2.7.1.tar.gz
-\cr
-tar xvfz ffmpeg-2.7.1.tar.gz
-\cr
-cd ffmpeg-2.7.1
-\cr
-./configure --disable-yasm
-\cr
-make
-\cr
-make install
-\cr
-ffmpeg -h
-# Installation without Root privilege, please replace with:
-./configure --disable-yasm --prefix=$HOME/ffmpeg-2.7.1
-# Also add the system PATH variable to your ~/.bash_profile file
-export PATH=$HOME/ffmpeg-2.7.1:$PATH
+When producing gif file, this function requires the installation of the
+software 'ImageMagick' at \url{http://www.imagemagick.org}. Shell
+command lines for ImageMagick installation in Terminal are:
+\itemize{
+\item{1) \code{wget
+http://www.imagemagick.org/download/ImageMagick.tar.gz}}
+\item{2) \code{mkdir ~/ImageMagick | tar xvzf ImageMagick.tar.gz -C
+~/ImageMagick --strip-components=1}}
+\item{3) \code{cd ImageMagick}}
+\item{4) \code{./configure --prefix=$HOME/ImageMagick}}
+\item{5) \code{make}}
+\item{6) \code{make install}}
+\item{7) # add the system PATH variable to your ~/.bash_profile file.
+If Linux, a) \code{export MAGICK_HOME=$HOME/ImageMagick}; b)
+\code{export PATH=$MAGICK_HOME/bin:$PATH}; c) \code{export
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$MAGICK_HOME/lib}.
+If Mac, a) \code{export MAGICK_HOME=$HOME/ImageMagick}; b) \code{export
+PATH=$MAGICK_HOME/bin:$PATH}; c) \code{export
+DYLD_LIBRARY_PATH=$MAGICK_HOME/lib/}}
+\item{8a) \code{convert -list configure} # check configuration}
+\item{8b) \code{identify -list format} # check image format supported}
+}
 }
 \examples{
 \dontrun{
@@ -157,11 +179,9 @@ nnodes <- vcount(subg)
 nsamples <- 10
 data <- matrix(runif(nnodes*nsamples), nrow=nnodes, ncol=nsamples)
 rownames(data) <- V(subg)$name
-# output as a pdf file
+# output as a <a href="visNetAnimate.pdf">pdf</a> file
 visNetAnimate(g=subg, data=data, filetype="pdf")
-# output as a mp4 file
-visNetAnimate(g=subg, data=data, filetype="mp4")
-# output as a mp4 file but with dynamic layout
+# output as a <a href="visNetAnimate.mp4">mp4</a> file but with dynamic layout
 visNetAnimate(g=subg, data=data, filetype="mp4", glayout.dynamics=TRUE)
 }
 }
