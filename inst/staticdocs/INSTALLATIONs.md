@@ -20,16 +20,16 @@ Assume you have a `ROOT (sudo)` privilege:
     make install
     R # start R
 
-Assume you do not have a ROOT privilege and want R installation under your home directory (below `/home/hfang` should be replaced with yours):
+Assume you do not have a ROOT privilege and want R installation under your home directory ($HOME):
 
     wget http://www.stats.bris.ac.uk/R/src/base/R-3/R-3.2.1.tar.gz
     tar xvfz R-3.2.1.tar.gz
     cd R-3.2.1
-    ./configure --prefix=/home/hfang/R-3.2.1 # Alternatively: ./configure --prefix=$HOME/R-3.2.1
+    ./configure --prefix=$HOME/R-3.2.1
     make
     make check
     make install
-    /home/hfang/R-3.2.1/bin/R # start R
+    $HOME/R-3.2.1/bin/R # start R
 
 ## 2. Installation of the package
 

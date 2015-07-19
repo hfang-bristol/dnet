@@ -5,6 +5,7 @@ NEW FEATURES
 
     o Update RData, including Entrez Gene information, and STRING database from version 9.1 to version 10
 
+    o Add the function ''
 
 CHANGES IN VERSION 1.0.6
 -----------------------
