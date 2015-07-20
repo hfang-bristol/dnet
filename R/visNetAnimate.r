@@ -235,10 +235,20 @@ visNetAnimate <- function (g, data, filename="visNetAnimate", filetype=c("pdf", 
         }
         grDevices::dev.off()
         
-        if(filetype=="mp4"){        
-			ffmpeg <- paste("ffmpeg -y -v quiet -r", frame_per_sec, "-i", image_files, "-q:v 1", file.path(tdir, outputfile))
-			message(sprintf("Executing this ...\n\t%s", ffmpeg), appendLF=T)
-			cmd <- try(system(ffmpeg), silent=TRUE)
+        if(filetype=="mp4"){
+			ffmpeg1 <- paste("ffmpeg -y -v quiet -r", frame_per_sec, "-i", image_files, "-q:v 1", file.path(tdir, outputfile))
+			ffmpeg2 <- paste("$HOME/ffmpeg -y -v quiet -r", frame_per_sec, "-i", image_files, "-q:v 1", file.path(tdir, outputfile))
+			ffmpeg_local <- c(ffmpeg1, ffmpeg2)
+			cmd_flag <- 1
+			for(i in 1:length(ffmpeg_local)){
+				cmd <- try(system(ffmpeg_local[i]), silent=TRUE)
+				if(cmd==0){
+					cmd_flag <- 0
+					message(sprintf("Executing this command: '%s'\n", ffmpeg_local[i]), appendLF=T)
+					break
+				}
+			}
+			
 		}else if(filetype=="gif"){
 		
 			## http://www.r-bloggers.com/animate-gif-images-in-r-imagemagick/
@@ -247,12 +257,22 @@ visNetAnimate <- function (g, data, filename="visNetAnimate", filetype=c("pdf", 
 			## 100/ticks: images/frames per second
 		
 			image_files <- paste('Rplot','*.', image.type, sep='')
-			convert <- paste("convert -delay", 100*sec_per_frame, file.path(tdir, image_files), file.path(tdir, outputfile))
-			message(sprintf("Executing this ...\n\t%s", convert), appendLF=T)
-			cmd <- try(system(convert), silent=TRUE)
+			convert1 <- paste("convert -delay", 100*sec_per_frame, file.path(tdir, image_files), file.path(tdir, outputfile))
+			convert2 <- paste("$HOME/ImageMagick/bin/convert -delay", 100*sec_per_frame, file.path(tdir, image_files), file.path(tdir, outputfile))
+			convert_local <- c(convert1, convert2)
+			cmd_flag <- 1
+			for(i in 1:length(convert_local)){
+				cmd <- try(system(convert_local[i]), silent=TRUE)
+				if(cmd==0){
+					cmd_flag <- 0
+					message(sprintf("Executing this command: '%s'\n", convert_local[i]), appendLF=T)
+					break
+				}
+			}
+			
 		}
 		
-        if(cmd==0){
+        if(cmd_flag==0){
             if(file.exists(file.path(tdir, outputfile))){
                 file.copy(from=file.path(tdir, outputfile), to=outputfile, overwrite=T, recursive=F, copy.mode=T)
                 message(sprintf("Congratulations! A file '%s' (in the directory %s) has been created!", outputfile, getwd()), appendLF=T)
