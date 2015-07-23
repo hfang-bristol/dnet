@@ -48,7 +48,9 @@ dRDataLoader(RData = c(NA, "TCGA_mutations", "ig.DO", "ig.GOBP",
 "MsigdbC4CM",
 "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7",
 "DGIdb"),
-RData.location = "http://supfam.org/dnet/RData/1.0.7")
+verbose = T,
+RData.location =
+"https://github.com/hfang-bristol/RDataCentre/blob/master/dnet/1.0.7")
 }
 \arguments{
 \item{RData}{which built-in RData to load. It can be one of
@@ -105,8 +107,12 @@ all "Msigdb" are only supported in "Hs". For details on the eligibility
 for pairs of input genome and ontology, please refer to the online
 Documentations at \url{http://supfam.org/dnet/docs.html}}
 
+\item{verbose}{logical to indicate whether the messages will be
+displayed in the screen. By default, it sets to TRUE for display}
+
 \item{RData.location}{the characters to tell the location of built-in
 RData files. By default, it remotely locates at
+\url{https://github.com/hfang-bristol/RDataCentre/blob/master/dnet} and
 \url{http://dnet.r-forge.r-project.org/RData}. Be aware of several
 versions and the latest one is matched to the current package version.
 For the user equipped with fast internet connection, this option can be
@@ -128,7 +134,7 @@ any use-specified variable that is given on the right side of the
 assigement sign '<-', which contains the loaded RData.
 }
 \description{
-\code{dRDataLoader} is supposed to load dnet built-in RData.
+\code{dRDataLoader} is supposed to load the package built-in RData.
 }
 \note{
 If there are no use-specified variable that is given on the right side

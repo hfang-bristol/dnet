@@ -21,7 +21,8 @@ p.adjust.method = c("BH", "BY", "bonferroni", "holm", "hochberg",
 ontology.algorithm = c("none", "pc", "elim", "lea"), elim.pvalue =
 0.01,
 lea.depth = 2, verbose = T,
-RData.location = "http://supfam.org/dnet/RData/1.0.7")
+RData.location =
+"https://github.com/hfang-bristol/RDataCentre/blob/master/dnet/1.0.7")
 }
 \arguments{
 \item{data}{an input vector. It contains either Entrez Gene ID or
@@ -120,6 +121,7 @@ displayed in the screen. By default, it sets to false for no display}
 
 \item{RData.location}{the characters to tell the location of built-in
 RData files. By default, it remotely locates at
+\url{https://github.com/hfang-bristol/RDataCentre/blob/master/dnet} and
 \url{http://dnet.r-forge.r-project.org/RData}. Be aware of several
 versions and the latest one is matched to the current package version.
 For the user equipped with fast internet connection, this option can be

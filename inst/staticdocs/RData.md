@@ -1,5 +1,5 @@
 ## Introduction
-As part of the package, the built-in RData (with `.RData` extension; available at [http://dnet.r-forge.r-project.org/RData](http://dnet.r-forge.r-project.org/RData)) contain curated/compiled data, which can be broadly grouped into the following categories:
+As part of the package, the built-in RData (with `.RData` extension; available at [RData](https://github.com/hfang-bristol/RDataCentre/blob/master/dnet)) contain curated/compiled data, which can be broadly grouped into the following categories:
 
 * `Ontologies`
 

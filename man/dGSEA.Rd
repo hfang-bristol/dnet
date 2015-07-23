@@ -18,7 +18,8 @@ customised.genesets = NULL, sizeRange = c(10, 20000),
 which_distance = NULL, weight = 1, nperm = 1000, fast = T,
 sigTail = c("two-tails", "one-tail"), p.adjust.method = c("BH", "BY",
 "bonferroni", "holm", "hochberg", "hommel"), verbose = T,
-RData.location = "http://supfam.org/dnet/RData/1.0.7")
+RData.location =
+"https://github.com/hfang-bristol/RDataCentre/blob/master/dnet/1.0.7")
 }
 \arguments{
 \item{data}{a data frame or matrix of input data. It must have row
@@ -105,6 +106,7 @@ displayed in the screen. By default, it sets to false for no display}
 
 \item{RData.location}{the characters to tell the location of built-in
 RData files. By default, it remotely locates at
+\url{https://github.com/hfang-bristol/RDataCentre/blob/master/dnet} and
 \url{http://dnet.r-forge.r-project.org/RData}. Be aware of several
 versions and the latest one is matched to the current package version.
 For the user equipped with fast internet connection, this option can be
@@ -190,7 +192,6 @@ higher "nes", the lower "qvalue".}
 # load data
 library(Biobase)
 TCGA_mutations <-dRDataLoader(RData='TCGA_mutations')
-symbols <- as.character(fData(TCGA_mutations)$Symbol)
 
 # gene set enrichment analysis (GSEA) using KEGG pathways
 ## calculate the total mutations for each gene

@@ -362,7 +362,7 @@ subg <- dDAGinduce(g, nodes_query)
 visDAG(g=subg, data=-1*log10(eTerm$adjp[V(subg)$name]), node.info="both", zlim=c(0,4), node.attrs=list(color=nodes.highlight))
 
 # Pathway enrichment analysis
-## uisng CP
+## using CP
 eTerm <- dEnricher(data=V(net)$name, identity="symbol", genome="Hs", ontology="MsigdbC2CP")
 dEnricherView(eTerm, top_num=10, sortBy="adjp", details=TRUE)
 ## using KEGG
