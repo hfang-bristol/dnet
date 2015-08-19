@@ -229,7 +229,7 @@ visNetAnimate <- function (g, data, filename="visNetAnimate", filetype=c("pdf", 
             }
             
             #visNetMul(g=ig, data=d, margin=margin, colormap=colormap, ncolors=ncolors, zlim=zlim, colorbar=colorbar, colorbar.fraction=colorbar.fraction, newpage=F, glayout=layout.new, mtext.side=mtext.side, mtext.adj=mtext.adj, mtext.cex=mtext.cex, mtext.font=mtext.font, mtext.col=mtext.col,...)
-            visNetMul(g=ig, data=d, margin=margin, colormap=colormap, ncolors=ncolors, zlim=zlim, colorbar=colorbar, colorbar.fraction=colorbar.fraction, newpage=F, glayout=layout.new, mtext.side=mtext.side, mtext.adj=mtext.adj, mtext.cex=mtext.cex, mtext.font=mtext.font, mtext.col=mtext.col)
+            visNetMul(g=ig, data=d, margin=margin, colormap=colormap, ncolors=ncolors, zlim=zlim, colorbar=colorbar, colorbar.fraction=colorbar.fraction, newpage=F, glayout=layout.new, mtext.side=mtext.side, mtext.adj=mtext.adj, mtext.cex=mtext.cex, mtext.font=mtext.font, mtext.col=mtext.col, ...)
             
             layout.old <- layout.new
         }

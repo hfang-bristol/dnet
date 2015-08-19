@@ -7,6 +7,7 @@
 #' @param knn an integeter specifying how many k steps are used to find the nearest neighbours of the given vertices. By default, knn is set to zero; it means no neighbors will be considered. When knn is 1, the immediate neighbors of the given vertices will be also considered for inducing the subgraph. The same is true when knn is 2, etc
 #' @param remove.loops logical to indicate whether the loop edges are to be removed. By default, it sets to false
 #' @param largest.comp logical to indicate whether the largest component is only retained. By default, it sets to true for the largest component being left
+#' @param min.comp.size an integer specifying the minimum size of component that will be retained. This parameter only works when setting the false to keep the largest component. By default, it sets to 1 meaning all nodes will be retained
 #' @return 
 #' \itemize{
 #'  \item{\code{subg}: an induced subgraph, an object of class "igraph" or "graphNEL"}
@@ -28,7 +29,7 @@
 #' # 4) produce the induced subgraph based on the nodes in query ane their immediate neighbours
 #' subg <- dNetInduce(g, nodes_query, knn=1)
 
-dNetInduce <- function(g, nodes_query, knn=0, remove.loops=F, largest.comp=T) 
+dNetInduce <- function(g, nodes_query, knn=0, remove.loops=F, largest.comp=T, min.comp.size=1) 
 {
     
     if(class(g)=="graphNEL"){
@@ -62,10 +63,17 @@ dNetInduce <- function(g, nodes_query, knn=0, remove.loops=F, largest.comp=T)
         subg <- igraph::simplify(subg, remove.loops=T)
     }
     
-    if(largest.comp){
+    if(largest.comp==T){
         clust <- igraph::clusters(subg)
         cid <- which.max(clust$csize)
         subg <- igraph::induced.subgraph(subg, V(subg)[clust$membership==cid])
+    }else{
+    	min.comp.size <- as.integer(min.comp.size)
+    	if(min.comp.size>=1 & min.comp.size<=igraph::vcount(subg)){
+			clust <- igraph::clusters(subg)
+			cid <- which(clust$csize >= min.comp.size)
+			subg <- igraph::induced.subgraph(subg, V(subg)[clust$membership %in% cid])
+    	}
     }
     
     if(class(g)=="graphNEL"){

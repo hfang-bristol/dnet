@@ -5,7 +5,8 @@
 \title{Function to visualise running enrichment score for a given sample and a gene set}
 \usage{
 visGSEA(eTerm, which_sample = 1, which_term = "GO:0006281", weight = 1,
-orientation = c("vertical", "horizontal"), newpage = T)
+orientation = c("vertical", "horizontal"), hit.linewidth = 0.5,
+newpage = T)
 }
 \arguments{
 \item{eTerm}{an object of class "eTerm"}
@@ -23,6 +24,9 @@ and so on}
 
 \item{orientation}{the orientation of the plots. It can be either
 "vertical" (default) or "horizontal"}
+
+\item{hit.linewidth}{the line width for the hits (ie genes in the gene
+set)}
 
 \item{newpage}{logical to indicate whether to open a new page. By
 default, it sets to true for opening a new page}

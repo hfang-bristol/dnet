@@ -7,6 +7,7 @@
 #' @param which_term which term will be used. It can be index or term ID or term names 
 #' @param weight type of score weigth. It can be "0" for unweighted (an equivalent to Kolmogorov-Smirnov, only considering the rank), "1" for weighted by input gene score (by default), and "2" for over-weighted, and so on
 #' @param orientation the orientation of the plots. It can be either "vertical" (default) or "horizontal"
+#' @param hit.linewidth the line width for the hits (ie genes in the gene set)
 #' @param newpage logical to indicate whether to open a new page. By default, it sets to true for opening a new page
 #' @return
 #' invisible
@@ -17,7 +18,7 @@
 #' @examples
 #' #visGSEA(eTerm, which_sample=1, which_term=1)
 
-visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, orientation=c('vertical','horizontal'), newpage=T) 
+visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, orientation=c('vertical','horizontal'), hit.linewidth=0.5, newpage=T) 
 {
 
     if (class(eTerm) != "eTerm" ){
@@ -116,7 +117,6 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
     }
     
     fontsize_axis <- 0.7
-    linewidth_hit <- 0.5
     
     if(orientation == "vertical"){
 
@@ -140,9 +140,9 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
 
         temp <- sapply(match(gs[[which_term]], geneid.sorted), function(x) {
             if(rank.score.sorted[x]>=0){
-                graphics::lines(c(x, x), c(0, rank.score.sorted[x]), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
+                graphics::lines(c(x, x), c(0, rank.score.sorted[x]), lwd=hit.linewidth, lty=1, cex=1, col="red")  # enrichment tags
             }else{
-                graphics::lines(c(x, x), c(0, rank.score.sorted[x]), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
+                graphics::lines(c(x, x), c(0, rank.score.sorted[x]), lwd=hit.linewidth, lty=1, cex=1, col="green")  # enrichment tags
             }
         })
     
@@ -159,9 +159,9 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
     
         temp <- sapply(match(gs[[which_term]], geneid.sorted), function(x) {
             if(rank.score.sorted[x]>=0){
-                graphics::lines(c(x, x), c(0, RES[x]), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
+                graphics::lines(c(x, x), c(0, RES[x]), lwd=hit.linewidth, lty=1, cex=1, col="red")  # enrichment tags
             }else{
-                graphics::lines(c(x, x), c(0, RES[x]), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
+                graphics::lines(c(x, x), c(0, RES[x]), lwd=hit.linewidth, lty=1, cex=1, col="green")  # enrichment tags
             }
         })
     
@@ -232,9 +232,9 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
 
         temp <- sapply(match(gs[[which_term]], geneid.sorted), function(x) {
             if(rank.score.sorted[x]>=0){
-                graphics::lines(c(0, rank.score.sorted[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
+                graphics::lines(c(0, rank.score.sorted[x]), c(x, x), lwd=hit.linewidth, lty=1, cex=1, col="red")  # enrichment tags
             }else{
-                graphics::lines(c(0, rank.score.sorted[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
+                graphics::lines(c(0, rank.score.sorted[x]), c(x, x), lwd=hit.linewidth, lty=1, cex=1, col="green")  # enrichment tags
             }
         })
     
@@ -251,9 +251,9 @@ visGSEA <- function(eTerm, which_sample=1, which_term="GO:0006281", weight=1, or
     
         temp <- sapply(match(gs[[which_term]], geneid.sorted), function(x) {
             if(rank.score.sorted[x]>=0){
-                graphics::lines(c(0, RES[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="red")  # enrichment tags
+                graphics::lines(c(0, RES[x]), c(x, x), lwd=hit.linewidth, lty=1, cex=1, col="red")  # enrichment tags
             }else{
-                graphics::lines(c(0, RES[x]), c(x, x), lwd=linewidth_hit, lty=1, cex=1, col="green")  # enrichment tags
+                graphics::lines(c(0, RES[x]), c(x, x), lwd=hit.linewidth, lty=1, cex=1, col="green")  # enrichment tags
             }
         })
     

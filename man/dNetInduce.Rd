@@ -4,7 +4,8 @@
 \alias{dNetInduce}
 \title{Function to generate a subgraph induced by given vertices and their k nearest neighbors}
 \usage{
-dNetInduce(g, nodes_query, knn = 0, remove.loops = F, largest.comp = T)
+dNetInduce(g, nodes_query, knn = 0, remove.loops = F, largest.comp = T,
+min.comp.size = 1)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}
@@ -23,6 +24,11 @@ be removed. By default, it sets to false}
 \item{largest.comp}{logical to indicate whether the largest component
 is only retained. By default, it sets to true for the largest component
 being left}
+
+\item{min.comp.size}{an integer specifying the minimum size of
+component that will be retained. This parameter only works when setting
+the false to keep the largest component. By default, it sets to 1
+meaning all nodes will be retained}
 }
 \value{
 \itemize{
