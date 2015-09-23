@@ -51,13 +51,13 @@ dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","
     if(dim(eTerm$set_info)[1]==1){
         tab <- data.frame( name         = eTerm$set_info$name,
                            nAnno         = sapply(eTerm$gs,length),
-                           nOverlap     = length(eTerm$overlap),
+                           nOverlap     = sapply(eTerm$overlap,length),
                            zscore       = eTerm$zscore,
                            pvalue       = eTerm$pvalue,
                            adjp         = eTerm$adjp,
                            namespace    = eTerm$set_info$namespace,
                            distance     = eTerm$set_info$distance,
-                           members      = paste(rownames(eTerm$overlap),collapse=',')
+                           members      = sapply(eTerm$overlap, function(x) paste(names(x),collapse=','))
                           )
     }else{
     
