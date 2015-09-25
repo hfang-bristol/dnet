@@ -98,5 +98,12 @@ dEnricherView <- function(eTerm, top_num=10, sortBy=c("adjp","pvalue","zscore","
         none={res <- res[order(rownames(res), decreasing=decreasing)[1:top_num],]}
     )
     
+    if(sortBy=='none'){
+    	suppressWarnings(flag <- all(!is.na(as.numeric(rownames(res)))))
+    	if(flag){
+    		res <- res[order(as.numeric(rownames(res)), decreasing=decreasing)[1:top_num],]
+    	}
+    }
+    
     res
 }

@@ -117,6 +117,8 @@ dNetReorder <- function (g, data, feature=c("node", "edge"), node.normalise=c("n
     }
     
     if(feature=="node"){
+    	# force those isolated genes to have degree=1
+    	node.degree[node.degree==0] <- 1
         fdata <- 1/node.degree * data
     }else if(feature=="edge"){
         tmp_n1 <- get.edgelist(ig,names=T)[,1]
