@@ -54,6 +54,11 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
     ####################################################################################
     
     method <- match.arg(method)
+    
+    # force those zeros to be miminum of non-zeros
+    tmp <- as.numeric(format(.Machine)['double.xmin'])
+    pval[pval < tmp] <- tmp
+    
     ####################
     
     if(method!="customised"){
@@ -92,7 +97,7 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
         ## at rough phase
         fdr_rough <- NULL
         nsize_rough <- 0
-        for(i in seq(from=floor(log10(min(pval[pval!=0]))),to=0)){
+        for(i in seq(from=ceiling(log10(min(pval[pval!=0]))),to=0)){
             fdr_test <- 10^i
             
             if(method!="customised"){
