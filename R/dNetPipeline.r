@@ -97,7 +97,19 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
         ## at rough phase
         fdr_rough <- NULL
         nsize_rough <- 0
-        for(i in seq(from=ceiling(log10(min(pval[pval!=0]))),to=0)){
+        
+        st <- ceiling(log10(min(pval[pval!=0])))
+        if(st < -300){
+        	all_i <- c(st, seq(from=-300,to=-250,by=50), seq(from=-200,to=-120,by=20), seq(from=-100,to=-20,by=10), seq(from=-10,to=0,by=1))
+        }else if(st < -200){
+        	all_i <- c(st, seq(from=-200,to=-120,by=20), seq(from=-100,to=-20,by=10), seq(from=-10,to=0,by=1))
+        }else if(st < -100){
+        	all_i <- c(st, seq(from=-100,to=-20,by=10), seq(from=-10,to=0,by=1))
+        }else{
+        	all_i <- seq(from=st,to=0)
+        }
+        
+        for(i in all_i){
             fdr_test <- 10^i
             
             if(method!="customised"){
