@@ -81,6 +81,9 @@ visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr"
         }
                 
         if(flag==1){
+        	
+        	pattern <- as.numeric(pattern)
+        	
             if(is.null(zlim)){
                 vmin <- floor(stats::quantile(pattern, 0.05))
                 vmax <- ceiling(stats::quantile(pattern, 0.95))
