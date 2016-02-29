@@ -157,9 +157,9 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
                 if(verbose){
                     message(sprintf("\t\tsignificance threshold : %1.2e, corresponding to the network size (%d nodes)", fdr_test, nsize_test), appendLF=T)
                 }
-            
+            	
+            	fdr_final <- fdr_test
                 if(nsize_test >= nsize){
-                    fdr_final <- fdr_test
                     break
                 }
             }
