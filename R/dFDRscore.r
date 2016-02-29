@@ -40,7 +40,8 @@ dFDRscore <- function(fdr, fdr.threshold=NULL, scatter=F)
         scores <- log2((1-fdr)/fdr)
     }else{
         if (fdr.threshold >0.5 | fdr.threshold<=0){
-            stop("The funciton requires that the given fdr threshold falling into (0, 0.5].\n")
+            warning("The function requires that the given fdr threshold falling into (0, 0.5].\n")
+            return(NULL)
         }else{
             scores <- log2((1-fdr)/fdr) - log2((1-fdr.threshold)/fdr.threshold)
         }

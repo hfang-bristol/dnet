@@ -109,13 +109,16 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
         	all_i <- seq(from=st,to=0)
         }
         
-        for(i in all_i){
-            fdr_test <- 10^i
+        for(i in 1:length(all_i)){
+            fdr_test <- 10^all_i[i]
             
             if(method!="customised"){
                 scores_test <- dBUMscore(fit=fit, method=method, fdr=fdr_test, scatter.bum=F)
             }else if(method=="customised"){
                 scores_test <- dFDRscore(pval, fdr.threshold=fdr_test, scatter=F)
+                if(is.null(scores_test)){
+                	break
+                }
             }
     
             module_test <- suppressWarnings(dNetFind(g, scores_test))
@@ -125,9 +128,9 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
                 message(sprintf("\t\tsignificance threshold: %1.2e, corresponding to the network size (%d nodes)", fdr_test, nsize_test), appendLF=T)
             }
             
-            if(nsize_test >= nsize){
-                fdr_rough <- fdr_test
-                nsize_rough <- nsize_test
+            fdr_rough <- fdr_test
+            nsize_rough <- nsize_test
+            if(nsize_test >= nsize){    
                 break
             }
         }

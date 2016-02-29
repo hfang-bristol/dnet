@@ -22,7 +22,7 @@ input terms. It can be "Resnik" for information content (IC) of most
 informative common ancestor (MICA) (see
 \url{http://arxiv.org/pdf/cmp-lg/9511007.pdf}), "Lin" for 2*IC at MICA
 divided by the sum of IC at pairs of terms (see
-\url{http://webdocs.cs.ualberta.ca/~lindek/papers/sim.pdf}),
+\url{https://www.cse.iitb.ac.in/~cs626-449/Papers/WordSimilarity/3.pdf}),
 "Schlicker" for weighted version of 'Lin' by the 1-prob(MICA) (see
 \url{http://www.ncbi.nlm.nih.gov/pubmed/16776819}), "Jiang" for 1 -
 difference between the sum of IC at pairs of terms and 2*IC at MICA
