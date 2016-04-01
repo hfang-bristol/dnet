@@ -139,7 +139,7 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
             fdr_final <- fdr_rough
         }else{
             if(verbose){
-                message(sprintf("\tScanning significance threshold at finetune stage..."), appendLF=T)
+                message(sprintf("\tScanning significance threshold at finetuning stage..."), appendLF=T)
             }
             ## at finetune phase
             fdr_final <- NULL
@@ -155,7 +155,7 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
                 nsize_test <- vcount(module_test)
             
                 if(verbose){
-                    message(sprintf("\t\tsignificance threshold : %1.2e, corresponding to the network size (%d nodes)", fdr_test, nsize_test), appendLF=T)
+                    message(sprintf("\t\tsignificance threshold: %1.2e, corresponding to the network size (%d nodes)", fdr_test, nsize_test), appendLF=T)
                 }
             	
             	fdr_final <- fdr_test
