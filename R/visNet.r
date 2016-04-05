@@ -176,6 +176,7 @@ visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr"
     ## colorbar
     if (!is.null(pattern) && length(pattern)==nsize){
         if(colorbar){
+        	par_old <- graphics::par()
             graphics::par(fig=c(0,0.1,0.5,1), new=TRUE)
             palette.name <- visColormap(colormap=colormap)
             colors <- palette.name(ncolors)
@@ -201,6 +202,8 @@ visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr"
                     graphics::text(x=xright*2, y=ytop, labels=tx, cex=0.6)
                 }
             }
+            
+            suppressWarnings(graphics::par(par_old))
         }
     }
     

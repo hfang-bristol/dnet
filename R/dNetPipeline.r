@@ -105,6 +105,8 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
         	all_i <- c(st, seq(from=-200,to=-120,by=20), seq(from=-100,to=-20,by=10), seq(from=-10,to=0,by=1))
         }else if(st < -100){
         	all_i <- c(st, seq(from=-100,to=-20,by=10), seq(from=-10,to=0,by=1))
+        }else if(st < -20){
+        	all_i <- c(st, seq(from=as.integer(st/10)*10,to=-20,by=10), seq(from=-10,to=0,by=1))
         }else{
         	all_i <- seq(from=st,to=0)
         }
