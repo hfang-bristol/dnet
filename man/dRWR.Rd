@@ -86,7 +86,7 @@ nodes/seeds.}
 \code{dRWR} is supposed to implement Random Walk with Restart (RWR) on
 the input graph. If the seeds (i.e. a set of starting nodes) are given,
 it intends to calculate the affinity score of all nodes in the graph to
-the seeds. If the seeds are not give, it will pre-compute affinity
+the seeds. If the seeds are not given, it will pre-compute affinity
 matrix for nodes in the input graph with respect to each starting node
 (as a seed) by looping over every node in the graph. Parallel computing
 is also supported for Linux or Mac operating systems.

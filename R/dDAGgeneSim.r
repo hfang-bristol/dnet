@@ -112,7 +112,7 @@ dDAGgeneSim <- function (g, genes=NULL, method.gene=c("BM.average","BM.max","BM.
     }
     
     ## a list of genes, each containing terms annotated by
-    genes2terms <- sapply(1:length(genes), function(x){
+    genes2terms <- lapply(1:length(genes), function(x){
         res <- names(which(sGT[x,]==1))
         if(force){
             subg <- dDAGinduce(ig, nodes_query=res, path.mode="all_paths")
