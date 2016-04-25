@@ -124,7 +124,7 @@ dDAGgeneSim <- function (g, genes=NULL, method.gene=c("BM.average","BM.max","BM.
     terms <- unique(unlist(genes2terms))
     
     ## also instore index for terms (in genes2terms)
-    genes2terms_index <- sapply(genes2terms, function(x){
+    genes2terms_index <- lapply(genes2terms, function(x){
         match(x, terms)
     })
     
