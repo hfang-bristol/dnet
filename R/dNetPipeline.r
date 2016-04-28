@@ -132,9 +132,10 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
             
             fdr_rough <- fdr_test
             nsize_rough <- nsize_test
-            if(nsize_test >= nsize){    
+            if(nsize_test >= nsize){
                 break
             }
+            fdr_pre <- fdr_rough
         }
         
         if(nsize_rough==nsize){
@@ -145,7 +146,23 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
             }
             ## at finetune phase
             fdr_final <- NULL
-            for(fdr_test in seq(from=fdr_rough/10+fdr_rough/20,to=fdr_rough-fdr_rough/20,by=fdr_rough/20)){
+            
+			st <- log10(fdr_pre)
+			ed <- log10(fdr_rough)
+			if(st < -200){
+				all_i <- seq(from=st,to=ed,by=5)
+			}else if(st < -100){
+				all_i <- seq(from=st,to=ed,by=2)
+			}else if(st < -10){
+				all_i <- seq(from=st,to=ed,by=1)
+			}else{
+				all_i <- seq(from=fdr_rough/10+fdr_rough/20,to=fdr_rough-fdr_rough/20,by=fdr_rough/20)
+				all_i <- log10(all_i)
+			}
+            
+            #for(fdr_test in seq(from=fdr_rough/10+fdr_rough/20,to=fdr_rough-fdr_rough/20,by=fdr_rough/20)){
+        	for(i in 1:length(all_i)){
+            	fdr_test <- 10^all_i[i]
             
                 if(method!="customised"){
                     scores_test <- dBUMscore(fit=fit, method=method, fdr=fdr_test, scatter.bum=F)
