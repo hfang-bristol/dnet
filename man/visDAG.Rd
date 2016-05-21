@@ -10,8 +10,8 @@ colormap = c("yr", "bwr", "jet", "gbr", "wyr", "br", "rainbow", "wb",
 colorbar.fraction = 0.1, newpage = T,
 layout.orientation = c("left_right", "top_bottom", "bottom_top",
 "right_left"), node.info = c("none", "term_id", "term_name", "both",
-"full_term_name"), graph.node.attrs = NULL, graph.edge.attrs = NULL,
-node.attrs = NULL)
+"full_term_name"), numChar = 15, graph.node.attrs = NULL,
+graph.edge.attrs = NULL, node.attrs = NULL)
 }
 \arguments{
 \item{g}{an object of class "igraph"}
@@ -67,6 +67,9 @@ nodes. It can be one of "none" for no node labeling, "term_id" for
 using Term ID, "term_name" for using Term Name (the first 15
 characters), "both" for using both of Term ID and Name (the first 15
 characters), and "full_term_name" for using the full Term Name}
+
+\item{numChar}{a positive integer specifying wrap width of node
+labelling}
 
 \item{graph.node.attrs}{a list of global node attributes. These node
 attributes will be changed globally. See 'Note' below for details on

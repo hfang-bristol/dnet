@@ -15,6 +15,7 @@
 #' @param newpage logical to indicate whether to open a new page. By default, it sets to true for opening a new page
 #' @param layout.orientation the orientation of the DAG layout. It can be one of "left_right" for the left-right layout (viewed from the DAG root point), "top_bottom" for the top-bottom layout, "bottom_top" for the bottom-top layout, and "right_left" for the right-left layout
 #' @param node.info tells the ontology term information used to label nodes. It can be one of "none" for no node labeling, "term_id" for using Term ID, "term_name" for using Term Name (the first 15 characters), "both" for using both of Term ID and Name (the first 15 characters), and "full_term_name" for using the full Term Name
+#' @param numChar a positive integer specifying wrap width of node labelling
 #' @param graph.node.attrs a list of global node attributes. These node attributes will be changed globally. See 'Note' below for details on the attributes
 #' @param graph.edge.attrs a list of global edge attributes. These edge attributes will be changed globally. See 'Note' below for details on the attributes
 #' @param node.attrs a list of local edge attributes. These node attributes will be changed locally; as such, for each attribute, the input value must be a named vector (i.e. using Term ID as names). See 'Note' below for details on the attributes
@@ -89,7 +90,7 @@
 #' visDAG(g=subg, data=data, node.info="both", node.attrs=list(shape=root.shape,label=root.label))
 #' }
 
-visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap=c("yr","bwr","jet","gbr","wyr","br","rainbow","wb","lightyellow-orange"), ncolors=40, zlim=NULL, colorbar=T, colorbar.fraction=0.1, newpage=T, layout.orientation=c("left_right","top_bottom","bottom_top","right_left"), node.info=c("none", "term_id", "term_name", "both", "full_term_name"), graph.node.attrs=NULL, graph.edge.attrs=NULL, node.attrs=NULL)
+visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap=c("yr","bwr","jet","gbr","wyr","br","rainbow","wb","lightyellow-orange"), ncolors=40, zlim=NULL, colorbar=T, colorbar.fraction=0.1, newpage=T, layout.orientation=c("left_right","top_bottom","bottom_top","right_left"), node.info=c("none", "term_id", "term_name", "both", "full_term_name"), numChar=15, graph.node.attrs=NULL, graph.edge.attrs=NULL, node.attrs=NULL)
 {
     
     ## match.arg matches arg against a table of candidate values as specified by choices, where NULL means to take the first one
