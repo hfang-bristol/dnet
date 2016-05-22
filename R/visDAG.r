@@ -189,13 +189,13 @@ visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap
         return(shortNames)
     }
     
-    termNames <- getTermInfo(ig, vids=dag@nodes, numChar=15, mulLines=F)
+    termNames <- getTermInfo(ig, vids=dag@nodes, numChar=numChar, mulLines=F)
     nodeInfo <- switch(node.info,
                        none = NULL,
                        term_id = dag@nodes,
                        term_name = termNames,
                        both = paste(dag@nodes, termNames, sep="\\\n"),
-                       full_term_name = getTermInfo(ig, vids=dag@nodes, numChar=30, mulLines=T)
+                       full_term_name = getTermInfo(ig, vids=dag@nodes, numChar=numChar, mulLines=T)
                        )
 
     ########################################################################
