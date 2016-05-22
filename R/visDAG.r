@@ -176,16 +176,20 @@ visDAG <- function (g, data=NULL, height=7, width=7, margin=rep(0.1,4), colormap
     getTermInfo <- function(g, vids, numChar=15, mulLines=F){
         fullNames <- V(g)[vids]$term_name
         names(fullNames) <- V(g)[vids]$name
-    
-        if(mulLines==F){
-            shortNames <- paste(substr(fullNames,1,numChar), ifelse(nchar(fullNames)>numChar, '...', ''), sep='')
-        }else{
-            shortNames <- sapply(fullNames,function(x){
-                return(paste(strwrap(x, numChar), sep="", collapse = "\\\n"))
-            })
-        }
-    
-        names(shortNames) <- names(fullNames)
+    	
+    	if(!is.null(numChar)){
+			if(mulLines==F){
+				shortNames <- paste(substr(fullNames,1,numChar), ifelse(nchar(fullNames)>numChar, '...', ''), sep='')
+			}else{
+				shortNames <- sapply(fullNames,function(x){
+					return(paste(strwrap(x, numChar), sep="", collapse = "\\\n"))
+				})
+			}
+			names(shortNames) <- names(fullNames)
+    	}else{
+    		shortNames <- fullNames
+    	}
+        
         return(shortNames)
     }
     
