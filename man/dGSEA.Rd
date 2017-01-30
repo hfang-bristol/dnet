@@ -76,7 +76,7 @@ more than 1000}
 to restrict terms in consideration. By default, it sets to 'NULL' to
 consider all distances}
 
-\item{weight}{type of score weigth. It can be "0" for unweighted (an
+\item{weight}{type of score weight. It can be "0" for unweighted (an
 equivalent to Kolmogorov-Smirnov, only considering the rank), "1" for
 weighted by input gene score (by default), and "2" for over-weighted,
 and so on}
@@ -154,6 +154,7 @@ rate (FDR). It is the estimated probability that the normalised
 enrichment score represents a false positive finding}
 \item{\code{qvalue}: a matrix of nSet X nSample containing q value. It
 is the monotunically increasing FDR}
+\item{\code{weight}: the input type of score weight}
 \item{\code{call}: the call that produced this result}
 }
 }

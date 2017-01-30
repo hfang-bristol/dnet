@@ -5,7 +5,7 @@
 #' @param eTerm an object of class "eTerm"
 #' @param which_sample which sample will be viewed
 #' @param top_num the maximum number of gene sets will be viewed
-#' @param sortBy which statistics will be used for sorting and viewing gene sets. It can be "adjp" for adjusted p value, "gadjp" for globally adjusted p value, "ES" for enrichment score, "nES" for normalised enrichment score, "pvalue" for p value, "FWER" for family-wise error rate, "FDR" for false discovery rate, "qvalue" for q value
+#' @param sortBy which statistics will be used for sorting and viewing gene sets. It can be "adjp" for adjusted p value, "gadjp" for globally adjusted p value, "ES" for enrichment score, "nES" for normalised enrichment score, "pvalue" for p value, "FWER" for family-wise error rate, "FDR" for false discovery rate, "qvalue" for q value, "none" for sorting by setID
 #' @param decreasing logical to indicate whether to sort in a decreasing order. If it is null, it would be true for "ES" or "nES"; otherwise it would be false
 #' @param details logical to indicate whether the detail information of gene sets is also viewed. By default, it sets to false for no inclusion
 #' @return
@@ -31,7 +31,7 @@
 #' @examples
 #' #dGSEAview(eTerm, which_sample=1, top_num=10, sortBy="adjp", decreasing=FALSE, details=TRUE)
 
-dGSEAview <- function(eTerm, which_sample=1, top_num=10, sortBy=c("adjp","gadjp","ES","nES","pvalue","FWER","FDR","qvalue"), decreasing=NULL, details=F) 
+dGSEAview <- function(eTerm, which_sample=1, top_num=10, sortBy=c("adjp","gadjp","ES","nES","pvalue","FWER","FDR","qvalue","none"), decreasing=NULL, details=F) 
 {
 
     if (class(eTerm) != "eTerm" ){
@@ -70,14 +70,16 @@ dGSEAview <- function(eTerm, which_sample=1, top_num=10, sortBy=c("adjp","gadjp"
                        setSize      = gs_size,
                        name         = eTerm$set_info$name,
                        namespace    = eTerm$set_info$namespace,
-                       distance     = eTerm$set_info$distance
+                       distance     = eTerm$set_info$distance,
+                       stringsAsFactors=F
                       )
     
     
     if(details == T){
         res <- tab
     }else{
-        res <- tab[,c(1:9)]
+        #res <- tab[,c(1:9)]
+        res <- tab
     }
     
     if(is.null(decreasing)){
@@ -89,15 +91,27 @@ dGSEAview <- function(eTerm, which_sample=1, top_num=10, sortBy=c("adjp","gadjp"
     }
     
     switch(sortBy, 
-        ES={res <- res[order(res[,2], decreasing=decreasing)[1:top_num],]},
-        nES={res <- res[order(res[,3], decreasing=decreasing)[1:top_num],]},
-        pvalue={res <- res[order(res[,4], decreasing=decreasing)[1:top_num],]},
-        adjp={res <- res[order(res[,5], decreasing=decreasing)[1:top_num],]},
-        gadjp={res <- res[order(res[,6], decreasing=decreasing)[1:top_num],]},
-        FWER={res <- res[order(res[,7], decreasing=decreasing)[1:top_num],]},
-        FDR={res <- res[order(res[,8], decreasing=decreasing)[1:top_num],]},
-        qvalue={res <- res[order(res[,9], decreasing=decreasing)[1:top_num],]}
+    	ES={res <- res[with(res,order(-ES,pvalue))[1:top_num],]},
+    	nES={res <- res[with(res,order(-nES,pvalue))[1:top_num],]},
+    	pvalue={res <- res[with(res,order(pvalue,-nES))[1:top_num],]},
+    	adjp={res <- res[with(res,order(adjp,-nES))[1:top_num],]},
+    	gadjp={res <- res[with(res,order(gadjp,-nES))[1:top_num],]},
+    	FWER={res <- res[with(res,order(FWER,-nES))[1:top_num],]},
+    	FDR={res <- res[with(res,order(FDR,-nES))[1:top_num],]},
+    	qvalue={res <- res[with(res,order(qvalue,-nES))[1:top_num],]},
+        none={res <- res[order(rownames(res), decreasing=decreasing)[1:top_num],]}
     )
+    
+    if(details == T){
+		## append leading genes
+		leadingGenes <- lapply(res$setID, function(x){
+			df_leading <- visGSEA(eTerm, which_sample=1, which_term=x, plot=F)
+			lg <- df_leading$GeneID[df_leading$Hits==2]
+			paste(lg, collapse=',')
+		})
+		names(leadingGenes) <- res$setID
+		res$leadingGenes <- leadingGenes
+    }
     
     res
 }

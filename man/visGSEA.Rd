@@ -4,7 +4,7 @@
 \alias{visGSEA}
 \title{Function to visualise running enrichment score for a given sample and a gene set}
 \usage{
-visGSEA(eTerm, which_sample = 1, which_term = "GO:0006281", weight = 1,
+visGSEA(eTerm, which_sample = 1, which_term = "GO:0006281", plot = T,
 orientation = c("vertical", "horizontal"), hit.linewidth = 0.5,
 newpage = T)
 }
@@ -17,10 +17,7 @@ sample names}
 \item{which_term}{which term will be used. It can be index or term ID
 or term names}
 
-\item{weight}{type of score weigth. It can be "0" for unweighted (an
-equivalent to Kolmogorov-Smirnov, only considering the rank), "1" for
-weighted by input gene score (by default), and "2" for over-weighted,
-and so on}
+\item{plot}{logical to indicate whether to plot}
 
 \item{orientation}{the orientation of the plots. It can be either
 "vertical" (default) or "horizontal"}
@@ -32,7 +29,7 @@ set)}
 default, it sets to true for opening a new page}
 }
 \value{
-invisible
+leading genes (being sorted)
 }
 \description{
 \code{visGSEA} is supposed to visualise running enrichment score for a

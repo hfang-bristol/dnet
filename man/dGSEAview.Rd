@@ -5,9 +5,8 @@
 \title{Function to view enrichment results in a sample-specific manner}
 \usage{
 dGSEAview(eTerm, which_sample = 1, top_num = 10, sortBy = c("adjp",
-"gadjp", "ES", "nES", "pvalue", "FWER", "FDR", "qvalue"), decreasing =
-NULL,
-details = F)
+"gadjp", "ES", "nES", "pvalue", "FWER", "FDR", "qvalue", "none"),
+decreasing = NULL, details = F)
 }
 \arguments{
 \item{eTerm}{an object of class "eTerm"}
@@ -20,7 +19,8 @@ details = F)
 gene sets. It can be "adjp" for adjusted p value, "gadjp" for globally
 adjusted p value, "ES" for enrichment score, "nES" for normalised
 enrichment score, "pvalue" for p value, "FWER" for family-wise error
-rate, "FDR" for false discovery rate, "qvalue" for q value}
+rate, "FDR" for false discovery rate, "qvalue" for q value, "none" for
+sorting by setID}
 
 \item{decreasing}{logical to indicate whether to sort in a decreasing
 order. If it is null, it would be true for "ES" or "nES"; otherwise it

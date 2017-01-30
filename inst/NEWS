@@ -1,3 +1,13 @@
+CHANGES IN VERSION 1.0.11
+-----------------------
+
+NEW FEATURES
+
+    o Modify functions ('dGSEA', 'visGSEA', 'dGSEAview') enabling inclusion of leading genes
+    
+    o Bug fixes
+    
+    
 CHANGES IN VERSION 1.0.10
 -----------------------
 
