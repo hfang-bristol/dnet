@@ -553,7 +553,13 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
                 }
             })
         }
-
+		
+		##############
+		##############
+		# min p-value: 1/(1+nperm)
+		pES[pES==0] <- 1/(1+nperm)
+		##############
+		##############
         ## adjusted p-value
         adjP <- stats::p.adjust(pES, method=p.adjust.method)
         
@@ -681,46 +687,6 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
         # put back to the origin
         qES <- qES.sorted[Orig.index]
 
-        ############################
-		# scientific notations
-		es.observed <- signif(es.observed, digits=3)
-		nES.observed <- signif(nES.observed, digits=3)
-		pES  <- sapply(pES, function(x){
-			if(x < 0.1 & x!=0){
-				as.numeric(format(x,scientific=T))
-			}else{
-				x
-			}
-		})
-		adjP <- sapply(adjP, function(x){
-			if(x < 0.1 & x!=0){
-				as.numeric(format(x,scientific=T))
-			}else{
-				x
-			}
-		})
-		FWER <- sapply(FWER, function(x){
-			if(x < 0.1 & x!=0){
-				as.numeric(format(x,scientific=T))
-			}else{
-				x
-			}
-		})
-		FDR <- sapply(FDR, function(x){
-			if(x < 0.1 & x!=0){
-				as.numeric(format(x,scientific=T))
-			}else{
-				x
-			}
-		})
-		qES <- sapply(qES, function(x){
-			if(x < 0.1 & x!=0){
-				as.numeric(format(x,scientific=T))
-			}else{
-				x
-			}
-		})
-        ############################
         SS.es[,j] <- es.observed
         SS.nes[,j] <- nES.observed
         SS.pvalue[,j] <- pES
