@@ -100,4 +100,3 @@ scores <- dBUMscore(fit, method="cdf", fdr=0.01)
 \seealso{
 \code{\link{dBUMfit}}
 }
-

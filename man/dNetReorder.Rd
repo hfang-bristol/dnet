@@ -136,4 +136,3 @@ node.normalise="none")
 \seealso{
 \code{\link{visNetReorder}}
 }
-

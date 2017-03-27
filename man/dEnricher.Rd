@@ -224,4 +224,3 @@ node.attrs=list(color=nodes.highlight))
 \seealso{
 \code{\link{dEnricherView}}
 }
-

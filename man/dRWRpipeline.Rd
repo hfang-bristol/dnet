@@ -141,4 +141,3 @@ dContact
 \code{\link{dRWR}}, \code{\link{dRWRcontact}},
 \code{\link{dCheckParallel}}
 }
-

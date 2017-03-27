@@ -218,4 +218,3 @@ visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
 \code{\link{dGSEAview}}, \code{\link{dGSEAwrite}},
 \code{\link{visGSEA}}
 }
-

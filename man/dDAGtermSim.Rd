@@ -92,4 +92,3 @@ sim
 \code{\link{dDAGinduce}}, \code{\link{dDAGancestor}},
 \code{\link{dDAGgeneSim}}, \code{\link{dCheckParallel}}
 }
-

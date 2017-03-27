@@ -117,4 +117,3 @@ visNet(g=subg, pattern=pattern, colormap="bwr", vertex.shape="sphere")
 \seealso{
 \code{\link{dNetFind}}
 }
-

@@ -140,4 +140,3 @@ edge.color=edge.color)
 \seealso{
 \code{\link{visNet}}
 }
-

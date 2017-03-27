@@ -58,4 +58,3 @@ written out.
 \seealso{
 \code{\link{dGSEA}}
 }
-

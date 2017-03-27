@@ -81,4 +81,3 @@ ap <- dPvalAggregate(pmatrix, method="logistic")
 \seealso{
 \code{\link{dPvalAggregate}}
 }
-

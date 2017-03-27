@@ -66,4 +66,3 @@ dDAGlevel(subg, level.mode="longest_path", return.mode="level2node")
 \seealso{
 \code{\link{dDAGroot}}, \code{\link{dDAGreverse}}
 }
-

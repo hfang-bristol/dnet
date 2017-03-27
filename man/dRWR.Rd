@@ -126,4 +126,3 @@ PTmatrix
 \code{\link{dRWRcontact}}, \code{\link{dRWRpipeline}},
 \code{\link{dCheckParallel}}
 }
-

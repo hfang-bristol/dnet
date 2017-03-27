@@ -154,4 +154,3 @@ ig.MP <- dRDataLoader(RData='ig.MP')
 \seealso{
 \code{\link{dRDataLoader}}
 }
-

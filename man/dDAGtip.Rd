@@ -36,4 +36,3 @@ tips
 \seealso{
 \code{\link{dDAGtip}}
 }
-

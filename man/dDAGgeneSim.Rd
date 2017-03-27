@@ -123,4 +123,3 @@ sim
 \code{\link{dDAGtermSim}}, \code{\link{dDAGinduce}},
 \code{\link{dDAGtip}}, \code{\link{dCheckParallel}}
 }
-

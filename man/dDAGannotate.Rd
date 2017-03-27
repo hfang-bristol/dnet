@@ -81,4 +81,3 @@ visDAG(g=dag, data=data, node.info="both")
 \seealso{
 \code{\link{dDAGinduce}}, \code{\link{dDAGlevel}}
 }
-

@@ -37,4 +37,3 @@ dFunArgs(fun)
 \seealso{
 \code{\link{dNetPipeline}}
 }
-

@@ -55,4 +55,3 @@ scores <- dFDRscore(fdr, fdr.threshold=0.1, scatter=TRUE)
 \seealso{
 \code{\link{dSVDsignif}}, \code{\link{dNetPipeline}}
 }
-

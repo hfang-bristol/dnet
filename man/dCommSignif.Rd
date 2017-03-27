@@ -57,4 +57,3 @@ significance <- dCommSignif(module, comm)
 \seealso{
 \code{\link{dCommSignif}}
 }
-

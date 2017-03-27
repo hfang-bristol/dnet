@@ -86,4 +86,3 @@ fit$a
 \seealso{
 \code{\link{dBUMscore}}
 }
-

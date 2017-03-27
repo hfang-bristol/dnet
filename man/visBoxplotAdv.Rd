@@ -140,4 +140,3 @@ pch=19, col=unique(pwcol))
 \seealso{
 \code{\link{visBoxplotAdv}}
 }
-

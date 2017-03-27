@@ -35,4 +35,3 @@ gr
 \seealso{
 \code{\link{dDAGreverse}}
 }
-

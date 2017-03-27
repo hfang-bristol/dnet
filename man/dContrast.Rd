@@ -46,4 +46,3 @@ contrasts <- dContrast(level_sorted, contrast.type="sequential")
 # the pairwise contrast
 contrasts <- dContrast(level_sorted, contrast.type="pairwise")
 }
-

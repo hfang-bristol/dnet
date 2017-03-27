@@ -99,4 +99,3 @@ subgraph <- dNetFind(subg, scores)
 \seealso{
 \code{\link{dNetFind}}
 }
-

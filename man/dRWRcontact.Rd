@@ -114,4 +114,3 @@ dContact
 \seealso{
 \code{\link{dRWR}}, \code{\link{dCheckParallel}}
 }
-

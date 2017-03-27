@@ -66,4 +66,3 @@ subg <- dNetInduce(g, nodes_query, knn=1)
 \seealso{
 \code{\link{dNetInduce}}
 }
-

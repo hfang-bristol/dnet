@@ -47,4 +47,3 @@ none
 \seealso{
 \code{\link{dGSEA}}, \code{\link{dGSEAview}}
 }
-

@@ -36,4 +36,3 @@ root
 \seealso{
 \code{\link{dDAGroot}}
 }
-

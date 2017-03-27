@@ -80,4 +80,3 @@ pval <- dSVDsignif(data, signif="pval", num.permutation=10)
 \seealso{
 \code{\link{dFDRscore}}
 }
-

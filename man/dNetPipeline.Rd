@@ -95,4 +95,3 @@ subgraph <- dNetPipeline(g=subg, pval=x, nsize=20)
 \code{\link{dBUMfit}}, \code{\link{dBUMscore}},
 \code{\link{dFDRscore}}, \code{\link{dNetFind}}
 }
-

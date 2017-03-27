@@ -105,4 +105,3 @@ vertex.shape="sphere")
 \seealso{
 \code{\link{visNet}}
 }
-

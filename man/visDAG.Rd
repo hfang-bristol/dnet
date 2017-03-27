@@ -182,4 +182,3 @@ node.attrs=list(shape=root.shape,label=root.label))
 \code{\link{dDAGreverse}}, \code{\link{dDAGroot}},
 \code{\link{dDAGinduce}}, \code{\link{dDAGlevel}}
 }
-

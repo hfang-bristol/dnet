@@ -117,4 +117,3 @@ visNetReorder(g=subg, colormap="bwr", data=data, sReorder)
 \seealso{
 \code{\link{visNet}}, \code{\link{dNetReorder}}
 }
-

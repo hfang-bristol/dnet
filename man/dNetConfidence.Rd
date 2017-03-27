@@ -61,4 +61,3 @@ edge.width=E(g)$edgeConfidence)
 \seealso{
 \code{\link{visNet}}
 }
-

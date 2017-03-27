@@ -36,4 +36,3 @@ biocLite(c("foreach","doParallel"))}.
 \code{\link{dRWRpipeline}}, \code{\link{dDAGtermSim}},
 \code{\link{dDAGgeneSim}}
 }
-

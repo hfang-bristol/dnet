@@ -58,4 +58,3 @@ none
 \seealso{
 \code{\link{dEnricher}}
 }
-

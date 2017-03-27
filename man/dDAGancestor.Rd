@@ -54,4 +54,3 @@ dDAGancestor(g, term1, term2)
 \seealso{
 \code{\link{dDAGinduce}}
 }
-

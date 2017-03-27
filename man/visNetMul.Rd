@@ -112,4 +112,3 @@ glayout=layout.fruchterman.reingold)
 \seealso{
 \code{\link{visNet}}, \code{\link{visNetAnimate}}
 }
-

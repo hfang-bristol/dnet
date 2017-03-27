@@ -202,4 +202,3 @@ visNetAnimate(g=subg, data=data, filetype="gif", glayout.dynamics=TRUE)
 \seealso{
 \code{\link{visNetMul}}
 }
-

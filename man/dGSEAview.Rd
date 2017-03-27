@@ -64,4 +64,3 @@ none
 \seealso{
 \code{\link{dGSEA}}
 }
-
