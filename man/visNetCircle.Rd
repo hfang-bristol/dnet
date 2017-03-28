@@ -113,7 +113,7 @@ vcolors <- mcolors[vgroups]
 vdegrees <- igraph::degree(g)
 
 # 5) sort nodes: first by communities and then degrees
-tmp<-data.frame(ind=1:vcount(g), vgroups, vdegrees)
+tmp <- data.frame(ind=1:vcount(g), vgroups, vdegrees)
 ordering <- tmp[order(vgroups,vdegrees),]$ind
 
 # 6) visualise graph using circle diagram
