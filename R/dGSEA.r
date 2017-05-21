@@ -313,7 +313,8 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
     geneid <- rownames(data) ## only those genes in question are considered
     
     if(nGene==0){
-        stop("There is no gene being used.\n")
+        warnings("There is no gene being used.\n")
+        return(NULL)
     }
     
     ## filter based on "which_distance"
@@ -352,7 +353,8 @@ dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FAL
     nSet <- length(gs)
     
     if(nSet==0){
-        stop("There is no gene set being used.\n")
+        warnings("There is no gene set being used.\n")
+        return(NULL)
     }
     
     ## Enrichment score for the gene set; that is, the degree to which this gene set is overrepresented at the top or bottom of the ranked list of genes in the expression dataset
