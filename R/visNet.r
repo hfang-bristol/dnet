@@ -18,6 +18,7 @@
 #' @param vertex.label.cex the font size of vertex labels.
 #' @param vertex.label.dist the distance of the label from the center of the vertex. If it is 0 then the label is centered on the vertex. If it is 1 then the label is displayed beside the vertex.
 #' @param vertex.label.color the color of vertex labels.
+#' @param vertex.label.family the font family of vertex labels
 #' @param ... additional graphic parameters. See \url{http://igraph.org/r/doc/plot.common.html} for the complete list.
 #' @return
 #' invisible
@@ -37,7 +38,7 @@
 #' names(pattern) <- V(subg)$name
 #' visNet(g=subg, pattern=pattern, colormap="bwr", vertex.shape="sphere")
 
-visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr","rainbow","wb"), ncolors=40, zlim=NULL, colorbar=T, newpage=T, glayout=layout.fruchterman.reingold, vertex.frame.color=NA, vertex.size=NULL, vertex.color=NULL, vertex.shape=NULL, vertex.label=NULL, vertex.label.cex=NULL, vertex.label.dist=NULL, vertex.label.color="black", ...)
+visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr","rainbow","wb"), ncolors=40, zlim=NULL, colorbar=T, newpage=T, glayout=layout.fruchterman.reingold, vertex.frame.color=NA, vertex.size=NULL, vertex.color=NULL, vertex.shape=NULL, vertex.label=NULL, vertex.label.cex=NULL, vertex.label.dist=NULL, vertex.label.color="black", vertex.label.family="sans", ...)
 {
     
     if(class(g)=="graphNEL"){
@@ -163,7 +164,6 @@ visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr"
     if(is.null(vertex.label.cex)){
         vertex.label.cex <- vertex.label.cex2
     }
-    
     ######################################################################################
     ## Visualisation
     if (newpage){
@@ -179,7 +179,7 @@ visNet <- function(g, pattern=NULL, colormap=c("bwr","jet","gbr","wyr","br","yr"
         vertex.label.cex=vertex.label.cex, 
         vertex.label.dist=vertex.label.dist, 
         vertex.label.color=vertex.label.color, 
-        vertex.label.family="sans",
+        vertex.label.family=vertex.label.family,
         ...)
         
     ## colorbar
