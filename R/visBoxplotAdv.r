@@ -36,7 +36,6 @@
 #' A data frame with plotting information. It has the same row names as the input data
 #' @note none
 #' @export
-#' @importFrom Biobase pData
 #' @seealso \code{\link{visBoxplotAdv}}
 #' @include visBoxplotAdv.r
 #' @examples
