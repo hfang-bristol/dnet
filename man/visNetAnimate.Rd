@@ -129,8 +129,8 @@ installed (also put its path into the system PATH variable; see Note).
 }
 \note{
 When producing mp4 video, this function requires the installation of
-the software 'ffmpeg' at \url{https://www.ffmpeg.org}. Shell command
-lines for ffmpeg installation in Terminal (for both Linux and Mac) are:
+the software 'ffmpeg' at https://www.ffmpeg.org. Shell command lines
+for ffmpeg installation in Terminal (for both Linux and Mac) are:
 \itemize{
 \item{1) \code{wget -O ffmpeg.tar.gz
 http://www.ffmpeg.org/releases/ffmpeg-2.7.1.tar.gz}}
@@ -149,8 +149,8 @@ you follow 4b) route: \cr\code{export PATH=$HOME/ffmpeg:$PATH}}
 \cr\code{ffmpeg -h}}
 }
 When producing gif file, this function requires the installation of the
-software 'ImageMagick' at \url{http://www.imagemagick.org}. Shell
-command lines for ImageMagick installation in Terminal are:
+software 'ImageMagick' at http://www.imagemagick.org. Shell command
+lines for ImageMagick installation in Terminal are:
 \itemize{
 \item{1) \code{wget
 http://www.imagemagick.org/download/ImageMagick.tar.gz}}

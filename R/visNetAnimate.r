@@ -27,7 +27,7 @@
 #' @param ... additional graphic parameters. See \url{http://igraph.org/r/doc/plot.common.html} for the complete list.
 #' @return 
 #' If specifying the output file name (see argument 'filename' above), the output file is either 'filename.pdf' or 'filename.mp4' or 'filename.gif' in the current working directory. If no output file name specified, by default the output file is either 'visNetAnimate.pdf' or 'visNetAnimate.mp4' or 'visNetAnimate.gif'
-#' @note When producing mp4 video, this function requires the installation of the software 'ffmpeg' at \url{https://www.ffmpeg.org}. Shell command lines for ffmpeg installation in Terminal (for both Linux and Mac) are:
+#' @note When producing mp4 video, this function requires the installation of the software 'ffmpeg' at https://www.ffmpeg.org. Shell command lines for ffmpeg installation in Terminal (for both Linux and Mac) are:
 #' \itemize{
 #' \item{1) \code{wget -O ffmpeg.tar.gz http://www.ffmpeg.org/releases/ffmpeg-2.7.1.tar.gz}}
 #' \item{2) \code{mkdir ~/ffmpeg | tar xvfz ffmpeg.tar.gz -C ~/ffmpeg --strip-components=1}}
@@ -39,7 +39,7 @@
 #' \item{7) # add the system PATH variable to your ~/.bash_profile file if you follow 4b) route: \cr\code{export PATH=$HOME/ffmpeg:$PATH}}
 #' \item{8) # make sure ffmpeg has been installed successfully: \cr\code{ffmpeg -h}}
 #' }
-#' When producing gif file, this function requires the installation of the software 'ImageMagick' at \url{http://www.imagemagick.org}. Shell command lines for ImageMagick installation in Terminal are:
+#' When producing gif file, this function requires the installation of the software 'ImageMagick' at http://www.imagemagick.org. Shell command lines for ImageMagick installation in Terminal are:
 #' \itemize{
 #' \item{1) \code{wget http://www.imagemagick.org/download/ImageMagick.tar.gz}}
 #' \item{2) \code{mkdir ~/ImageMagick | tar xvzf ImageMagick.tar.gz -C ~/ImageMagick --strip-components=1}}
