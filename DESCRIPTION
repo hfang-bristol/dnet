@@ -1,8 +1,8 @@
 Package: dnet
 Type: Package
 Title: Integrative Analysis of Omics Data in Terms of Network, Evolution and Ontology
-Version: 1.1.1
-Date: 2017-6-9
+Version: 1.1.2
+Date: 2017-11-17
 Author: Hai Fang and Julian Gough
 Maintainer: Hai Fang <hfang@well.ox.ac.uk>
 Depends: R (>= 3.1.0), igraph, supraHex

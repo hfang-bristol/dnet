@@ -99,23 +99,30 @@ dDAGinduce <- function (g, nodes_query, path.mode=c("all_paths","shortest_paths"
             tmp <- lapply(nodes_query$name, buildInducedGraph)
             nodeInduced <- ls(node.Hash)
         }
-            
+        subg <- induced.subgraph(ig, vids=nodeInduced)
+        
     }else if(path.mode=="all_shortest_paths"){
         root <- dDAGroot(ig)
         aspaths <- get.all.shortest.paths(ig, from=root, to=nodes_query)
         nodeInduced <- unique(unlist(aspaths$res))
+        subg <- induced.subgraph(ig, vids=nodeInduced)
+        
     }else if(path.mode=="shortest_paths"){
         root <- dDAGroot(ig)
-        vpaths <- get.shortest.paths(ig, from=root, to=nodes_query, output="vpath")
-        if(length(vpaths)!=length(nodes_query)){
-            vpaths <- vpaths$vpath
-        }
+        if(0){
+			vpaths <- get.shortest.paths(ig, from=root, to=nodes_query, output="vpath")
+			if(length(vpaths)!=length(nodes_query)){
+				vpaths <- vpaths$vpath
+			}
+			nodeInduced <- unique(unlist(vpaths))
+			subg <- induced.subgraph(ig, vids=nodeInduced)
+        }else{
+			epaths <- get.shortest.paths(ig, from=root, to=nodes_query, output="epath")
+			subg <- subgraph.edges(ig, eids=unlist(epaths$epath), delete.vertices=TRUE)
+		}
         
-        nodeInduced <- unique(unlist(vpaths))
     }
-    
-    subg <- induced.subgraph(ig, vids=nodeInduced)
-    
+
     if(class(g)=="graphNEL"){
         subg <- igraph.to.graphNEL(subg)
     }

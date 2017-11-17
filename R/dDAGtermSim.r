@@ -399,6 +399,12 @@ dDAGtermSim <- function (g, terms=NULL, method=c("Resnik","Lin","Schlicker","Jia
     
     sim[as.matrix(is.na(sim))] <- 0
     
+    #######
+    mat <- as.matrix(sim)
+    diag(mat) <- diag(mat)/2
+    sim <- Matrix::Matrix(mat, sparse=T)
+    #######
+    
     ####################################################################################
     endT <- Sys.time()
     if(verbose){
