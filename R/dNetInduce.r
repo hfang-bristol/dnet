@@ -10,7 +10,7 @@
 #' @param min.comp.size an integer specifying the minimum size of component that will be retained. This parameter only works when setting the false to keep the largest component. By default, it sets to 1 meaning all nodes will be retained
 #' @return 
 #' \itemize{
-#'  \item{\code{subg}: an induced subgraph, an object of class "igraph" or "graphNEL"}
+#'  \item{\code{subg}: an induced subgraph, an object of class "igraph" or "graphNEL". Appended with a node attribute 'comp' if multiple components are kept}
 #' }
 #' @note The given vertices plus their k nearest neighbors will be used to induce the subgraph.
 #' @export
@@ -69,11 +69,25 @@ dNetInduce <- function(g, nodes_query, knn=0, remove.loops=F, largest.comp=T, mi
         subg <- igraph::induced.subgraph(subg, V(subg)[clust$membership==cid])
     }else{
     	min.comp.size <- as.integer(min.comp.size)
-    	if(min.comp.size>=1 & min.comp.size<=igraph::vcount(subg)){
-			clust <- igraph::clusters(subg)
-			cid <- which(clust$csize >= min.comp.size)
-			subg <- igraph::induced.subgraph(subg, V(subg)[clust$membership %in% cid])
+    	if(min.comp.size<1 & min.comp.size>igraph::vcount(subg)){
+    		min.comp.size <- 1
     	}
+    	clust <- igraph::clusters(subg)
+		cid <- which(clust$csize >= min.comp.size)
+		subg <- igraph::induced.subgraph(subg, V(subg)[clust$membership %in% cid])
+		
+		## append a node attribute 'comp'
+		clust <- igraph::clusters(subg)
+		if(0){
+			V(subg)$comp <- clust$membership
+		}else{
+			### sort in a decreasing order
+			cid <- clust$csize
+			names(cid) <- 1:length(clust$csize)
+			cid <- sort(cid,decreasing=T)
+			ind <- match(clust$membership, names(cid))
+			V(subg)$comp <- ind
+		}
     }
     
     if(class(g)=="graphNEL"){

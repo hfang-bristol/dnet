@@ -33,7 +33,8 @@ meaning all nodes will be retained}
 \value{
 \itemize{
 \item{\code{subg}: an induced subgraph, an object of class "igraph" or
-"graphNEL"}
+"graphNEL". Appended with a node attribute 'comp' if multiple
+components are kept}
 }
 }
 \description{
