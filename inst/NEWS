@@ -5,6 +5,8 @@ NEW FEATURES
     
     o Bug fixes
 
+    o Modify function ('dNetInduce') enabling multiple components kept
+
 
 CHANGES IN VERSION 1.1.1
 -----------------------
