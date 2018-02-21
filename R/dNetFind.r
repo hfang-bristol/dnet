@@ -1,11 +1,11 @@
 #' Function to find heuristically maximum scoring subgraph
 #'
-#' \code{dNetFind} is supposed to find the maximum scoring subgraph from an input graph and scores imposed on its nodes. The input graph and the output subgraph are both of "igraph" or "graphNET" object. The input scores imposed on the nodes in the input graph can be divided into two parts: the positve nodes and the negative nodes. The searching for maximum scoring subgraph is deduced to find the connected subgraph containing the positive nodes as many as possible, but the negative nodes as few as possible. To this end, a heuristic search is used (see Note below).
+#' \code{dNetFind} is supposed to find the maximum scoring subgraph from an input graph and scores imposed on its nodes. The input graph and the output subgraph are both of "igraph" or "graphNET" object. The input scores imposed on the nodes in the input graph can be divided into two parts: the positive nodes and the negative nodes. The searching for maximum scoring subgraph is deduced to find the connected subgraph containing the positive nodes as many as possible, but the negative nodes as few as possible. To this end, a heuristic search is used (see Note below).
 #'
 #' @param g an object of class "igraph" or "graphNEL"
 #' @param scores a vector of scores. For each element, it must have the name that could be mapped onto the input graph. Also, the names in input "scores" should contain all those in the input graph "g", but the reverse is not necessary
 #' @return 
-#' a subgraph with a maximum score, an object of class "igraph" or "graphNEL"
+#' a subgraph with a maximum score, an object of class "igraph" or "graphNEL". It has node attributes 'score' and 'type' (either 'meta' or 'linker')
 #' @note The search procedure is heuristic to find the subgraph with the maximum score:
 #' \itemize{
 #' \item{i) transform the input graph into a new graph by collapsing connected positive nodes into a meta-node. As such, meta-nodes are isolated to each other but are linked via negative nodes (single-nodes). Clearly, meta-nodes have positive scores, and negative scores for the single-nodes.}
@@ -74,6 +74,8 @@ dNetFind <- function(g, scores)
         subgraph <- graph.empty(n=0, directed=F)
     }else if(length(pos.nodes)==1){
         subgraph <- dNetInduce(ig, pos.nodes, knn=0, remove.loops=T, largest.comp=T)
+        V(subgraph)$type <- 'desired'
+        
     }else{
         
         pos.subgraph <- dNetInduce(ig, pos.nodes, knn=0, remove.loops=T, largest.comp=F)
@@ -81,7 +83,9 @@ dNetFind <- function(g, scores)
         ## Decompose a graph into components
         conn.comp.graph <- decompose.graph(pos.subgraph)
         ## Score each component
-        score.comp <- unlist(lapply(lapply(conn.comp.graph,get.vertex.attribute,"score"), sum))
+        #score.comp <- unlist(lapply(lapply(conn.comp.graph,get.vertex.attribute,"score"), sum))
+        score.comp <- unlist(lapply(lapply(conn.comp.graph,function(x) as.numeric(V(x)$score)), sum))
+        
         ## Sort according to component scores
         ind_order <- order(score.comp, decreasing=T)
         conn.comp.graph <- conn.comp.graph[ind_order]
@@ -218,6 +222,10 @@ dNetFind <- function(g, scores)
             tmp_nodes <- unlist(lapply(conn.comp.graph,get.vertex.attribute,"name")[ttmp])
             subgraph <- dNetInduce(ig, tmp_nodes, knn=0, remove.loops=F, largest.comp=T)
             
+            ##########################
+            V(subgraph)$type <- 'desired'
+            ##########################
+                        
         }else{
             ## connected graph between borders (neg.node.ids.2)
             subg <- dNetInduce(sub.mig, V(sub.mig)[neg.node.ids.2]$name, knn=0, remove.loops=T, largest.comp=T)
@@ -275,6 +283,13 @@ dNetFind <- function(g, scores)
             
             tmp_nodes <- c(tmp_border_nodes, tmp_meta_nodes)
             subgraph <- dNetInduce(ig, tmp_nodes, knn=0, remove.loops=F, largest.comp=T)
+            
+            ##########################
+            type <- rep('desired', vcount(subgraph))
+            names(type) <- V(subgraph)$name
+            type[tmp_border_nodes] <- 'linker'
+            V(subgraph)$type <- type
+            ##########################
         }
     }
     

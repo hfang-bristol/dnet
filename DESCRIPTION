@@ -1,14 +1,14 @@
 Package: dnet
 Type: Package
 Title: Integrative Analysis of Omics Data in Terms of Network, Evolution and Ontology
-Version: 1.1.2
-Date: 2018-1-19
+Version: 1.1.3
+Date: 2018-2-21
 Author: Hai Fang and Julian Gough
 Maintainer: Hai Fang <hfang@well.ox.ac.uk>
 Depends: R (>= 3.1.0), igraph, supraHex
 Imports: graph, Rgraphviz, Matrix
 Suggests: limma, survival, foreach, doParallel, Biobase
-Description: The focus of the dnet is to make sense of omics data (such as gene expression and mutations) from different angles including: integration with molecular networks, enrichments using ontologies, and relevance to gene evolutionary ages. Integration is achieved to identify a gene subnetwork from the whole gene network whose nodes/genes are labelled with informative data (such as the significant levels of differential expression or survival risks). To help make sense of identified gene networks, enrichment analysis is also supported using a wide variety of pre-compiled ontologies and phylostratific gene age information in major organisms including: human, mouse, rat, chicken, C.elegans, fruit fly, zebrafish and arabidopsis. Add-on functionalities are supports for calculating semantic similarity between ontology terms (and between genes) and for calculating network affinity based on random walk; both can be done via high-performance parallel computing.
+Description: The focus of the dnet by Fang and Gough (2014) <doi:10.1186/s13073-014-0064-8> is to make sense of omics data (such as gene expression and mutations) from different angles including: integration with molecular networks, enrichments using ontologies, and relevance to gene evolutionary ages. Integration is achieved to identify a gene subnetwork from the whole gene network whose nodes/genes are labelled with informative data (such as the significant levels of differential expression or survival risks). To help make sense of identified gene networks, enrichment analysis is also supported using a wide variety of pre-compiled ontologies and phylostratific gene age information in major organisms including: human, mouse, rat, chicken, C.elegans, fruit fly, zebrafish and arabidopsis. Add-on functionalities are supports for calculating semantic similarity between ontology terms (and between genes) and for calculating network affinity based on random walk; both can be done via high-performance parallel computing.
 URL: http://dnet.r-forge.r-project.org, https://github.com/hfang-bristol/dnet
 Collate: 
     'dGSEA.r'

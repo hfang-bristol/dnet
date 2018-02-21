@@ -16,14 +16,15 @@ reverse is not necessary}
 }
 \value{
 a subgraph with a maximum score, an object of class "igraph" or
-"graphNEL"
+"graphNEL". It has node attributes 'score' and 'type' (either 'meta' or
+'linker')
 }
 \description{
 \code{dNetFind} is supposed to find the maximum scoring subgraph from
 an input graph and scores imposed on its nodes. The input graph and the
 output subgraph are both of "igraph" or "graphNET" object. The input
 scores imposed on the nodes in the input graph can be divided into two
-parts: the positve nodes and the negative nodes. The searching for
+parts: the positive nodes and the negative nodes. The searching for
 maximum scoring subgraph is deduced to find the connected subgraph
 containing the positive nodes as many as possible, but the negative
 nodes as few as possible. To this end, a heuristic search is used (see
