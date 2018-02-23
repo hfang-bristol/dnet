@@ -16,8 +16,8 @@ reverse is not necessary}
 }
 \value{
 a subgraph with a maximum score, an object of class "igraph" or
-"graphNEL". It has node attributes 'score' and 'type' (either 'meta' or
-'linker')
+"graphNEL". It has node attributes 'score' and 'type' (either 'desired'
+or 'linker')
 }
 \description{
 \code{dNetFind} is supposed to find the maximum scoring subgraph from

@@ -1,3 +1,13 @@
+CHANGES IN VERSION 1.1.3
+-----------------------
+
+NEW FEATURES
+    
+    o Bug fixes
+
+    o Modify function ('dNetFind') labelling two node types 'desired' and 'linker'
+
+
 CHANGES IN VERSION 1.1.2
 -----------------------
 

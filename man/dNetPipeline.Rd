@@ -41,7 +41,8 @@ displayed in the screen. By default, it sets to true for display}
 }
 \value{
 a subgraph with a maximum score, an object of class "igraph" or
-"graphNEL"
+"graphNEL". It has node attributes 'score' and 'type' (either 'desired'
+or 'linker')
 }
 \description{
 \code{dNetPipeline} is supposed to finish ab inito maximum-scoring

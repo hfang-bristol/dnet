@@ -5,7 +5,7 @@
 #' @param g an object of class "igraph" or "graphNEL"
 #' @param scores a vector of scores. For each element, it must have the name that could be mapped onto the input graph. Also, the names in input "scores" should contain all those in the input graph "g", but the reverse is not necessary
 #' @return 
-#' a subgraph with a maximum score, an object of class "igraph" or "graphNEL". It has node attributes 'score' and 'type' (either 'meta' or 'linker')
+#' a subgraph with a maximum score, an object of class "igraph" or "graphNEL". It has node attributes 'score' and 'type' (either 'desired' or 'linker')
 #' @note The search procedure is heuristic to find the subgraph with the maximum score:
 #' \itemize{
 #' \item{i) transform the input graph into a new graph by collapsing connected positive nodes into a meta-node. As such, meta-nodes are isolated to each other but are linked via negative nodes (single-nodes). Clearly, meta-nodes have positive scores, and negative scores for the single-nodes.}
