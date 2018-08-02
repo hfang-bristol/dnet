@@ -26,7 +26,7 @@ in the source graphs)}
 \value{
 an object of class "igraph" or "graphNEL", which is a target graph but
 appended with the "nodeConfidence" attribute to the nodes and the
-"edgeConfidence" attribute to the edges
+"edgeConfidence" attribute to the edges (in the form of 100 percentage)
 }
 \description{
 \code{eConsensusGraph} is supposed to append the confidence information

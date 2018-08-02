@@ -1,3 +1,13 @@
+CHANGES IN VERSION 1.1.4
+-----------------------
+
+NEW FEATURES
+    
+    o Bug fixes
+
+    o Modify function ('dNetConfidence') keeping the only one edge between two nodes
+
+
 CHANGES IN VERSION 1.1.3
 -----------------------
 

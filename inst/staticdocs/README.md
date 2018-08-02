@@ -1,3 +1,6 @@
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/dnet)](https://CRAN.R-project.org/package=dnet)
+[![CRAN_Downloads_Badge](http://cranlogs.r-pkg.org/badges/grand-total/dnet?color=brightgreen)](http://cranlogs.r-pkg.org/downloads/total/last-month/dnet)
+
 <a href="index.html"><IMG src="dnet_logo1.png" height="100px" id="logo"></a>
 
 <B><h4>An open-source R package for omics data integrative analysis in terms of `network`, `evolution` and `ontology`</h4></B>

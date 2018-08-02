@@ -6,7 +6,7 @@
 #' @param sources a list of the source graphs, each with an object of class "igraph" or "graphNEL". These source graphs will be used to calculate how often a node (or an edge) in the target graph that can be found with them. 
 #' @param plot logical to indicate whether the returned graph (i.e. the target graph plus the confidence information on nodes and edges) should be plotted. If it sets true, the plot will display the returned graph with the size of nodes indicative of the node confidence (the frequency that a node appears in the source graphs), and with the width of edges indicative of the edge confidence (the frequency that an edge appears in the source graphs)
 #' @return
-#' an object of class "igraph" or "graphNEL", which is a target graph but appended with the "nodeConfidence" attribute to the nodes and the "edgeConfidence" attribute to the edges
+#' an object of class "igraph" or "graphNEL", which is a target graph but appended with the "nodeConfidence" attribute to the nodes and the "edgeConfidence" attribute to the edges (in the form of 100 percentage)
 #' @note None
 #' @export
 #' @import igraph supraHex
@@ -66,43 +66,40 @@ dNetConfidence <- function(target, sources, plot=F)
     
     ## for sources
     nodes_in_sources <- lapply(isources, function(x) V(x)$name)
-    edges_in_sources <- list()
-    for(i in 1:length(isources)){
-        is <- isources[[i]]
+    edges_in_sources <- lapply(isources, function(is){
         tmp_edges <- get.edgelist(is)
-        edges_in_sources[[i]] <- apply(tmp_edges, 1, function(x) paste(sort(x), collapse="|"))
-    }
+        y <- apply(tmp_edges, 1, function(x) paste(sort(x), collapse="|"))
+        y[!duplicated(y)]
+    })
     
     ## for target
     nodes_in_target <- V(ig)$name
     edges_in_target <- apply(get.edgelist(ig), 1, function(x) paste(sort(x), collapse="|"))
-    
-    ## union
-    nodes_union <- union(nodes_in_target, unlist(nodes_in_sources))
-    edges_union <- union(edges_in_target, unlist(edges_in_sources))
-    
+
     #################################################
     ## counts of nodes and edges in sources
     nodes_in_sources <- table(unlist(nodes_in_sources))
     edges_in_sources <- table(unlist(edges_in_sources))
     
-    ## Those in sources falling into the union
-    nnodes_union <- rep(0, length(nodes_union))
-    names(nnodes_union) <- nodes_union
-    nnodes_union[names(nodes_in_sources)] <- nodes_in_sources
+    ## how many nodes in sources are found in target
+    ind <- match(nodes_in_target, names(nodes_in_sources))
+    nnodes_found <- rep(0, length(nodes_in_target))
+    names(nnodes_found) <- nodes_in_target
+    nnodes_found[!is.na(ind)] <- nodes_in_sources[ind[!is.na(ind)]]
+    ## how many edges in sources are found in target
+    ind <- match(edges_in_target, names(edges_in_sources))
+    nedges_found <- rep(0, length(edges_in_target))
+    names(nedges_found) <- edges_in_target
+    nedges_found[!is.na(ind)] <- edges_in_sources[ind[!is.na(ind)]]
     
-    nedges_union <- rep(0, length(edges_union))
-    names(nedges_union) <- edges_union
-    nedges_union[names(edges_in_sources)] <- edges_in_sources
-    
-    ## how many nodes and edges in target are found in union
-    nnodes_found <- nnodes_union[nodes_in_target]
-    nedges_found <- nedges_union[edges_in_target]
-    
-    #########################################
+    #################################################
     ## calculate the frequency in the measure of the confidence
     node.confidence <- nnodes_found/length(isources)
     edge.confidence <- nedges_found/length(isources)
+    
+    ## replace 0
+    node.confidence[node.confidence==0] <- 1 / (length(isources) * 10)
+    edge.confidence[edge.confidence==0] <- 1 / (length(isources) * 10)
     
     ## cope the input graph g and append the nodeConfidence attribute to the nodes and the edgeConfidence attribute to the edges
     icg <- ig
