@@ -4,8 +4,8 @@
 \alias{dNetInduce}
 \title{Function to generate a subgraph induced by given vertices and their k nearest neighbors}
 \usage{
-dNetInduce(g, nodes_query, knn = 0, remove.loops = F, largest.comp = T,
-min.comp.size = 1)
+dNetInduce(g, nodes_query, knn = 0, remove.loops = F,
+largest.comp = T, min.comp.size = 1)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

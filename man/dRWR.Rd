@@ -5,8 +5,9 @@
 \title{Function to implement Random Walk with Restart (RWR) on the input graph}
 \usage{
 dRWR(g, normalise = c("laplacian", "row", "column", "none"),
-setSeeds = NULL, restart = 0.75, normalise.affinity.matrix = c("none",
-"quantile"), parallel = TRUE, multicores = NULL, verbose = T)
+setSeeds = NULL, restart = 0.75,
+normalise.affinity.matrix = c("none", "quantile"), parallel = TRUE,
+multicores = NULL, verbose = T)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

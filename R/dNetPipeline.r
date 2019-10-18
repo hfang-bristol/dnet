@@ -10,7 +10,7 @@
 #' @param plot logical to indicate whether the histogram plot, contour plot and scatter plot should be drawn. By default, it sets to false for no plotting
 #' @param verbose logical to indicate whether the messages will be displayed in the screen. By default, it sets to true for display
 #' @return
-#' a subgraph with a maximum score, an object of class "igraph" or "graphNEL". It has node attributes 'score' and 'type' (either 'desired' or 'linker')
+#' a subgraph with a maximum score, an object of class "igraph" or "graphNEL". It has node attributes 'score' and 'type' (either 'desired' or 'linker'). Also appended is a graph attribute 'threshold' (that is, 'significance.threshold' used particularly useful when 'nsize' is defined)
 #' @note The pipeline sequentially consists of: 
 #' \itemize{
 #' \item{ia) if the method is either "pdf" or "cdf", \code{\link{dBUMfit}} used to fit the p-value distribution under beta-uniform mixture model, and \code{\link{dBUMscore}} used to calculate the scores according to the fitted BUM and the significance threshold.}
@@ -235,6 +235,7 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
     }
     ## find the subgraph with the maximum score
     subgraph <- dNetFind(g, scores)
+    subgraph$threshold <- fdr_final
     if(verbose){
         message(sprintf("\tSize of the subgraph: %d nodes and %d edges", vcount(subgraph), ecount(subgraph)), appendLF=T)
     }

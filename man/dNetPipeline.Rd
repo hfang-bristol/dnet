@@ -5,7 +5,8 @@
 \title{Function to setup the pipeline for finding maximum-scoring subgraph from an input graph and the signficance imposed on its nodes}
 \usage{
 dNetPipeline(g, pval, method = c("pdf", "cdf", "customised"),
-significance.threshold = NULL, nsize = NULL, plot = F, verbose = T)
+significance.threshold = NULL, nsize = NULL, plot = F,
+verbose = T)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}
@@ -42,7 +43,9 @@ displayed in the screen. By default, it sets to true for display}
 \value{
 a subgraph with a maximum score, an object of class "igraph" or
 "graphNEL". It has node attributes 'score' and 'type' (either 'desired'
-or 'linker')
+or 'linker'). Also appended is a graph attribute 'threshold' (that is,
+'significance.threshold' used particularly useful when 'nsize' is
+defined)
 }
 \description{
 \code{dNetPipeline} is supposed to finish ab inito maximum-scoring

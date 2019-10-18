@@ -6,13 +6,13 @@
 \usage{
 visNetCircle(g, com, circles = c("single", "multiple"), newpage = T,
 ordering = NULL, colormap = c("rainbow", "bwr", "jet", "gbr", "wyr",
-"br",
-"yr", "wb"), vertex.label = V(g)$name,
-vertex.size = log(igraph::degree(g)) + 2, vertex.label.color = "black",
-vertex.label.cex = 0.6, vertex.label.dist = 0.75,
-vertex.shape = "sphere", edge.width = 1, edge.lty = 1,
-edge.color.within = "grey", edge.color.crossing = "black",
-mark.shape = 1, mark.expand = 10, ...)
+"br", "yr", "wb"), vertex.label = V(g)$name,
+vertex.size = log(igraph::degree(g)) + 2,
+vertex.label.color = "black", vertex.label.cex = 0.6,
+vertex.label.dist = 0.75, vertex.shape = "sphere", edge.width = 1,
+edge.lty = 1, edge.color.within = "grey",
+edge.color.crossing = "black", mark.shape = 1, mark.expand = 10,
+...)
 }
 \arguments{
 \item{g}{an object of class "igraph"}

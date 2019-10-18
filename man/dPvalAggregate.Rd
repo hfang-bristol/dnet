@@ -5,8 +5,8 @@
 \title{Function to aggregate p values}
 \usage{
 dPvalAggregate(pmatrix, method = c("orderStatistic", "fishers",
-"Ztransform",
-"logistic"), order = ncol(pmatrix), weight = rep(1, ncol(pmatrix)))
+"Ztransform", "logistic"), order = ncol(pmatrix), weight = rep(1,
+ncol(pmatrix)))
 }
 \arguments{
 \item{pmatrix}{a data frame or matrix of p-values}
