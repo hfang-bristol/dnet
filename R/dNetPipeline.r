@@ -58,6 +58,8 @@ dNetPipeline <- function(g, pval, method=c("pdf","cdf","customised"), significan
     # force those zeros to be miminum of non-zeros
     tmp <- as.numeric(format(.Machine)['double.xmin'])
     pval[pval < tmp] <- tmp
+	# remove NA
+	pval <- pval[!is.na(pval)]
     
     ####################
     

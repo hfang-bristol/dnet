@@ -4,9 +4,15 @@
 \alias{dNetPipeline}
 \title{Function to setup the pipeline for finding maximum-scoring subgraph from an input graph and the signficance imposed on its nodes}
 \usage{
-dNetPipeline(g, pval, method = c("pdf", "cdf", "customised"),
-significance.threshold = NULL, nsize = NULL, plot = F,
-verbose = T)
+dNetPipeline(
+g,
+pval,
+method = c("pdf", "cdf", "customised"),
+significance.threshold = NULL,
+nsize = NULL,
+plot = F,
+verbose = T
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

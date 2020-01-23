@@ -4,10 +4,18 @@
 \alias{dDAGgeneSim}
 \title{Function to calculate pair-wise semantic similarity between genes based on a direct acyclic graph (DAG) with annotated data}
 \usage{
-dDAGgeneSim(g, genes = NULL, method.gene = c("BM.average", "BM.max",
-"BM.complete", "average", "max"), method.term = c("Resnik", "Lin",
-"Schlicker", "Jiang", "Pesquita"), force = TRUE, fast = TRUE,
-parallel = TRUE, multicores = NULL, verbose = TRUE)
+dDAGgeneSim(
+g,
+genes = NULL,
+method.gene = c("BM.average", "BM.max", "BM.complete", "average",
+"max"),
+method.term = c("Resnik", "Lin", "Schlicker", "Jiang", "Pesquita"),
+force = TRUE,
+fast = TRUE,
+parallel = TRUE,
+multicores = NULL,
+verbose = TRUE
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL". It must contain a

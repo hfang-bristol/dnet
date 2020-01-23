@@ -4,13 +4,26 @@
 \alias{visNet}
 \title{Function to visualise a graph object of class "igraph" or "graphNEL"}
 \usage{
-visNet(g, pattern = NULL, colormap = c("bwr", "jet", "gbr", "wyr",
-"br", "yr", "rainbow", "wb"), ncolors = 40, zlim = NULL,
-colorbar = T, newpage = T, glayout = layout.fruchterman.reingold,
-vertex.frame.color = NA, vertex.size = NULL, vertex.color = NULL,
-vertex.shape = NULL, vertex.label = NULL, vertex.label.cex = NULL,
-vertex.label.dist = NULL, vertex.label.color = "black",
-vertex.label.family = "sans", ...)
+visNet(
+g,
+pattern = NULL,
+colormap = c("bwr", "jet", "gbr", "wyr", "br", "yr", "rainbow", "wb"),
+ncolors = 40,
+zlim = NULL,
+colorbar = T,
+newpage = T,
+glayout = layout.fruchterman.reingold,
+vertex.frame.color = NA,
+vertex.size = NULL,
+vertex.color = NULL,
+vertex.shape = NULL,
+vertex.label = NULL,
+vertex.label.cex = NULL,
+vertex.label.dist = NULL,
+vertex.label.color = "black",
+vertex.label.family = "sans",
+...
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

@@ -4,13 +4,26 @@
 \alias{visNetMul}
 \title{Function to visualise the same graph but with multiple graph node colorings according to input data matrix}
 \usage{
-visNetMul(g, data, height = 7, margin = rep(0.1, 4),
-border.color = "#EEEEEE", colormap = c("bwr", "jet", "gbr", "wyr",
-"br", "yr", "rainbow", "wb"), ncolors = 40, zlim = NULL,
-colorbar = T, colorbar.fraction = 0.25, newpage = T,
-glayout = layout.fruchterman.reingold, mtext.side = 3,
-mtext.adj = 0, mtext.cex = 1, mtext.font = 2,
-mtext.col = "black", ...)
+visNetMul(
+g,
+data,
+height = 7,
+margin = rep(0.1, 4),
+border.color = "#EEEEEE",
+colormap = c("bwr", "jet", "gbr", "wyr", "br", "yr", "rainbow", "wb"),
+ncolors = 40,
+zlim = NULL,
+colorbar = T,
+colorbar.fraction = 0.25,
+newpage = T,
+glayout = layout.fruchterman.reingold,
+mtext.side = 3,
+mtext.adj = 0,
+mtext.cex = 1,
+mtext.font = 2,
+mtext.col = "black",
+...
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

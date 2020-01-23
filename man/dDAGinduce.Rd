@@ -4,8 +4,11 @@
 \alias{dDAGinduce}
 \title{Function to generate a subgraph of a direct acyclic graph (DAG) induced by given vertices}
 \usage{
-dDAGinduce(g, nodes_query, path.mode = c("all_paths", "shortest_paths",
-"all_shortest_paths"))
+dDAGinduce(
+g,
+nodes_query,
+path.mode = c("all_paths", "shortest_paths", "all_shortest_paths")
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

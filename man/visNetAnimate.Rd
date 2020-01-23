@@ -4,15 +4,31 @@
 \alias{visNetAnimate}
 \title{Function to animate the same graph but with multiple graph node colorings according to input data matrix}
 \usage{
-visNetAnimate(g, data, filename = "visNetAnimate", filetype = c("pdf",
-"mp4", "gif"), image.type = c("jpg", "png"), num.frame = ncol(data),
-sec_per_frame = 1, height.device = 7, margin = rep(0.1, 4),
-border.color = "#EEEEEE", colormap = c("bwr", "jet", "gbr", "wyr",
-"br", "yr", "rainbow", "wb"), ncolors = 40, zlim = NULL,
-colorbar = T, colorbar.fraction = 0.25,
-glayout = layout.fruchterman.reingold, glayout.dynamics = F,
-mtext.side = 3, mtext.adj = 0, mtext.cex = 1, mtext.font = 2,
-mtext.col = "black", ...)
+visNetAnimate(
+g,
+data,
+filename = "visNetAnimate",
+filetype = c("pdf", "mp4", "gif"),
+image.type = c("jpg", "png"),
+num.frame = ncol(data),
+sec_per_frame = 1,
+height.device = 7,
+margin = rep(0.1, 4),
+border.color = "#EEEEEE",
+colormap = c("bwr", "jet", "gbr", "wyr", "br", "yr", "rainbow", "wb"),
+ncolors = 40,
+zlim = NULL,
+colorbar = T,
+colorbar.fraction = 0.25,
+glayout = layout.fruchterman.reingold,
+glayout.dynamics = F,
+mtext.side = 3,
+mtext.adj = 0,
+mtext.cex = 1,
+mtext.font = 2,
+mtext.col = "black",
+...
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

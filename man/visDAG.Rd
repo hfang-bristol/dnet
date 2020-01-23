@@ -4,14 +4,28 @@
 \alias{visDAG}
 \title{Function to visualise a direct acyclic graph (DAG) with node colorings according to a named input data vector (if provided)}
 \usage{
-visDAG(g, data = NULL, height = 7, width = 7, margin = rep(0.1, 4),
+visDAG(
+g,
+data = NULL,
+height = 7,
+width = 7,
+margin = rep(0.1, 4),
 colormap = c("yr", "bwr", "jet", "gbr", "wyr", "br", "rainbow", "wb",
-"lightyellow-orange"), ncolors = 40, zlim = NULL, colorbar = T,
-colorbar.fraction = 0.1, newpage = T,
+"lightyellow-orange"),
+ncolors = 40,
+zlim = NULL,
+colorbar = T,
+colorbar.fraction = 0.1,
+newpage = T,
 layout.orientation = c("left_right", "top_bottom", "bottom_top",
-"right_left"), node.info = c("none", "term_id", "term_name", "both",
-"full_term_name"), numChar = 15, graph.node.attrs = NULL,
-graph.edge.attrs = NULL, node.attrs = NULL)
+"right_left"),
+node.info = c("none", "term_id", "term_name", "both",
+"full_term_name"),
+numChar = 15,
+graph.node.attrs = NULL,
+graph.edge.attrs = NULL,
+node.attrs = NULL
+)
 }
 \arguments{
 \item{g}{an object of class "igraph"}

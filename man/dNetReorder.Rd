@@ -4,13 +4,22 @@
 \alias{dNetReorder}
 \title{Function to reorder the multiple graph colorings within a sheet-shape rectangle grid}
 \usage{
-dNetReorder(g, data, feature = c("node", "edge"),
-node.normalise = c("none", "degree"), xdim = NULL, ydim = NULL,
-amplifier = NULL, metric = c("none", "pearson", "spearman",
-"kendall", "euclidean", "manhattan", "cos", "mi"), init = c("linear",
-"uniform", "sample"), algorithm = c("sequential", "batch"),
+dNetReorder(
+g,
+data,
+feature = c("node", "edge"),
+node.normalise = c("none", "degree"),
+xdim = NULL,
+ydim = NULL,
+amplifier = NULL,
+metric = c("none", "pearson", "spearman", "kendall", "euclidean",
+"manhattan", "cos",
+"mi"),
+init = c("linear", "uniform", "sample"),
+algorithm = c("sequential", "batch"),
 alphaType = c("invert", "linear", "power"),
-neighKernel = c("gaussian", "bubble", "cutgaussian", "ep", "gamma"))
+neighKernel = c("gaussian", "bubble", "cutgaussian", "ep", "gamma")
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

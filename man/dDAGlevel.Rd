@@ -4,8 +4,11 @@
 \alias{dDAGlevel}
 \title{Function to define/calculate the level of nodes in a direct acyclic graph (DAG)}
 \usage{
-dDAGlevel(g, level.mode = c("longest_path", "shortest_path"),
-return.mode = c("node2level", "level2node"))
+dDAGlevel(
+g,
+level.mode = c("longest_path", "shortest_path"),
+return.mode = c("node2level", "level2node")
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

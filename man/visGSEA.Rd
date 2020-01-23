@@ -4,9 +4,15 @@
 \alias{visGSEA}
 \title{Function to visualise running enrichment score for a given sample and a gene set}
 \usage{
-visGSEA(eTerm, which_sample = 1, which_term = "GO:0006281", plot = T,
-orientation = c("vertical", "horizontal"), hit.linewidth = 0.5,
-newpage = T)
+visGSEA(
+eTerm,
+which_sample = 1,
+which_term = "GO:0006281",
+plot = T,
+orientation = c("vertical", "horizontal"),
+hit.linewidth = 0.5,
+newpage = T
+)
 }
 \arguments{
 \item{eTerm}{an object of class "eTerm"}

@@ -4,10 +4,19 @@
 \alias{dRWRcontact}
 \title{Function to estimate RWR-based contact strength between samples from an input gene-sample data matrix, an input graph and its pre-computed affinity matrix}
 \usage{
-dRWRcontact(data, g, Amatrix, permutation = c("random", "degree"),
-num.permutation = 10, p.adjust.method = c("BH", "BY", "bonferroni",
-"holm", "hochberg", "hommel"), adjp.cutoff = 0.05, parallel = TRUE,
-multicores = NULL, verbose = T)
+dRWRcontact(
+data,
+g,
+Amatrix,
+permutation = c("random", "degree"),
+num.permutation = 10,
+p.adjust.method = c("BH", "BY", "bonferroni", "holm", "hochberg",
+"hommel"),
+adjp.cutoff = 0.05,
+parallel = TRUE,
+multicores = NULL,
+verbose = T
+)
 }
 \arguments{
 \item{data}{an input gene-sample data matrix used for seeds. Each value

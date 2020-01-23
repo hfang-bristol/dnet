@@ -4,12 +4,24 @@
 \alias{visNetArc}
 \title{Function to visualise an igraph object via arc diagram}
 \usage{
-visNetArc(g, orientation = c("vertical", "horizontal"), newpage = T,
-ordering = NULL, labels = V(g)$name, vertex.label.color = "black",
-vertex.label.cex = 1, vertex.color = "transparent",
-vertex.frame.color = "black", vertex.size = log(degree(g)) + 0.1,
-vertex.pch = 21, vertex.lwd = 1, edge.color = "grey",
-edge.width = 1, edge.lty = 1, ...)
+visNetArc(
+g,
+orientation = c("vertical", "horizontal"),
+newpage = T,
+ordering = NULL,
+labels = V(g)$name,
+vertex.label.color = "black",
+vertex.label.cex = 1,
+vertex.color = "transparent",
+vertex.frame.color = "black",
+vertex.size = log(degree(g)) + 0.1,
+vertex.pch = 21,
+vertex.lwd = 1,
+edge.color = "grey",
+edge.width = 1,
+edge.lty = 1,
+...
+)
 }
 \arguments{
 \item{g}{an object of class "igraph"}

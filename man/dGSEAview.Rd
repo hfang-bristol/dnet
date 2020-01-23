@@ -4,9 +4,15 @@
 \alias{dGSEAview}
 \title{Function to view enrichment results in a sample-specific manner}
 \usage{
-dGSEAview(eTerm, which_sample = 1, top_num = 10, sortBy = c("adjp",
-"gadjp", "ES", "nES", "pvalue", "FWER", "FDR", "qvalue", "none"),
-decreasing = NULL, details = F)
+dGSEAview(
+eTerm,
+which_sample = 1,
+top_num = 10,
+sortBy = c("adjp", "gadjp", "ES", "nES", "pvalue", "FWER", "FDR",
+"qvalue", "none"),
+decreasing = NULL,
+details = F
+)
 }
 \arguments{
 \item{eTerm}{an object of class "eTerm"}

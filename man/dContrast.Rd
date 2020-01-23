@@ -4,8 +4,10 @@
 \alias{dContrast}
 \title{Function to help build the contrast matrix}
 \usage{
-dContrast(level_sorted, contrast.type = c("average", "zero",
-"sequential", "pairwise"))
+dContrast(
+level_sorted,
+contrast.type = c("average", "zero", "sequential", "pairwise")
+)
 }
 \arguments{
 \item{level_sorted}{a vector of levels (usually sorted) which are

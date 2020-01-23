@@ -4,21 +4,33 @@
 \alias{dEnricher}
 \title{Function to conduct enrichment analysis given the input data and the ontology in query}
 \usage{
-dEnricher(data, identity = c("symbol", "entrez"),
-check.symbol.identity = FALSE, genome = c("Hs", "Mm", "Rn", "Gg",
-"Ce", "Dm", "Da", "At"), ontology = c("GOBP", "GOMF", "GOCC", "PS",
-"PS2", "SF", "DO", "HPPA", "HPMI", "HPCM", "HPMA", "MP", "MsigdbH",
-"MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG",
+dEnricher(
+data,
+identity = c("symbol", "entrez"),
+check.symbol.identity = FALSE,
+genome = c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"),
+ontology = c("GOBP", "GOMF", "GOCC", "PS", "PS2", "SF", "DO", "HPPA",
+"HPMI", "HPCM",
+"HPMA", "MP", "MsigdbH", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP",
+"MsigdbC2KEGG",
 "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR",
-"MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC",
-"MsigdbC6", "MsigdbC7", "DGIdb"), sizeRange = c(10, 1000),
-min.overlap = 3, which_distance = NULL, test = c("HypergeoTest",
-"FisherTest", "BinomialTest"), p.adjust.method = c("BH", "BY",
-"bonferroni", "holm", "hochberg", "hommel"),
+"MsigdbC4CGN",
+"MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6",
+"MsigdbC7",
+"DGIdb"),
+sizeRange = c(10, 1000),
+min.overlap = 3,
+which_distance = NULL,
+test = c("HypergeoTest", "FisherTest", "BinomialTest"),
+p.adjust.method = c("BH", "BY", "bonferroni", "holm", "hochberg",
+"hommel"),
 ontology.algorithm = c("none", "pc", "elim", "lea"),
-elim.pvalue = 0.01, lea.depth = 2, verbose = T,
+elim.pvalue = 0.01,
+lea.depth = 2,
+verbose = T,
 RData.location =
-"https://github.com/hfang-bristol/RDataCentre/blob/master/dnet/1.0.7")
+"https://github.com/hfang-bristol/RDataCentre/blob/master/dnet/1.0.7"
+)
 }
 \arguments{
 \item{data}{an input vector. It contains either Entrez Gene ID or

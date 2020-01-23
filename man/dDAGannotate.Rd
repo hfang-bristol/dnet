@@ -4,9 +4,12 @@
 \alias{dDAGannotate}
 \title{Function to generate a subgraph of a direct acyclic graph (DAG) induced by the input annotation data}
 \usage{
-dDAGannotate(g, annotations, path.mode = c("all_paths",
-"shortest_paths",
-"all_shortest_paths"), verbose = TRUE)
+dDAGannotate(
+g,
+annotations,
+path.mode = c("all_paths", "shortest_paths", "all_shortest_paths"),
+verbose = TRUE
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL"}

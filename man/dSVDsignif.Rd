@@ -4,10 +4,16 @@
 \alias{dSVDsignif}
 \title{Function to obtain SVD-based gene significance from the input gene-sample matrix}
 \usage{
-dSVDsignif(data, num.eigen = NULL, pval.eigen = 0.01,
-signif = c("fdr", "pval"), orient.permutation = c("row", "column",
-"both"), num.permutation = 100, fdr.procedure = c("stepup",
-"stepdown"), verbose = T)
+dSVDsignif(
+data,
+num.eigen = NULL,
+pval.eigen = 0.01,
+signif = c("fdr", "pval"),
+orient.permutation = c("row", "column", "both"),
+num.permutation = 100,
+fdr.procedure = c("stepup", "stepdown"),
+verbose = T
+)
 }
 \arguments{
 \item{data}{an input gene-sample data matrix used for singular value

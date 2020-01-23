@@ -4,9 +4,13 @@
 \alias{dEnricherView}
 \title{Function to view enrichment results of dEnricher}
 \usage{
-dEnricherView(eTerm, top_num = 10, sortBy = c("adjp", "pvalue",
-"zscore", "nAnno", "nOverlap", "none"), decreasing = NULL,
-details = F)
+dEnricherView(
+eTerm,
+top_num = 10,
+sortBy = c("adjp", "pvalue", "zscore", "nAnno", "nOverlap", "none"),
+decreasing = NULL,
+details = F
+)
 }
 \arguments{
 \item{eTerm}{an object of class "eTerm"}

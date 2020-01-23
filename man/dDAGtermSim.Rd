@@ -4,9 +4,15 @@
 \alias{dDAGtermSim}
 \title{Function to calculate pair-wise semantic similarity between input terms based on a direct acyclic graph (DAG) with annotated data}
 \usage{
-dDAGtermSim(g, terms = NULL, method = c("Resnik", "Lin", "Schlicker",
-"Jiang", "Pesquita"), fast = T, parallel = TRUE, multicores = NULL,
-verbose = T)
+dDAGtermSim(
+g,
+terms = NULL,
+method = c("Resnik", "Lin", "Schlicker", "Jiang", "Pesquita"),
+fast = T,
+parallel = TRUE,
+multicores = NULL,
+verbose = T
+)
 }
 \arguments{
 \item{g}{an object of class "igraph" or "graphNEL". It must contain a

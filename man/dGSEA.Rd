@@ -4,20 +4,33 @@
 \alias{dGSEA}
 \title{Function to conduct gene set enrichment analysis given the input data and the ontology in query}
 \usage{
-dGSEA(data, identity = c("symbol", "entrez"),
-check.symbol.identity = FALSE, genome = c("Hs", "Mm", "Rn", "Gg",
-"Ce", "Dm", "Da", "At"), ontology = c("GOBP", "GOMF", "GOCC", "PS",
-"PS2", "SF", "DO", "HPPA", "HPMI", "HPCM", "HPMA", "MP", "MsigdbH",
-"MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG",
+dGSEA(
+data,
+identity = c("symbol", "entrez"),
+check.symbol.identity = FALSE,
+genome = c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"),
+ontology = c("GOBP", "GOMF", "GOCC", "PS", "PS2", "SF", "DO", "HPPA",
+"HPMI", "HPCM",
+"HPMA", "MP", "MsigdbH", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP",
+"MsigdbC2KEGG",
 "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR",
-"MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC",
-"MsigdbC6", "MsigdbC7", "DGIdb", "Customised"),
-customised.genesets = NULL, sizeRange = c(10, 20000),
-which_distance = NULL, weight = 1, nperm = 1000, fast = T,
-sigTail = c("two-tails", "one-tail"), p.adjust.method = c("BH", "BY",
-"bonferroni", "holm", "hochberg", "hommel"), verbose = T,
+"MsigdbC4CGN",
+"MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6",
+"MsigdbC7",
+"DGIdb", "Customised"),
+customised.genesets = NULL,
+sizeRange = c(10, 20000),
+which_distance = NULL,
+weight = 1,
+nperm = 1000,
+fast = T,
+sigTail = c("two-tails", "one-tail"),
+p.adjust.method = c("BH", "BY", "bonferroni", "holm", "hochberg",
+"hommel"),
+verbose = T,
 RData.location =
-"https://github.com/hfang-bristol/RDataCentre/blob/master/dnet/1.0.7")
+"https://github.com/hfang-bristol/RDataCentre/blob/master/dnet/1.0.7"
+)
 }
 \arguments{
 \item{data}{a data frame or matrix of input data. It must have row
