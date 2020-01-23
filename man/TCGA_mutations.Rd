@@ -28,12 +28,15 @@ Kandoth et al. (2013). Mutational landscape and significance across 12 major can
 \examples{
 #TCGA_mutations <- dRDataLoader(RData='TCGA_mutations')
 data(TCGA_mutations)
-TCGA_mutations
-library(Biobase)
+#TCGA_mutations
+#library(Biobase)
+
 # extract information about the first 5 samples
-pData(TCGA_mutations)[1:5,]
+#pData(TCGA_mutations)[1:5,]
+
 # extract information about the first 5 features
-fData(TCGA_mutations)[1:5,]
+#fData(TCGA_mutations)[1:5,]
+
 # number of samples for each cancer type
-table(pData(TCGA_mutations)$TCGA_tumor_type)
+#table(pData(TCGA_mutations)$TCGA_tumor_type)
 }
