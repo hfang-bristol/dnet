@@ -43,25 +43,27 @@
 #' @examples
 #' \dontrun{
 #' # load data
-#' library(Biobase)
-#' TCGA_mutations <- dRDataLoader(RData='TCGA_mutations')
-#' symbols <- as.character(fData(TCGA_mutations)$Symbol)
+#' #library(Biobase)
+#' #TCGA_mutations <- dRDataLoader(RData='TCGA_mutations')
+#' #symbols <- as.character(fData(TCGA_mutations)$Symbol)
 #' 
 #' # Enrichment analysis using Disease Ontology (DO)
-#' data <- symbols[1:100] # select the first 100 human genes
-#' eTerm <- dEnricher(data, identity="symbol", genome="Hs", ontology="DO")
+#' #data <- symbols[1:100] # select the first 100 human genes
+#' #eTerm <- dEnricher(data, identity="symbol", genome="Hs", ontology="DO")
 #'
 #' # visualise the top significant terms in the ontology hierarchy
-#' ig.DO <- dRDataLoader(RData='ig.DO')
-#' g <- ig.DO
-#' nodes_query <- names(sort(eTerm$adjp)[1:5])
-#' nodes.highlight <- rep("red", length(nodes_query))
-#' names(nodes.highlight) <- nodes_query
-#' subg <- dDAGinduce(g, nodes_query)
+#' #ig.DO <- dRDataLoader(RData='ig.DO')
+#' #g <- ig.DO
+#' #nodes_query <- names(sort(eTerm$adjp)[1:5])
+#' #nodes.highlight <- rep("red", length(nodes_query))
+#' #names(nodes.highlight) <- nodes_query
+#' #subg <- dDAGinduce(g, nodes_query)
 #' # color-code terms according to the adjust p-values (taking the form of 10-based negative logarithm)
-#' visDAG(g=subg, data=-1*log10(eTerm$adjp[V(subg)$name]), node.info="both", zlim=c(0,2), node.attrs=list(color=nodes.highlight))
+#' #data <- -1*log10(eTerm$adjp[V(subg)$name])
+#' #visDAG(g=subg, data=data, node.info="both", zlim=c(0,2), node.attrs=list(color=nodes.highlight))
 #' # color-code terms according to the z-scores
-#' visDAG(g=subg, data=eTerm$zscore[V(subg)$name], node.info="both", colormap="darkblue-white-darkorange", node.attrs=list(color=nodes.highlight))
+#' #data <- eTerm$zscore[V(subg)$name]
+#' #visDAG(g=subg, data=data, node.info="both", node.attrs=list(color=nodes.highlight))
 #' }
 
 dEnricher <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FALSE, genome=c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"), ontology=c("GOBP","GOMF","GOCC","PS","PS2","SF","DO","HPPA","HPMI","HPCM","HPMA","MP", "MsigdbH", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7", "DGIdb"), sizeRange=c(10,1000), min.overlap=3, which_distance=NULL, test=c("HypergeoTest","FisherTest","BinomialTest"), p.adjust.method=c("BH", "BY", "bonferroni", "holm", "hochberg", "hommel"), ontology.algorithm=c("none","pc","elim","lea"), elim.pvalue=1e-2, lea.depth=2, verbose=T, RData.location="https://github.com/hfang-bristol/RDataCentre/blob/master/dnet/1.0.7")

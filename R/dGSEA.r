@@ -49,22 +49,22 @@
 #' @examples
 #' \dontrun{
 #' # load data
-#' library(Biobase)
-#' TCGA_mutations <-dRDataLoader(RData='TCGA_mutations')
+#' #library(Biobase)
+#' #TCGA_mutations <- dRDataLoader(RData='TCGA_mutations')
 #' 
 #' # gene set enrichment analysis (GSEA) using KEGG pathways
 #' ## calculate the total mutations for each gene
-#' tol <- apply(exprs(TCGA_mutations), 1, sum)
-#' data <- data.frame(tol=tol)
-#' eTerm <- dGSEA(data, identity="symbol", genome="Hs", ontology="MsigdbC2KEGG")
-#' res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp", decreasing=FALSE, details=TRUE)
-#' visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
-#' output <- dGSEAwrite(eTerm, which_content="gadjp", which_score="gadjp", filename="eTerm.txt")
+#' #tol <- apply(exprs(TCGA_mutations), 1, sum)
+#' #data <- data.frame(tol=tol)
+#' #eTerm <- dGSEA(data, identity="symbol", genome="Hs", ontology="MsigdbC2KEGG")
+#' #res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp", decreasing=FALSE, details=TRUE)
+#' #visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
+#' #output <- dGSEAwrite(eTerm, which_content="gadjp", which_score="gadjp", filename="eTerm.txt")
 #'
 #' ## based on customised gene sets
-#' eTerm <- dGSEA(data, identity="symbol", genome="Hs", ontology="Customised", customised.genesets=sample(rownames(data),100))
-#' res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp", decreasing=FALSE, details=TRUE)
-#' visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
+#' #eTerm <- dGSEA(data, ontology="Customised", customised.genesets=sample(rownames(data),100))
+#' #res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp", decreasing=FALSE, details=TRUE)
+#' #visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
 #' }
 
 dGSEA <- function(data, identity=c("symbol","entrez"), check.symbol.identity=FALSE, genome=c("Hs", "Mm", "Rn", "Gg", "Ce", "Dm", "Da", "At"), ontology=c("GOBP","GOMF","GOCC","PS","PS2","SF","DO","HPPA","HPMI","HPCM","HPMA","MP", "MsigdbH", "MsigdbC1", "MsigdbC2CGP", "MsigdbC2CP", "MsigdbC2KEGG", "MsigdbC2REACTOME", "MsigdbC2BIOCARTA", "MsigdbC3TFT", "MsigdbC3MIR", "MsigdbC4CGN", "MsigdbC4CM", "MsigdbC5BP", "MsigdbC5MF", "MsigdbC5CC", "MsigdbC6", "MsigdbC7", "DGIdb", "Customised"), customised.genesets=NULL, sizeRange=c(10,20000), which_distance=NULL, weight=1, nperm=1000, fast=T, sigTail=c("two-tails","one-tail"), p.adjust.method=c("BH", "BY", "bonferroni", "holm", "hochberg", "hommel"), verbose=T, RData.location="https://github.com/hfang-bristol/RDataCentre/blob/master/dnet/1.0.7")

@@ -146,19 +146,17 @@ none
 }
 \examples{
 \dontrun{
-data(TCGA_mutations)
-pd <- Biobase::pData(TCGA_mutations)
+#data(TCGA_mutations)
+#pd <- Biobase::pData(TCGA_mutations)
 # only tumor types "LAML" or "BLCA"
-data <- pd[pd$TCGA_tumor_type=="LAML" | pd$TCGA_tumor_type=="BLCA",]
-labels <- levels(as.factor(data$TCGA_tumor_type))
+#data <- pd[pd$TCGA_tumor_type=="LAML" | pd$TCGA_tumor_type=="BLCA",]
+#labels <- levels(as.factor(data$TCGA_tumor_type))
 # colors for gender
-pwcol <- as.numeric((data$Gender))
+#pwcol <- as.numeric((data$Gender))
 # pie for relative age
-pwpie <- data$Age/(max(data$Age))
-out <- visBoxplotAdv(formula=time ~ TCGA_tumor_type, data=data,
-pch="pies", pwcol=pwcol, pwpie=pwpie)
-legend("topright", legend=levels(data$Gender), box.col="transparent",
-pch=19, col=unique(pwcol))
+#pwpie <- data$Age/(max(data$Age))
+#out <- visBoxplotAdv(formula=time~TCGA_tumor_type, data=data, pch="pies", pwcol=pwcol, pwpie=pwpie)
+#legend("topright", legend=levels(data$Gender), box.col="transparent", pch=19, col=unique(pwcol))
 }
 }
 \seealso{

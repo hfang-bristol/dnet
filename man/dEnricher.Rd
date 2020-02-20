@@ -205,28 +205,27 @@ maximum of both p-values in these two calculations.}
 \examples{
 \dontrun{
 # load data
-library(Biobase)
-TCGA_mutations <- dRDataLoader(RData='TCGA_mutations')
-symbols <- as.character(fData(TCGA_mutations)$Symbol)
+#library(Biobase)
+#TCGA_mutations <- dRDataLoader(RData='TCGA_mutations')
+#symbols <- as.character(fData(TCGA_mutations)$Symbol)
 
 # Enrichment analysis using Disease Ontology (DO)
-data <- symbols[1:100] # select the first 100 human genes
-eTerm <- dEnricher(data, identity="symbol", genome="Hs", ontology="DO")
+#data <- symbols[1:100] # select the first 100 human genes
+#eTerm <- dEnricher(data, identity="symbol", genome="Hs", ontology="DO")
 
 # visualise the top significant terms in the ontology hierarchy
-ig.DO <- dRDataLoader(RData='ig.DO')
-g <- ig.DO
-nodes_query <- names(sort(eTerm$adjp)[1:5])
-nodes.highlight <- rep("red", length(nodes_query))
-names(nodes.highlight) <- nodes_query
-subg <- dDAGinduce(g, nodes_query)
+#ig.DO <- dRDataLoader(RData='ig.DO')
+#g <- ig.DO
+#nodes_query <- names(sort(eTerm$adjp)[1:5])
+#nodes.highlight <- rep("red", length(nodes_query))
+#names(nodes.highlight) <- nodes_query
+#subg <- dDAGinduce(g, nodes_query)
 # color-code terms according to the adjust p-values (taking the form of 10-based negative logarithm)
-visDAG(g=subg, data=-1*log10(eTerm$adjp[V(subg)$name]),
-node.info="both", zlim=c(0,2), node.attrs=list(color=nodes.highlight))
+#data <- -1*log10(eTerm$adjp[V(subg)$name])
+#visDAG(g=subg, data=data, node.info="both", zlim=c(0,2), node.attrs=list(color=nodes.highlight))
 # color-code terms according to the z-scores
-visDAG(g=subg, data=eTerm$zscore[V(subg)$name], node.info="both",
-colormap="darkblue-white-darkorange",
-node.attrs=list(color=nodes.highlight))
+#data <- eTerm$zscore[V(subg)$name]
+#visDAG(g=subg, data=data, node.info="both", node.attrs=list(color=nodes.highlight))
 }
 }
 \seealso{

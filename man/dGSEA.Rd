@@ -202,27 +202,22 @@ higher "nes", the lower "qvalue".}
 \examples{
 \dontrun{
 # load data
-library(Biobase)
-TCGA_mutations <-dRDataLoader(RData='TCGA_mutations')
+#library(Biobase)
+#TCGA_mutations <- dRDataLoader(RData='TCGA_mutations')
 
 # gene set enrichment analysis (GSEA) using KEGG pathways
 ## calculate the total mutations for each gene
-tol <- apply(exprs(TCGA_mutations), 1, sum)
-data <- data.frame(tol=tol)
-eTerm <- dGSEA(data, identity="symbol", genome="Hs",
-ontology="MsigdbC2KEGG")
-res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp",
-decreasing=FALSE, details=TRUE)
-visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
-output <- dGSEAwrite(eTerm, which_content="gadjp", which_score="gadjp",
-filename="eTerm.txt")
+#tol <- apply(exprs(TCGA_mutations), 1, sum)
+#data <- data.frame(tol=tol)
+#eTerm <- dGSEA(data, identity="symbol", genome="Hs", ontology="MsigdbC2KEGG")
+#res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp", decreasing=FALSE, details=TRUE)
+#visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
+#output <- dGSEAwrite(eTerm, which_content="gadjp", which_score="gadjp", filename="eTerm.txt")
 
 ## based on customised gene sets
-eTerm <- dGSEA(data, identity="symbol", genome="Hs",
-ontology="Customised", customised.genesets=sample(rownames(data),100))
-res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp",
-decreasing=FALSE, details=TRUE)
-visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
+#eTerm <- dGSEA(data, ontology="Customised", customised.genesets=sample(rownames(data),100))
+#res <- dGSEAview(eTerm, which_sample=1, top_num=5, sortBy="adjp", decreasing=FALSE, details=TRUE)
+#visGSEA(eTerm, which_sample=1, which_term=rownames(res)[1])
 }
 }
 \seealso{
