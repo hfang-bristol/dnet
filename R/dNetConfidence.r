@@ -14,11 +14,11 @@
 #' @include dNetConfidence.r
 #' @examples
 #' # 1) generate a target graph according to the ER model
-#' g <- erdos.renyi.game(100, 1/100)
+#' g <- sample_gnp(100, 1/100)
 #' target <- dNetInduce(g, V(g), knn=0)
 #'
 #' # 2) generate a list source graphs according to the ER model
-#' sources <- lapply(1:100, function(x) erdos.renyi.game(100*runif(1), 1/10))
+#' sources <- lapply(1:100, function(x) sample_gnp(sample(1:100, 1), 1/10))
 #'
 #' # 3) append the confidence information from the source graphs into the target graph
 #' g <- dNetConfidence(target=target, sources=sources)
